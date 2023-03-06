@@ -1,12 +1,21 @@
 package GameMap;
 
 public class Game {
-   private static final Board gameBoard = new Board();
-   private double time;
-   private int difficulty;
-   private Location spawnPoint;
-   private Location exitPoint;
+    private static final Board gameBoard = new Board();
+    private double time;
+    private int difficulty;
+    private Location spawnPoint;
+    private Location exitPoint;
 
+    /**
+     * Returns an instance of GameMap.
+     * Sets up the map, enemies, hero, and runs updates the game.
+     *
+     * @param time
+     * @param difficulty
+     * @param spawnPoint
+     * @param exitPoint
+     */
     public Game(double time, int difficulty, Location spawnPoint, Location exitPoint) {
         this.time = time;
         this.difficulty = difficulty;
@@ -19,19 +28,19 @@ public class Game {
         update();
     }
 
-    private void setUpMap(){
+    private void setUpMap() {
 
-   }
+    }
 
-   private void setUpEnemy(){
+    private void setUpEnemy() {
 
-   }
+    }
 
-   private void setUpHero(){
+    private void setUpHero() {
 
-   }
+    }
 
-   public void update(){
+    public void update() {
 
-   }
+    }
 }
