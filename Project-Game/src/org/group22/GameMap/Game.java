@@ -20,7 +20,7 @@ public class Game {
 
     /**
      * Returns an instance of GameMap with given difficulty.
-     * Sets up the map, enemies, hero, and runs updates the game.
+     * Creates the board, hero, and updates the game.
      *
      * @param difficulty the difficulty of the game
      */

@@ -1,36 +1,63 @@
 package org.group22.GameMap;
 
 import org.group22.Drops.Item;
+import org.group22.People.Character;
 
 public abstract class MapComponent {
-    private boolean validLocation;
-    private Location loc;
-    private Item item;
+    protected boolean validLocation;
+    protected Character charHere;
+    protected Location loc;
+    protected Item item;
 
-    public MapComponent() {
-        System.out.println("Creating MapComponent");
-    }
+    // Checks
     public boolean isValidLocation() {
         return validLocation;
     }
 
-    public void setValidLocation(boolean validLocation) {
-        this.validLocation = validLocation;
+    public boolean checkItemOccupancy(){
+        return this.getItem() != null;
+    }
+
+    public boolean checkCharOccupancy(){
+        return getCharHere() != null;
+    }
+
+    // Getters
+    public Character getCharHere() {
+        return charHere;
+    }
+    public Item getItem() {
+        return item;
     }
 
     public Location getLoc() {
         return loc;
     }
 
-    public void setLoc(Location loc) {
-        this.loc = loc;
+    // Setters
+    public void setValidLocation(boolean validLocation) {
+        this.validLocation = validLocation;
     }
 
-    public Item getItem() {
-        return item;
+    public void setLoc(Location loc) {
+        this.loc = loc;
     }
 
     public void setItem(Item item) {
         this.item = item;
     }
+
+    public void setCharHere(Character charHere) {
+        if(validLocation || charHere == null) {
+            this.charHere = charHere;
+        } else {
+            // Throw an exception?
+            System.out.println("You cannot put a character at " + this);
+        }
+    }
+
+    public String toString() {
+        return "Map component at " + loc + " containing item: " + item + " and character: " + charHere;
+    }
+
 }
