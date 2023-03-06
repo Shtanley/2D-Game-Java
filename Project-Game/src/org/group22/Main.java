@@ -1,8 +1,8 @@
-package org.group22.ui;
+package org.group22;
 
 import java.awt.Window;
 import javax.swing.JFrame;
-
+import org.group22.ui.GamePanel;
 public class Main {
 
     public static void main(String[] args) {
@@ -10,13 +10,18 @@ public class Main {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Fanatasy Game");
+        window.setTitle("Fantasy Game");
+
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
 
         window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        System.out.println("Hello World");
+        gamePanel.startGameThread();
+
+        // System.out.println("Hello World");
     }
 }
