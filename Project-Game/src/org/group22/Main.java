@@ -3,6 +3,16 @@ package org.group22;
 import java.awt.Window;
 import javax.swing.JFrame;
 import org.group22.app.GamePanel;
+
+/**
+ * Main class
+ * Create game window
+ * Add game panel to game window
+ * Set game window location
+ * Set game window visible
+ * 
+ * @author Sameer
+ */
 public class Main {
 
     public static void main(String[] args) {

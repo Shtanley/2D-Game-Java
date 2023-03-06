@@ -5,15 +5,20 @@ import java.awt.event.KeyListener;
 
 /**
  * Manage key inputs from keyboard
+ * 
+ * @author Sameer
  */
 public class KeyInputs implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed;
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {  // Not used
     }
 
+    /**
+     * Check which key is pressed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -36,6 +41,9 @@ public class KeyInputs implements KeyListener {
         }
     }
 
+    /**
+     * Check which key is released
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
