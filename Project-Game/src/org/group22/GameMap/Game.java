@@ -1,4 +1,4 @@
-package GameMap;
+package org.group22.GameMap;
 
 public class Game {
     private static final Board gameBoard = new Board();
