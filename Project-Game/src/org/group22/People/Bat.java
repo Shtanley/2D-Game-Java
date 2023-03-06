@@ -1,4 +1,4 @@
-package People;
+package org.group22.People;
 
 public class Bat extends Enemy{
     //todo someone figure out iterator works

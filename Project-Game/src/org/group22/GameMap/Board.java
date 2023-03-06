@@ -1,6 +1,6 @@
-package GameMap;
+package org.group22.GameMap;
 
-import People.Hero;
+import org.group22.People.Hero;
 
 import java.util.ArrayList;
 

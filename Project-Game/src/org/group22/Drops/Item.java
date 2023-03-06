@@ -1,6 +1,6 @@
-package Drops;
+package org.group22.Drops;
 
-import GameMap.Location;
+import org.group22.GameMap.Location;
 
 public abstract class Item {
     private Location loc;

@@ -1,6 +1,6 @@
-package GameMap;
+package org.group22.GameMap;
 
-import Drops.Item;
+import org.group22.Drops.Item;
 
 public abstract class MapComponent {
     private boolean validLocation;

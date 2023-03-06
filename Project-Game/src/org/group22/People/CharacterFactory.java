@@ -1,4 +1,4 @@
-package People;
+package org.group22.People;
 
 public class CharacterFactory {
     public static Character buildCharacter(String type){

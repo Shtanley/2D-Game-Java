@@ -1,4 +1,4 @@
-package GameMap;
+package org.group22.GameMap;
 
 public class Location {
     private int xCoord;
