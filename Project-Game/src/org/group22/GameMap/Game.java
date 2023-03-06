@@ -2,9 +2,15 @@ package org.group22.GameMap;
 
 import org.group22.People.Hero;
 
+/**
+ * Game class
+ * Creates the game with
+ *
+ */
 public class Game {
     private static Board gameBoard;
     private int mapNum;
+    private static final int finalMap = 0;
     private static Hero hero;
     private double time;
     private int ticks;
@@ -29,24 +35,28 @@ public class Game {
         this.time = 0;
         this.difficulty = difficulty;
         this.mapNum = 0;
-
-        this.gameBoard = new Board(0);
         this.hero = new Hero();
+        setMap(mapNum);
+
         update();
     }
 
     /**
-     * Re-initializes gameBoard to new map
+     * Initializes gameBoard to map number mapNum
+     * Sets hero's location to the new map's spawnPoint
      *
-     * @param newMapNum the number of the map to change to
+     * @param mapNum the number of the map to change to
      */
-    private void changeMap(int newMapNum) {
-        mapNum = newMapNum;
+    private void setMap(int mapNum) {
+        this.mapNum = mapNum;
+        this.gameBoard = new Board(mapNum);
+        hero.setLoc(gameBoard.getSpawnPoint());
     }
 
 
     /**
      * Updates the state of the game
+     *
      */
     public void update() {
         gameBoard.updateBoard();
@@ -56,7 +66,13 @@ public class Game {
             //game is over
         }
         if(hero.getLoc() == gameBoard.getExitPoint()) {
-            // Move to next level
+            if(mapNum == finalMap) {
+                // Player wins
+                
+            } else {
+                // Move to next level
+                setMap(mapNum++);
+            }
         }
     }
 }

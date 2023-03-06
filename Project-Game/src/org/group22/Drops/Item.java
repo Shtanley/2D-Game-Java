@@ -8,7 +8,10 @@ public abstract class Item {
     private int pointAdjustment;
 
     public Item() {
-        System.out.println("Creating Item");
+    }
+
+    public Item(Location loc) {
+        setLoc(loc);
     }
 
     public Location getLoc() {
