@@ -7,6 +7,10 @@ public abstract class Item {
     private int healthAdjustment;
     private int pointAdjustment;
 
+    public Item() {
+        System.out.println("Creating Item");
+    }
+
     public Location getLoc() {
         return loc;
     }

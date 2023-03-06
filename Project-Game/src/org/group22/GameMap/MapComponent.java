@@ -7,6 +7,9 @@ public abstract class MapComponent {
     private Location loc;
     private Item item;
 
+    public MapComponent() {
+        System.out.println("Creating MapComponent");
+    }
     public boolean isValidLocation() {
         return validLocation;
     }
