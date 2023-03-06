@@ -2,7 +2,7 @@ package org.group22.People;
 
 import org.group22.Drops.Item;
 
-public class Hero extends java.lang.Character {
+public class Hero extends Character {
     private final static int maxHealth = 100;
     private int health;
     private int points;

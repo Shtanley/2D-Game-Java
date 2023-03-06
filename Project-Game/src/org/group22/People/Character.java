@@ -1,6 +1,6 @@
 package org.group22.People;
 
-import GameMap.*;
+import org.group22.GameMap.*;
 
 public abstract class Character {
     private Location loc;

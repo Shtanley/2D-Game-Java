@@ -1,6 +1,6 @@
 package org.group22.People;
 
-public class Enemy extends java.lang.Character {
+public class Enemy extends Character {
 
     public Enemy(){
 

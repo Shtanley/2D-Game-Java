@@ -1,7 +1,7 @@
 package org.group22.People;
 
 public class CharacterFactory {
-    public static java.lang.Character buildCharacter(String type){
+    public static Character buildCharacter(String type){
         if (type.equals("Hero")) {
             return new Hero();
         } else if (type.equals("Bat")){
