@@ -2,7 +2,7 @@ package org.group22;
 
 import java.awt.Window;
 import javax.swing.JFrame;
-import org.group22.ui.GamePanel;
+import org.group22.app.GamePanel;
 public class Main {
 
     public static void main(String[] args) {
