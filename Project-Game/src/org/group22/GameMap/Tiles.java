@@ -7,9 +7,9 @@ public class Tiles extends MapComponent{
         setLoc(loc);
     }
 
-    public boolean checkItemOccupancy(){
-        return this.getItem() != null;
-    }
+//    public boolean checkItemOccupancy(){
+//        return this.getItem() != null;
+//    }
 
     public boolean checkCharOccupancy(){
         return getCharHere() != null;

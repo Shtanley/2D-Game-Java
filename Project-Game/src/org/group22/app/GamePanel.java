@@ -8,6 +8,7 @@ import java.security.Key;
 import javax.swing.JPanel;
 import javax.swing.text.PlainDocument;
 
+import org.group22.GameMap.ComponentFactory;
 import org.group22.People.*;
 
 /**
@@ -20,18 +21,26 @@ public class GamePanel extends JPanel implements Runnable{
     final int orgTileSize = 16; // 16x16 pixels
     final int scale = 3;
 
-    public int tileSize = orgTileSize * scale;   // 48x48 pixels
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = maxScreenCol * tileSize;    // 768 pixels
-    final int screenHeight = maxScreenRow * tileSize;   // 576 pixels
+    public int tileSize = orgTileSize * scale;
+    public int maxScreenCol = 16;
+    public int maxScreenRow = 12;
+    public int screenWidth = maxScreenCol * tileSize;
+    public int screenHeight = maxScreenRow * tileSize;
+
+    // World settings
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = maxWorldCol * tileSize;
+    public final int worldHeight = maxWorldRow * tileSize;
 
     // FPS settings
     int fps = 60;
 
+    ComponentFactory cFactory = new ComponentFactory(this);
     KeyInputs keyInputs = new KeyInputs();
     Thread gameThread;
-    Player player = new Player(this, keyInputs);
+    public CollisionChecker cCheck = new CollisionChecker(this);
+    public Player player = new Player(this, keyInputs);
 
     // Set player default position
     int playerX = 100;
@@ -110,12 +119,15 @@ public class GamePanel extends JPanel implements Runnable{
 
     /**
      * Draw game graphics
-     * Draw player
+     * Draw map components first
+     * Draw player in the 2nd layer on top of the tiles
      */
     public void paintComponent(Graphics g) {    // Draw game graphics
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
+
+        cFactory.draw(g2d);
         player.draw(g2d);
         g2d.dispose();
     }

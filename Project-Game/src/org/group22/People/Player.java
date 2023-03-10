@@ -17,6 +17,8 @@ public class Player extends Entity {
     GamePanel gp;
     KeyInputs keyInputs;
 
+    public final int screenX, screenY;
+
     /**
      * Player constructor
      * Set default values
@@ -27,22 +29,25 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyInputs keyIn) {
         this.gp = gp;
         this.keyInputs = keyIn;
-
+        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
+        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+        hitBox = new Rectangle();
+        hitBox.x = 8;
+        hitBox.y = 16;
+        hitBox.width = 32;
+        hitBox.height = 32;
         setDefaultValues();
         getPlayerImage();
     }
     
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
     }
 
-    /**
-     * Get player image
-     * @throws IOException
-     */
+
     public void getPlayerImage() {
         try{
             up1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_up_1.png"));
@@ -66,19 +71,35 @@ public class Player extends Entity {
         if(keyInputs.upPressed || keyInputs.downPressed || keyInputs.leftPressed || keyInputs.rightPressed) {
             if (keyInputs.upPressed) {
                 direction = "up";
-                y -= speed;
             }
             if (keyInputs.downPressed) {
                 direction = "down";
-                y += speed;
             }
             if (keyInputs.leftPressed) {
                 direction = "left";
-                x -= speed;
             }
             if (keyInputs.rightPressed) {
                 direction = "right";
-                x += speed;
+            }
+
+            // Collision detection
+            collisionOn = false;
+            gp.cCheck.checkComponent(this);
+            if(!collisionOn) {
+                switch(direction) {
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
+                }
             }
 
             spriteCount++;
@@ -99,7 +120,7 @@ public class Player extends Entity {
     public void draw(Graphics2D g2d) {
         // Easter egg idea: player image is a white square
         // g.setColor(Color.WHITE);
-        // g.fillRect(x, y, gp.tileSize, gp.tileSize);
+        // g.fillRect(worldX, worldY, gp.tileSize, gp.tileSize);
 
         BufferedImage image = null;
 
@@ -130,6 +151,6 @@ public class Player extends Entity {
                 break;
         }
 
-        g2d.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
