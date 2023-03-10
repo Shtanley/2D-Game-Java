@@ -5,13 +5,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.security.Key;
-
 import javax.swing.JPanel;
+import javax.swing.text.PlainDocument;
+
+import org.group22.People.*;
 
 /**
  * Game panel
  * Manage game graphics and game logic
- * 
  * @author Sameer
  */
 public class GamePanel extends JPanel implements Runnable{
@@ -19,7 +20,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int orgTileSize = 16; // 16x16 pixels
     final int scale = 3;
 
-    final int tileSize = orgTileSize * scale;   // 48x48 pixels
+    public int tileSize = orgTileSize * scale;   // 48x48 pixels
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     final int screenWidth = maxScreenCol * tileSize;    // 768 pixels
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyInputs keyInputs = new KeyInputs();
     Thread gameThread;
+    Player player = new Player(this, keyInputs);
 
     // Set player default position
     int playerX = 100;
@@ -55,37 +57,6 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
     }
-
-    // @Override
-    // public void run() { // Sleep method
-    //    double timePerTick = 1000000000 / fps;   // 1000000000 nanoseconds = 1 second
-    //    double nextTick = System.nanoTime() + timePerTick; // Get current time in nanoseconds
-
-    //     while(gameThread != null) {
-    //        // System.out.println("Game is running");
-    //        // long currentTime = System.nanoTime();   // Get current time in nanoseconds
-    //        // System.out.println("Current time: " + currentTime);
-
-    //        // Update game logic
-    //        update();
-    //        // Draw game graphics
-    //        repaint();
-
-    //         try {
-    //            double remainingTime = nextTick - System.nanoTime(); // Get remaining time in nanoseconds
-    //            remainingTime /= 1000000;   // Convert to milliseconds
-
-    //             if(remainingTime < 0) {
-    //                remainingTime = 0;
-    //             }
-
-    //            Thread.sleep((long) remainingTime); // Sleep for remaining time
-    //            nextTick += timePerTick;    // Update next tick
-    //         } catch (InterruptedException e) {
-    //            e.printStackTrace();
-    //         }
-    //     }
-    // }
     
     /**
      * Run game thread
@@ -134,18 +105,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if (keyInputs.upPressed) {
-            playerY -= playerSpeed;
-        }
-        if (keyInputs.downPressed) {
-            playerY += playerSpeed;
-        }
-        if (keyInputs.leftPressed) {
-            playerX -= playerSpeed;
-        }
-        if (keyInputs.rightPressed) {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
     /**
@@ -156,8 +116,7 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2d);
         g2d.dispose();
     }
 }

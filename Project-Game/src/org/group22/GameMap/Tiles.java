@@ -1,5 +1,5 @@
 package org.group22.GameMap;
-import org.group22.People.Character;
+import org.group22.People.Player;
 
 public class Tiles extends MapComponent{
     private Character charHere;

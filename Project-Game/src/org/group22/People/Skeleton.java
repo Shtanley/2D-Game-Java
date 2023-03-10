@@ -6,8 +6,4 @@ public class Skeleton extends Enemy{
         super();
     }
 
-    @Override
-    public void move(){
-
-    }
 }

@@ -8,8 +8,4 @@ public class Bat extends Enemy{
         super();
     }
 
-    @Override
-    public void move(){
-
-    }
 }

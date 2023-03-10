@@ -1,12 +1,8 @@
 package org.group22.People;
 
-public class Enemy extends Character {
+public class Enemy extends CharacterFactory {
 
     public Enemy(){
-
-    }
-    @Override
-    public void move() {
 
     }
 
