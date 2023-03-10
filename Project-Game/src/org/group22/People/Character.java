@@ -27,4 +27,11 @@ public abstract class Character {
      * Move this character
      */
     abstract void move();
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Character{" +
+                "loc=" + loc +
+                '}';
+    }
 }

@@ -37,4 +37,13 @@ public abstract class Item {
     public void setPointAdjustment(int pointAdjustment) {
         this.pointAdjustment = pointAdjustment;
     }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Item{" +
+                "loc=" + loc +
+                ", healthAdjustment=" + healthAdjustment +
+                ", pointAdjustment=" + pointAdjustment +
+                '}';
+    }
 }
