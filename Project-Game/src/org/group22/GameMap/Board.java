@@ -1,7 +1,6 @@
 package org.group22.GameMap;
 
-import org.group22.Drops.Item;
-import org.group22.Drops.Key;
+import org.group22.Drops.*;
 import org.group22.People.*;
 
 import java.awt.event.ComponentEvent;
@@ -47,6 +46,7 @@ public class Board {
         createMap();
         createEnemies();
         createItems();
+        printBoard();
     }
 
     /**
@@ -136,6 +136,10 @@ public class Board {
         for(int i = 0; i < initSkeletonLocs.length; i++) {
             enemies.add(CharacterFactory.makeSkeleton(initSkeletonLocs[i]));
         }
+        for (Enemy e: enemies){
+           map[e.getLoc().getX()][e.getLoc().getY()] = ComponentFactory.makeTile(e.getLoc());
+           map[e.getLoc().getX()][e.getLoc().getY()].setCharHere(e);
+        }
     }
 
     /**
@@ -167,6 +171,43 @@ public class Board {
      */
     public void updateBoard(){
 
+    }
+
+    public void printBoard(){
+        for (int h = 0; h < height; h++){
+            for (int w = 0; w < width; w++) {
+                if (map[w][h] == null){
+                    System.out.print("- ");
+                } else if (map[w][h].getClass().equals(Door.class)) {
+                    System.out.print("d ");
+                } else if (map[w][h].getClass().equals(Wall.class)) {
+                    System.out.print("w ");
+                } else if (map[w][h].getClass().equals(Barrier.class)) {
+                    System.out.print("b ");
+                } else {
+                    if (map[w][h].getCharHere() != null) {
+                        if (map[w][h].getCharHere().getClass().equals(Hero.class)) {
+                            System.out.print("H ");
+                        } else if (map[w][h].getCharHere().getClass().equals(Skeleton.class)) {
+                            System.out.print("s ");
+                        } else if (map[w][h].getCharHere().getClass().equals(Bat.class)) {
+                            System.out.print("b ");
+                        }
+                    } else if (map[w][h].getItem() != null) {
+                        if (map[w][h].getItem().getClass().equals(Potion.class)) {
+                            System.out.print("p ");
+                        } else if (map[w][h].getItem().getClass().equals(Key.class)) {
+                            System.out.print("k ");
+                        } else if (map[w][h].getItem().getClass().equals(Punishment.class)) {
+                            System.out.print("x ");
+                        }
+                    } else {
+                        System.out.print("t ");
+                    }
+                }
+            }
+            System.out.print("\n");
+        }
     }
 
 }
