@@ -191,7 +191,7 @@ public class Board {
                         } else if (map[w][h].getCharHere().getClass().equals(Skeleton.class)) {
                             System.out.print("s ");
                         } else if (map[w][h].getCharHere().getClass().equals(Bat.class)) {
-                            System.out.print("b ");
+                            System.out.print("c ");
                         }
                     } else if (map[w][h].getItem() != null) {
                         if (map[w][h].getItem().getClass().equals(Potion.class)) {
