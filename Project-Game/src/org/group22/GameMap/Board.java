@@ -150,6 +150,11 @@ public class Board {
         for(int i = 0; i < keyLocs.length; i++) {
             items.add(new Key(keyLocs[i]));
         }
+
+        for (Item i: items){
+            map[i.getLoc().getX()][i.getLoc().getY()] = ComponentFactory.makeTile(i.getLoc());
+            map[i.getLoc().getX()][i.getLoc().getY()].setItem(i);
+        }
     }
 
     /**
