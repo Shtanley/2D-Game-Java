@@ -32,12 +32,14 @@ public class Player extends Entity {
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
         hitBox = new Rectangle();
+        // Hitbox position
         hitBox.x = 8;
         hitBox.y = 16;
         hitBoxDefaultX = hitBox.x;
         hitBoxDefaultY = hitBox.y;
-        hitBox.width = 32;
-        hitBox.height = 32;
+        // Hitbox size
+        hitBox.width = 22;
+        hitBox.height = 25;
         setDefaultValues();
         getPlayerImage();
     }
