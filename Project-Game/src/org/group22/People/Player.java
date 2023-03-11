@@ -16,8 +16,8 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity {
     GamePanel gp;
     KeyInputs keyInputs;
-
     public final int screenX, screenY;
+    int hasKeys = 0;
 
     /**
      * Player constructor
@@ -34,6 +34,8 @@ public class Player extends Entity {
         hitBox = new Rectangle();
         hitBox.x = 8;
         hitBox.y = 16;
+        hitBoxDefaultX = hitBox.x;
+        hitBoxDefaultY = hitBox.y;
         hitBox.width = 32;
         hitBox.height = 32;
         setDefaultValues();
@@ -85,6 +87,8 @@ public class Player extends Entity {
             // Collision detection
             collisionOn = false;
             gp.cCheck.checkComponent(this);
+            int objIndex = gp.cCheck.checkItem(this, true);
+            pickupItem(objIndex);
             if(!collisionOn) {
                 switch(direction) {
                 case "up":
@@ -109,6 +113,29 @@ public class Player extends Entity {
                     spriteNum = 2;
                 else
                     spriteNum = 1;
+            }
+        }
+    }
+
+    /**
+     * Check if player is colliding with an object to pick up
+     * @param i
+     * @return
+     */
+    public void pickupItem(int i) {
+        if(i != 999) {
+            String objName = gp.obj[i].name;
+            switch(objName) {
+                case "Key":
+                    hasKeys++;
+                    gp.obj[i] = null;
+                    System.out.println("Key: " + hasKeys);
+                    break;
+                case "Potion":
+                    if(hasKeys > 0) {
+                        gp.obj[i] = null;
+                    }
+                    break;
             }
         }
     }

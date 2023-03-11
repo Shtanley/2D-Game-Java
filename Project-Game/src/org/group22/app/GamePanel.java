@@ -8,6 +8,8 @@ import java.security.Key;
 import javax.swing.JPanel;
 import javax.swing.text.PlainDocument;
 
+import org.group22.Drops.Item;
+import org.group22.Drops.ItemFactory;
 import org.group22.GameMap.ComponentFactory;
 import org.group22.People.*;
 
@@ -40,12 +42,9 @@ public class GamePanel extends JPanel implements Runnable{
     KeyInputs keyInputs = new KeyInputs();
     Thread gameThread;
     public CollisionChecker cCheck = new CollisionChecker(this);
+    public ItemFactory iFactory = new ItemFactory(this);
     public Player player = new Player(this, keyInputs);
-
-    // Set player default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+    public Item obj[] = new Item[10];   // Array of objects
 
     /**
      * Game panel constructor
@@ -61,6 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);    // Focus on JPanel to receive key inputs
     }
 
+    public void setupGame() {
+        iFactory.createItem();
+    }
     
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -128,6 +130,13 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2d = (Graphics2D) g;
 
         cFactory.draw(g2d);
+
+        for(int i = 0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                obj[i].draw(g2d, this);
+            }
+        }
+
         player.draw(g2d);
         g2d.dispose();
     }

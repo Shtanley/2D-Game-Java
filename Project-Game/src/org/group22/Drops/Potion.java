@@ -1,8 +1,23 @@
 package org.group22.Drops;
 
-public class Potion extends BonusReward {
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
-    public Potion(int ticksTillDeath) {
-        super(ticksTillDeath);
+/**
+ * Potion class
+ * Create potion item
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
+public class Potion extends Item {
+
+    public Potion() {
+        name = "Potion";
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/Object/potion_red.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

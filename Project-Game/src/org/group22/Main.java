@@ -1,8 +1,10 @@
 package org.group22;
 
+import org.group22.app.GamePanel;
+
 import java.awt.Window;
 import javax.swing.JFrame;
-import org.group22.app.GamePanel;
+
 
 /**
  * Main class
@@ -30,8 +32,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        gamePanel.setupGame();
         gamePanel.startGameThread();
-
-        // System.out.println("Hello World");
     }
 }
