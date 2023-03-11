@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Item obj[] = new Item[10];   // Array of objects
     // Game state
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
 
@@ -71,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setupGame() {
         iFactory.createItem();
-        gameState = playState;
+        gameState = titleState;
     }
     
     public void startGameThread() {
@@ -141,20 +142,27 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void paintComponent(Graphics g) {    // Draw game graphics
         super.paintComponent(g);
-
         Graphics2D g2d = (Graphics2D) g;
 
-        cFactory.draw(g2d);
-
-        for(int i = 0; i < obj.length; i++) {
-            if(obj[i] != null) {
-                obj[i].draw(g2d, this);
-            }
+        // Title Screen
+        if(gameState == titleState) {
+            ui.draw(g2d);
         }
-        // Player
-        player.draw(g2d);
-        // UI
-        ui.draw(g2d);
+        else {
+            // Tiles
+            cFactory.draw(g2d);
+            // Objects
+            for(int i = 0; i < obj.length; i++) {
+                if(obj[i] != null) {
+                    obj[i].draw(g2d, this);
+                }
+            }
+            // Player
+            player.draw(g2d);
+            // UI
+            ui.draw(g2d);
+        }
+
         g2d.dispose();
     }
 }
