@@ -17,7 +17,7 @@ public class Player extends Entity {
     GamePanel gp;
     KeyInputs keyInputs;
     public final int screenX, screenY;
-    int hasKeys = 0;
+    public int keyCount = 0;
 
     /**
      * Player constructor
@@ -47,7 +47,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-        speed = 4;
+        speed = 8;
         direction = "down";
     }
 
@@ -129,13 +129,21 @@ public class Player extends Entity {
             String objName = gp.obj[i].name;
             switch(objName) {
                 case "Key":
-                    hasKeys++;
+                    keyCount++;
                     gp.obj[i] = null;
-                    System.out.println("Key: " + hasKeys);
+                    gp.ui.showMsg("Key acquired");
                     break;
                 case "Potion":
-                    if(hasKeys > 0) {
+                    gp.obj[i] = null;  
+                    break;
+                case "Door":
+                    if(keyCount > 0) {  // If player has collected all keys, door is unlocked collison is turned off
                         gp.obj[i] = null;
+                        keyCount--;
+                        gp.ui.gameOver = true;
+                    }
+                    else {
+                        gp.ui.showMsg("Key required");
                     }
                     break;
             }

@@ -16,11 +16,15 @@ public class ItemFactory {
 
     public void createItem() {
         gp.obj[0] = new Key();
-        gp.obj[0].worldX = 23 * gp.tileSize;
+        gp.obj[0].worldX = 12 * gp.tileSize;
         gp.obj[0].worldY = 7 * gp.tileSize;
 
         gp.obj[1] = new Potion();
-        gp.obj[1].worldX = 23 * gp.tileSize;
-        gp.obj[1].worldY = 40 * gp.tileSize;
+        gp.obj[1].worldX = 11 * gp.tileSize;
+        gp.obj[1].worldY = 9 * gp.tileSize;
+
+        gp.obj[2] = new Door();
+        gp.obj[2].worldX = 48 * gp.tileSize;
+        gp.obj[2].worldY = 10 * gp.tileSize;
     }
 }

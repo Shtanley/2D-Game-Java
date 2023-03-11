@@ -60,6 +60,10 @@ public class ComponentFactory {
 
             mc[5] = new MapComponent();
             mc[5].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/floor01.png"));
+
+//            mc[6] = new MapComponent();
+//            mc[6].image = ImageIO.read(getClass().getResourceAsStream("/Object/door.png"));
+//            mc[6].collision = true;
         } catch(IOException e) {
             e.printStackTrace();
         }

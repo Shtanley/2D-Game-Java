@@ -1,7 +1,4 @@
-package org.group22.GameMap;
-
-import org.group22.Drops.Item;
-import org.group22.app.GamePanel;
+package org.group22.Drops;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,49 +11,46 @@ import java.io.IOException;
  * @author Michael
  * @author Sameer
  */
-public class Door extends MapComponent {
-    public BufferedImage closedGate, openedGate;
-    Boolean open = false;
+public class Door extends Item {
+    // public BufferedImage closedGate, openedGate;
+    // Boolean open = false;
 
     /**
      * Door class
      * Create door item
      */
     public Door() {
-        String name = "Door";
+        name = "Door";
         try {
-            closedGate = ImageIO.read(getClass().getResourceAsStream("/objects/door.png"));
-            // openedGate = ImageIO.read(getClass().getResourceAsStream("/objects/opendoor.png"));
-        }
-        catch(IOException e) {
+            image = ImageIO.read(getClass().getResourceAsStream("/Object/door.png"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
         collision = true;
-        image = closedGate;
     }
 
-    /**
-     * Opens the gate when player has the required number of keys.
-     * Then it teleports the player to the next stage after colliding with it.
-     */
-    public void update(GamePanel gp) {
-        if (open == false) {
-            open = true;
-            image = openedGate;
-        }
-        else {  // Uncomment after implementing nextMap()
-            // gp.mapManager.nextMap();
+    // /**
+    //  * Opens the gate when player has the required number of keys.
+    //  * Then it teleports the player to the next stage after colliding with it.
+    //  */
+    // public void update(GamePanel gp) {
+    //     if (open == false) {
+    //         open = true;
+    //         image = openedGate;
+    //     }
+    //     else {  // Uncomment after implementing nextMap()
+    //         // gp.mapManager.nextMap();
 
-        }
-    }
+    //     }
+    // }
 
-     public Door(Location loc) {
-         setLoc(loc);
-         setItem(null);
-         System.out.println("Created " + this);
-     }
+    // public Door(Location loc) {
+    //     setLoc(loc);
+    //     setItem(null);
+    //     System.out.println("Created " + this);
+    // }
 
-     public String toString() {
-         return "Door at " + loc + " containing item: \"" + item + "\" and character: \"" + charHere + "\"";
-     }
+    // public String toString() {
+    //     return "Door at " + loc + " containing item: \"" + item + "\" and character: \"" + charHere + "\"";
+    // }
 }

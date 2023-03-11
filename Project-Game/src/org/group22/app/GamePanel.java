@@ -12,6 +12,7 @@ import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
 import org.group22.GameMap.ComponentFactory;
 import org.group22.People.*;
+import org.group22.UI.UI;
 
 /**
  * Game panel
@@ -37,14 +38,22 @@ public class GamePanel extends JPanel implements Runnable{
 
     // FPS settings
     int fps = 60;
-
-    ComponentFactory cFactory = new ComponentFactory(this);
-    KeyInputs keyInputs = new KeyInputs();
-    Thread gameThread;
+    // System
+    public ComponentFactory cFactory = new ComponentFactory(this);
+    KeyInputs keyInputs = new KeyInputs(this);
+    public Thread gameThread;
     public CollisionChecker cCheck = new CollisionChecker(this);
     public ItemFactory iFactory = new ItemFactory(this);
+    // UI
+     public UI ui = new UI(this);
+    // Game objects
     public Player player = new Player(this, keyInputs);
     public Item obj[] = new Item[10];   // Array of objects
+    // Game state
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
 
     /**
      * Game panel constructor
@@ -62,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setupGame() {
         iFactory.createItem();
+        gameState = playState;
     }
     
     public void startGameThread() {
@@ -116,7 +126,12 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        player.update();
+        if(gameState == playState)
+            player.update();
+        if(gameState == pauseState) {
+            
+        }
+            
     }
 
     /**
@@ -136,8 +151,10 @@ public class GamePanel extends JPanel implements Runnable{
                 obj[i].draw(g2d, this);
             }
         }
-
+        // Player
         player.draw(g2d);
+        // UI
+        ui.draw(g2d);
         g2d.dispose();
     }
 }

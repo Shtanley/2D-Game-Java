@@ -9,8 +9,12 @@ import java.awt.event.KeyListener;
  * @author Sameer
  */
 public class KeyInputs implements KeyListener {
-
+    GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+
+    public KeyInputs(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {  // Not used
@@ -25,19 +29,27 @@ public class KeyInputs implements KeyListener {
 
         if (key == KeyEvent.VK_UP) {
             upPressed = true;
-            System.out.println("UP");
+            // System.out.println("UP");
         }
         if (key == KeyEvent.VK_DOWN) {
             downPressed = true;
-            System.out.println("DOWN");
+            // System.out.println("DOWN");
         }
         if (key == KeyEvent.VK_LEFT) {
             leftPressed = true;
-            System.out.println("LEFT");
+            // System.out.println("LEFT");
         }
         if (key == KeyEvent.VK_RIGHT) {
             rightPressed = true;
-            System.out.println("RIGHT");
+            // System.out.println("RIGHT");
+        }
+        if (key == KeyEvent.VK_ESCAPE) {
+            if(gp.gameState == gp.playState) {
+                gp.gameState = gp.pauseState;
+            } else if(gp.gameState == gp.pauseState) {
+                gp.gameState = gp.playState;
+            } 
+            // System.out.println("ESCAPE");
         }
     }
 
