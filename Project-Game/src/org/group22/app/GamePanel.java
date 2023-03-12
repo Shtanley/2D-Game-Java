@@ -22,7 +22,7 @@ import org.group22.UI.UI;
 public class GamePanel extends JPanel implements Runnable{
     // Screen settings
     final int orgTileSize = 16; // 16x16 pixels
-    final int scale = 3;
+    public final int scale = 3;
 
     public int tileSize = orgTileSize * scale;
     public int maxScreenCol = 16;
@@ -69,12 +69,22 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyInputs); // Add key inputs
         this.setFocusable(true);    // Focus on JPanel to receive key inputs
     }
-
+    
+    /**
+     * Setup game
+     * Create game objects
+     * Set game state
+     */
     public void setupGame() {
         iFactory.createItem();
         gameState = titleState;
     }
     
+    /**
+     * Start game thread
+     * Create new thread
+     * Start thread
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
