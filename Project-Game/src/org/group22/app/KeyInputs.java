@@ -57,7 +57,7 @@ public class KeyInputs implements KeyListener {
             }
         }
         // Game State
-        if(gp.gameState == gp.playState) {
+        if(gp.gameState == gp.playState || gp.gameState == gp.pauseState) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;
                 // System.out.println("UP");
