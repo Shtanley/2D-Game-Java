@@ -27,29 +27,61 @@ public class KeyInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_UP) {
-            upPressed = true;
-            // System.out.println("UP");
+        // Title State
+        if(gp.gameState == gp.titleState) {
+            if(key == KeyEvent.VK_UP) {
+                gp.ui.cmdNum--;
+                System.out.println("UP");
+                if(gp.ui.cmdNum < 0) {
+                    gp.ui.cmdNum = 2;
+                }
+            }
+            if(key == KeyEvent.VK_DOWN) {
+                gp.ui.cmdNum++;
+                System.out.println("DOWN");
+                if(gp.ui.cmdNum > 2) {
+                    gp.ui.cmdNum = 0;
+                }
+            }
+            if(key == KeyEvent.VK_ENTER) {
+                if(gp.ui.cmdNum == 0) {
+                    gp.gameState = gp.playState;
+                }
+                if(gp.ui.cmdNum == 1) {
+                    // Settings
+                    System.exit(0); // exit game for now
+                }
+                if(gp.ui.cmdNum == 2) {
+                    System.exit(0);
+                }
+            }
         }
-        if (key == KeyEvent.VK_DOWN) {
-            downPressed = true;
-            // System.out.println("DOWN");
-        }
-        if (key == KeyEvent.VK_LEFT) {
-            leftPressed = true;
-            // System.out.println("LEFT");
-        }
-        if (key == KeyEvent.VK_RIGHT) {
-            rightPressed = true;
-            // System.out.println("RIGHT");
-        }
-        if (key == KeyEvent.VK_ESCAPE) {
-            if(gp.gameState == gp.playState) {
-                gp.gameState = gp.pauseState;
-            } else if(gp.gameState == gp.pauseState) {
-                gp.gameState = gp.playState;
-            } 
-            // System.out.println("ESCAPE");
+        // Game State
+        if(gp.gameState == gp.playState) {
+            if (key == KeyEvent.VK_UP) {
+                upPressed = true;
+                // System.out.println("UP");
+            }
+            if (key == KeyEvent.VK_DOWN) {
+                downPressed = true;
+                // System.out.println("DOWN");
+            }
+            if (key == KeyEvent.VK_LEFT) {
+                leftPressed = true;
+                // System.out.println("LEFT");
+            }
+            if (key == KeyEvent.VK_RIGHT) {
+                rightPressed = true;
+                // System.out.println("RIGHT");
+            }
+            if (key == KeyEvent.VK_ESCAPE) {
+                if(gp.gameState == gp.playState) {
+                    gp.gameState = gp.pauseState;
+                } else if(gp.gameState == gp.pauseState) {
+                    gp.gameState = gp.playState;
+                }
+                // System.out.println("ESCAPE");
+            }
         }
     }
 

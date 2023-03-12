@@ -100,7 +100,7 @@ public class ComponentFactory {
 
     /**
      * Draw tile image
-     * @param g2d
+     * @param g2d   Graphics2D
      */
     public void draw(Graphics2D g2d) {
         // Uncomment to draw all tile types in the top left corner

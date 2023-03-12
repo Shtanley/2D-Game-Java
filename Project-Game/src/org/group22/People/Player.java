@@ -23,8 +23,8 @@ public class Player extends Entity {
      * Player constructor
      * Set default values
      * Get player image
-     * @param gp
-     * @param keyIn
+     * @param gp    GamePanel
+     * @param keyIn KeyInputs
      */
     public Player(GamePanel gp, KeyInputs keyIn) {
         this.gp = gp;
@@ -121,8 +121,8 @@ public class Player extends Entity {
 
     /**
      * Check if player is colliding with an object to pick up
-     * @param i
-     * @return
+     * @param i index of object in object array
+     * @return  true if player is colliding with an object
      */
     public void pickupItem(int i) {
         if(i != 999) {
@@ -152,7 +152,7 @@ public class Player extends Entity {
 
     /**
      * Draw player image
-     * @param g2d
+     * @param g2d   Graphics2D object
      */
     public void draw(Graphics2D g2d) {
         // Easter egg idea: player image is a white square
