@@ -57,7 +57,7 @@ public class UI {
         g2d.setFont(trebuchet_40);
         g2d.setColor(Color.WHITE);
         
-        if(gp.playState == gp.titleState) {
+        if(gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
         if(gameOver) {
