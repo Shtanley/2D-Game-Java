@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.security.Key;
 import javax.swing.JPanel;
-import javax.swing.text.PlainDocument;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
