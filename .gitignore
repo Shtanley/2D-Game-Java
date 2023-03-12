@@ -14,7 +14,7 @@
 *.rar
 
 # IntelliJ Files
-*.idea
+#*.idea
 *.iml
 
 # Built files
