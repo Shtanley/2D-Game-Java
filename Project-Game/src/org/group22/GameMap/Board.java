@@ -104,15 +104,12 @@ public class Board {
      * Generates map based on member variables
      */
     private void createMap(){
-        // Fill map
         map = new MapComponent[width][height];
-        // Set boundary walls
+        // Set boundary barriers
         for(int i =0 ; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                if(i == 0 || i == width-1) {
-                    if (j == 0 || j == height - 1) {
-                        map[i][j] = ComponentFactory.makeBarrier(i, j);
-                    }
+                if(i == 0 || i == width-1 || j == 0 || j == height - 1) {
+                    map[i][j] = ComponentFactory.makeBarrier(i, j);
                 }
             }
         }
