@@ -55,7 +55,7 @@ public class UI {
         this.g2d = g2d;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.setFont(trebuchet_40);
-        g2d.setColor(Color.WHITE);
+//        g2d.setColor(Color.WHITE);
         
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
@@ -74,18 +74,18 @@ public class UI {
 
     public void drawTitleScreen() {
         // Set background
-        g2d.setColor(new Color(255, 255, 255));
+        g2d.setColor(new Color(0, 0, 0));
         g2d.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        // Set font and color
-        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 96F));
-        g2d.setColor(Color.BLUE);
+        // Set font
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
         String text = "Fantasy Dungeon";   // Title
         int x = getHorizontalCenter(text, gp.screenWidth);
         int y = gp.tileSize * 2;
         // Text shadow
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.GRAY);
         g2d.drawString(text, x+5, y+5);
         // Draw text
+        g2d.setColor(Color.WHITE);
         g2d.drawString(text, x, y);
 
         // Add image
@@ -106,7 +106,7 @@ public class UI {
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
         text = "Settings";
         x = getHorizontalCenter(text, gp.screenWidth);
-        y += gp.tileSize*4;
+        y += gp.tileSize;
         g2d.drawString(text, x, y);
         if(cmdNum == 1) {
             g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
@@ -115,7 +115,7 @@ public class UI {
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
         text = "Exit";
         x = getHorizontalCenter(text, gp.screenWidth);
-        y += gp.tileSize*4;
+        y += gp.tileSize;
         g2d.drawString(text, x, y);
         if(cmdNum == 2) {
             g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
