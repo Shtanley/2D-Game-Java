@@ -1,7 +1,7 @@
 package org.group22.GameMap;
 
 import org.group22.Drops.Item;
-import org.group22.People.Character;
+import org.group22.Drops.People.Entity;
 
 import java.awt.image.BufferedImage;
 
@@ -19,7 +19,7 @@ import java.awt.image.BufferedImage;
  */
 public class MapComponent {
     protected boolean validLocation;
-    protected Character charHere;
+    protected Entity charHere;
     protected Location loc;
     protected Item item;
     public BufferedImage image;
@@ -39,7 +39,7 @@ public class MapComponent {
     }
 
     // Getters
-    public Character getCharHere() {
+    public Entity getCharHere() {
         return charHere;
     }
     public Item getItem() {
@@ -63,7 +63,7 @@ public class MapComponent {
         this.item = item;
     }
 
-    public void setCharHere(Character charHere) {
+    public void setCharHere(Entity charHere) {
         if(validLocation || charHere == null) {
             this.charHere = charHere;
         } else {

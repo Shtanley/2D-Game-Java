@@ -161,14 +161,4 @@ public class ComponentFactory {
     public static Wall makeWall(int x, int y){
         return new Wall(new Location(x, y));
     }
-
-
-    public static Door makeDoor(Location loc){
-        return new Door(loc);
-    }
-
-    public static Door makeDoor(int x, int y){
-        return new Door(new Location(x, y));
-    }
-
 }

@@ -1,5 +1,7 @@
-package org.group22.People;
+package org.group22.Drops.People;
 
+import org.group22.Drops.Item;
+import org.group22.Drops.Key;
 import org.group22.app.*;
 
 import java.awt.*;
@@ -7,6 +9,7 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Player class
@@ -18,6 +21,11 @@ public class Player extends Entity {
     KeyInputs keyInputs;
     public final int screenX, screenY;
     public int keyCount = 0;
+    private final static int maxHealth = 100;
+    private int health;
+    private int points;
+    private ArrayList<Item> itemsCollected;
+
 
     /**
      * Player constructor
@@ -42,6 +50,11 @@ public class Player extends Entity {
         hitBox.height = 25;
         setDefaultValues();
         getPlayerImage();
+
+        System.out.println("Creating Player");
+        this.health = maxHealth;
+        this.points = 0;
+        itemsCollected = new ArrayList<>();
     }
     
     public void setDefaultValues() {
@@ -189,5 +202,26 @@ public class Player extends Entity {
         }
 
         g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+    }
+
+    public boolean dead() {return this.health <= 0;}
+    public int getHealth() {
+        return health;
+    }
+
+    public void shiftHealth(int deltaHealth) {this.health += deltaHealth;}
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    public void collectItem(Item item){
+        if (item.getClass().equals(Key.class)){
+            itemsCollected.add(item);
+        }
+        setPoints(item.getPointAdjustment());
     }
 }

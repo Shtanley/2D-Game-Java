@@ -1,6 +1,5 @@
 package org.group22.Drops;
 
-import org.group22.GameMap.Game;
 import org.group22.GameMap.Location;
 import org.group22.app.GamePanel;
 

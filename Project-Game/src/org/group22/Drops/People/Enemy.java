@@ -1,8 +1,8 @@
-package org.group22.People;
+package org.group22.Drops.People;
 
 import org.group22.GameMap.Location;
 
-public abstract class Enemy extends Character {
+public abstract class Enemy extends Entity {
 
     /**
      * Constructs new Enemy
@@ -19,5 +19,11 @@ public abstract class Enemy extends Character {
     public Enemy(Location loc){
         setLoc(loc);
     }
+
+    /**
+     * Move this character
+     */
+    abstract void move();
+
 
 }

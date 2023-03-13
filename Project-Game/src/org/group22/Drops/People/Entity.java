@@ -1,9 +1,23 @@
-package org.group22.People;
+package org.group22.Drops.People;
 
 import org.group22.GameMap.*;
 
-public abstract class Character {
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public abstract class Entity {
     private Location loc;
+    public int worldX, worldY;
+    public int speed;
+
+    public BufferedImage up1, up2, right1, right2, down1, down2, left1, left2;
+    public String direction;
+
+    public int spriteCount = 0;
+    public int spriteNum = 1;
+    public Rectangle hitBox;
+    public int hitBoxDefaultX, hitBoxDefaultY;
+    public boolean collisionOn = false;
 
     /**
      * Get the location of this character
@@ -23,12 +37,7 @@ public abstract class Character {
         loc = newLoc;
     }
 
-    /**
-     * Move this character
-     */
-    abstract void move();
-
-    @java.lang.Override
+    @Override
     public java.lang.String toString() {
         return "Character{" +
                 "loc=" + loc +

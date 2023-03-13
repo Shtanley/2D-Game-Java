@@ -1,4 +1,4 @@
-package org.group22.People;
+package org.group22.Drops.People;
 
 import org.group22.GameMap.Location;
 
@@ -26,7 +26,6 @@ public class Skeleton extends Enemy{
      * Skeletons have a tracking movement pattern
      *
      */
-    @Override
     public void move(){
 
     }

@@ -9,5 +9,6 @@ public class Reward extends Item{
 
     public Reward(Location loc){
         super(loc);
+        setHealthAdjustment(10);
     }
 }
