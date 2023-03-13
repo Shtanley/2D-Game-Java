@@ -1,13 +1,23 @@
 package org.group22.People;
 
-public class Enemy extends Character {
+import org.group22.GameMap.Location;
 
+public abstract class Enemy extends Character {
+
+    /**
+     * Constructs new Enemy
+     */
     public Enemy(){
-
+        setLoc(null);
     }
-    @Override
-    public void move() {
 
+    /**
+     * Constructs new Enemy at Location loc
+     *
+     * @param loc location of enemy
+     */
+    public Enemy(Location loc){
+        setLoc(loc);
     }
 
 }

@@ -8,11 +8,12 @@ public class Hero extends Character {
     private int points;
 
     public Hero() {
-        super();
+        System.out.println("Creating Hero");
         this.health = maxHealth;
         this.points = 0;
     }
 
+    public boolean dead() {return this.health <= 0;}
     public int getHealth() {
         return health;
     }
@@ -20,6 +21,7 @@ public class Hero extends Character {
     public void setHealth(int health) {
         this.health = health;
     }
+    public void shiftHealth(int deltaHealth) {this.health += deltaHealth;}
 
     public int getPoints() {
         return points;

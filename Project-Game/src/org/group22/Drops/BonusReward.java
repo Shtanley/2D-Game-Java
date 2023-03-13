@@ -15,4 +15,11 @@ public class BonusReward extends Item{
     public void setTicksTillDeath(int ticksTillDeath) {
         this.ticksTillDeath = ticksTillDeath;
     }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "BonusReward{" +
+                "ticksTillDeath=" + ticksTillDeath +
+                '}';
+    }
 }
