@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5d8f5af-89c4-4a35-a643-d5675f2ca88c" name="Changes" comment="updated createItems() and createEnemies() to automatically add objects to board" />
+    <list default="true" id="a5d8f5af-89c4-4a35-a643-d5675f2ca88c" name="Changes" comment="updated createItems() and createEnemies() to automatically add objects to board">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/Bat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/CharacterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/Skeleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/Potion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/Potion.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

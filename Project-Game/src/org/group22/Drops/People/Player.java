@@ -2,6 +2,7 @@ package org.group22.Drops.People;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.Key;
+import org.group22.Drops.Potion;
 import org.group22.app.*;
 
 import java.awt.*;
@@ -145,9 +146,11 @@ public class Player extends Entity {
                     keyCount++;
                     gp.obj[i] = null;
                     gp.ui.showMsg("Key acquired");
+                    setPoints(this.getPoints() + Key.getHealthAdjustment());
                     break;
                 case "Potion":
-                    gp.obj[i] = null;  
+                    gp.obj[i] = null;
+                    setPoints(this.getPoints() + Potion.getHealthAdjustment());
                     break;
                 case "Door":
                     if(keyCount > 0) {  // If player has collected all keys, door is unlocked collison is turned off
@@ -217,11 +220,5 @@ public class Player extends Entity {
 
     public void setPoints(int points) {
         this.points = points;
-    }
-    public void collectItem(Item item){
-        if (item.getClass().equals(Key.class)){
-            itemsCollected.add(item);
-        }
-        setPoints(item.getPointAdjustment());
     }
 }
