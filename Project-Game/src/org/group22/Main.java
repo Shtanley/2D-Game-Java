@@ -1,9 +1,11 @@
 package org.group22;
 
 import org.group22.app.GamePanel;
+import org.group22.GameMap.Game;
 
 import java.awt.Window;
 import javax.swing.JFrame;
+
 
 
 /**
@@ -18,6 +20,7 @@ import javax.swing.JFrame;
 public class Main {
 
     public static void main(String[] args) {
+        // titleScreen game
         JFrame window = new JFrame();
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,5 +37,10 @@ public class Main {
 
         gamePanel.setupGame();
         gamePanel.startGameThread();
+
+        // dina game
+        // Game myGame = new Game();
+
+
     }
 }

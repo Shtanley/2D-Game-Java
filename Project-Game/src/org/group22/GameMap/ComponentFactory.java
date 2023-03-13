@@ -13,9 +13,13 @@ import javax.imageio.ImageIO;
 /**
  * ComponentFactory class
  * Manage component image and component movement
+ * @author Sameer
+ *
+ * Create map components
  * @author Dina
  * @author Michael
- * @author Sameer
+ *
+ * this class does two different things ?
  */
 public class ComponentFactory {
     GamePanel gp;
@@ -111,7 +115,7 @@ public class ComponentFactory {
         int worldcol = 0;
         int worldRow = 0;
 
-        while(worldcol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+        while (worldcol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
             int tileNum = mapTileNum[worldcol][worldRow];   // Get tile number from mapTileNum array
             // Calculate x and y position of tile
             int worldX = worldcol * gp.tileSize;
@@ -121,17 +125,50 @@ public class ComponentFactory {
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
             // Draw tile if it is on screen to save resources
-            if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-            && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                    && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 g2d.drawImage(mc[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
             worldcol++;
 
-            if(worldcol == gp.maxWorldCol) {
+            if (worldcol == gp.maxWorldCol) {
                 worldcol = 0;
                 worldRow++;
             }
         }
+    }
+
+    public static Barrier makeBarrier(Location loc){
+        return new Barrier(loc);
+    }
+
+    public static Barrier makeBarrier(int x, int y){
+        return new Barrier(new Location(x, y));
+    }
+
+    public static Tile makeTile(Location loc){
+        return new Tile(loc);
+    }
+
+    public static Tile makeTile(int x, int y){
+        return new Tile(new Location(x, y));
+    }
+
+    public static Wall makeWall(Location loc){
+        return new Wall(loc);
+    }
+
+    public static Wall makeWall(int x, int y){
+        return new Wall(new Location(x, y));
+    }
+
+
+    public static Door makeDoor(Location loc){
+        return new Door(loc);
+    }
+
+    public static Door makeDoor(int x, int y){
+        return new Door(new Location(x, y));
     }
 
 }

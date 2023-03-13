@@ -1,6 +1,7 @@
 package org.group22.GameMap;
 
 import org.group22.Drops.Item;
+import org.group22.People.Character;
 
 import java.awt.image.BufferedImage;
 
@@ -8,8 +9,13 @@ import java.awt.image.BufferedImage;
  * MapComponent class
  * Manage component image and component movement
  * @author Dina
+ *
+ * abstract class for different types of map compoenents
  * @author Michael
  * @author Sameer
+ *
+ *
+ * this also does two different things
  */
 public class MapComponent {
     protected boolean validLocation;

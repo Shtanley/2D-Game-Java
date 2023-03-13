@@ -11,19 +11,19 @@ public class Location {
 
     public Location(){}
 
-    public int getxCoord() {
+    public int getX() {
         return xCoord;
     }
 
-    public void setxCoord(int xCoord) {
+    public void setX(int xCoord) {
         this.xCoord = xCoord;
     }
 
-    public int getyCoord() {
+    public int getY() {
         return yCoord;
     }
 
-    public void setyCoord(int yCoord) {
+    public void setY(int yCoord) {
         this.yCoord = yCoord;
     }
 
@@ -33,7 +33,11 @@ public class Location {
     }
 
     public void setLoc(Location loc){
-        this.yCoord = loc.getyCoord();
-        this.xCoord = loc.getxCoord();
+        this.yCoord = loc.getY();
+        this.xCoord = loc.getX();
+    }
+
+    public String toString(){
+        return "(" + xCoord + ", " + yCoord + ")";
     }
 }

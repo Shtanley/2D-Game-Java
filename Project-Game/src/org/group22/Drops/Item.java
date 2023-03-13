@@ -25,6 +25,13 @@ public class Item {
     public Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
 
+    public Item() {
+    }
+
+    public Item(Location loc) {
+        setLoc(loc);
+    }
+
     public Location getLoc() {
         return loc;
     }
@@ -55,9 +62,18 @@ public class Item {
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         // Draw tile if it is on screen to save resources
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-        && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Item{" +
+                "loc=" + loc +
+                ", healthAdjustment=" + healthAdjustment +
+                ", pointAdjustment=" + pointAdjustment +
+                '}';
     }
 }

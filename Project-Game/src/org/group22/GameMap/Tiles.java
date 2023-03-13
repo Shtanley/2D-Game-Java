@@ -15,10 +15,6 @@ public class Tiles extends MapComponent{
         return getCharHere() != null;
     }
 
-    public Character getCharHere() {
-        return charHere;
-    }
-
     public void setCharHere(Character charHere) {
         this.charHere = charHere;
     }
