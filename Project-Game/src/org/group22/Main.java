@@ -1,7 +1,6 @@
 package org.group22;
 
 import org.group22.app.GamePanel;
-import org.group22.GameMap.Game;
 
 import java.awt.Window;
 import javax.swing.JFrame;

@@ -16,6 +16,7 @@
 # IntelliJ Files
 #*.idea
 *.iml
+.idea/workspace.xml
 
 # Built files
 target

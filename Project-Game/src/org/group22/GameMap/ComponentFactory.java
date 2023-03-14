@@ -36,7 +36,7 @@ public class ComponentFactory {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/Map/world01.txt");
+        loadMap("/Map/world02.txt");
     }
 
     /**
@@ -81,19 +81,17 @@ public class ComponentFactory {
             int col = 0;
             int row = 0;
 
-            while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
-                String line = br.readLine();
-                while (col < gp.maxWorldCol) {
-                    String numbers[] = line.split(" "); // Split line into numbers
+            String line = br.readLine();
+            while(line != null && row < gp.maxWorldRow) {
+                String[] numbers = line.split(" "); // Split line into numbers
+                while (col < numbers.length && col < gp.maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]); // Convert string to int
                     mapTileNum[col][row] = num; // Store number in mapTileNum array
                     col++;
                 }
-
-                if(col == gp.maxWorldCol) {
-                    col = 0;
-                    row++;
-                }
+                col = 0;
+                row++;
+                line = br.readLine();
             }
             br.close();
 
@@ -152,23 +150,6 @@ public class ComponentFactory {
 
     public static Tile makeTile(int x, int y){
         return new Tile(new Location(x, y));
-    }
-
-    public static Wall makeWall(Location loc){
-        return new Wall(loc);
-    }
-
-    public static Wall makeWall(int x, int y){
-        return new Wall(new Location(x, y));
-    }
-
-
-    public static Door makeDoor(Location loc){
-        return new Door(loc);
-    }
-
-    public static Door makeDoor(int x, int y){
-        return new Door(new Location(x, y));
     }
 
 }

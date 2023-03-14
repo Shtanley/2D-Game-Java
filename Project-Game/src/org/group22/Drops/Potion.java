@@ -11,7 +11,6 @@ import java.io.IOException;
  * @author Sameer
  */
 public class Potion extends Item {
-
     public Potion() {
         name = "Potion";
         try {
@@ -19,5 +18,6 @@ public class Potion extends Item {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setHealthAdjustment(10);
     }
 }

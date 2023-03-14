@@ -1,0 +1,6 @@
+Type, xCoord, yCoord
+Key, 40, 10
+Key, 42, 10
+Key, 44, 10
+Potion, 46, 10
+Door, 48, 10

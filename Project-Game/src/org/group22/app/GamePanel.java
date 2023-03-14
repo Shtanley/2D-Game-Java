@@ -8,8 +8,9 @@ import javax.swing.JPanel;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
+import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
-import org.group22.People.*;
+//import org.group22.People.*;
 import org.group22.UI.UI;
 
 /**
@@ -33,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldRow = 50;
     public final int worldWidth = maxWorldCol * tileSize;
     public final int worldHeight = maxWorldRow * tileSize;
+    public final int maxItems = 10;
 
     // FPS settings
     int fps = 60;
@@ -46,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
      public UI ui = new UI(this);
     // Game objects
     public Player player = new Player(this, keyInputs);
-    public Item obj[] = new Item[10];   // Array of objects
+    public Item[] obj = new Item[maxItems];   // Array of objects
     // Game state
     public int gameState;
     public final int titleState = 0;
@@ -74,7 +76,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Set game state
      */
     public void setupGame() {
-        iFactory.createItem();
+        iFactory.createItem("/Map/items02.txt");
         gameState = titleState;
     }
     
