@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * @author Sameer
  */
 public class Player extends Entity {
-    GamePanel gp;
     KeyInputs keyInputs;
     public final int screenX, screenY;
     public int keyCount = 0;
@@ -36,12 +35,14 @@ public class Player extends Entity {
      * @param keyIn KeyInputs
      */
     public Player(GamePanel gp, KeyInputs keyIn) {
-        this.gp = gp;
+        super(gp);  // call constructor of super class
+
         this.keyInputs = keyIn;
+        // Screen position of player
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
-        hitBox = new Rectangle();
         // Hitbox position
+        hitBox = new Rectangle();
         hitBox.x = 8;
         hitBox.y = 16;
         hitBoxDefaultX = hitBox.x;

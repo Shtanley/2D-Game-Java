@@ -6,15 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="3ba660ee-0f8b-4333-9992-0dfde4c3357e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Bat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/CharacterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Skeleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/GameMap/MapComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/GameMap/MapComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/app/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/app/CollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/ItemFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/ItemFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Bat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/People/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/CharacterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/People/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/People/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/People/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Skeleton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/group22/app/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/app/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,23 +40,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Uni/CMPT 276/Ass/Phase2/fantasy-dungeon-game/Project-Game",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.appearance",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Uni/CMPT 276/Ass/Phase2/fantasy-dungeon-game/Project-Game&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.group22.Main" />

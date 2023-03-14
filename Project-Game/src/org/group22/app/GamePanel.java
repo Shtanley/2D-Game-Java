@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.text.html.parser.Entity;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
+import org.group22.People.Bat;
 import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
 //import org.group22.People.*;
@@ -48,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game objects
     public Player player = new Player(this, keyInputs);
     public Item obj[] = new Item[10];   // Array of objects
+    public Bat bat[] = new Bat[10]; // Array of enemies
     // Game state
     public int gameState;
     public final int titleState = 0;
@@ -76,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void setupGame() {
         iFactory.createItem();
+        iFactory.setEnemy();
         gameState = titleState;
     }
     
@@ -136,8 +140,14 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState == playState)
+        if(gameState == playState) {
             player.update();
+            for(int i = 0; i < bat.length; i++) {
+                if(bat[i] != null) {
+                    bat[i].update();
+                }
+            }
+        }
         if(gameState == pauseState) {
             // Pause game, do nothing
         }

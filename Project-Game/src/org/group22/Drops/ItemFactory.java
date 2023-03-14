@@ -1,5 +1,6 @@
 package org.group22.Drops;
 
+import org.group22.People.Bat;
 import org.group22.app.GamePanel;
 
 /**
@@ -26,5 +27,16 @@ public class ItemFactory {
         gp.obj[2] = new Door();
         gp.obj[2].worldX = 48 * gp.tileSize;
         gp.obj[2].worldY = 10 * gp.tileSize;
+    }
+
+    public void setEnemy() {
+        gp.bat[0] = new Bat(gp);
+        gp.bat[0].worldX = 10 * gp.tileSize;
+        gp.bat[0].worldY = 10 * gp.tileSize;
+
+        gp.bat[1] = new Bat(gp);
+        gp.bat[1].worldX = 11 * gp.tileSize;
+        gp.bat[1].worldY = 10 * gp.tileSize;
+        
     }
 }
