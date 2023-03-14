@@ -30,13 +30,13 @@ public class ComponentFactory {
      * Constructor
      * @param gp
      */
-    public ComponentFactory(GamePanel gp) {
+    public ComponentFactory(GamePanel gp, String filePath) {
         this.gp = gp;
         mc = new MapComponent[10];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/Map/world02.txt");
+        loadMap(filePath);
     }
 
     /**

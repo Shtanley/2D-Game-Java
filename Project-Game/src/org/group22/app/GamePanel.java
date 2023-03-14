@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
     // FPS settings
     int fps = 60;
     // System
-    public ComponentFactory cFactory = new ComponentFactory(this);
+    public ComponentFactory cFactory;
     KeyInputs keyInputs = new KeyInputs(this);
     public Thread gameThread;
     public CollisionChecker cCheck = new CollisionChecker(this);
@@ -52,8 +52,11 @@ public class GamePanel extends JPanel implements Runnable{
     // Game state
     public int gameState;
     public final int titleState = 0;
-    public final int playState = 1;
-    public final int pauseState = 2;
+    public final int pauseState = 1;
+    public final int playState1 = 2;
+    public final int playState2 = 3;
+    public final int endState = 4;
+    public int keysNeeded;
 
 
     /**
@@ -76,7 +79,6 @@ public class GamePanel extends JPanel implements Runnable{
      * Set game state
      */
     public void setupGame() {
-        iFactory.createItem("/Map/items02.txt");
         gameState = titleState;
     }
     
@@ -137,7 +139,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState == playState)
+        if(gameState == playState1 || gameState == playState2)
             player.update();
         if(gameState == pauseState) {
             // Pause game, do nothing
@@ -177,5 +179,28 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         g2d.dispose();
+    }
+
+    public void changeGameState(int state) {
+        System.out.println("Changing game state to " + state);
+        if(state == titleState) {
+            gameState = titleState;
+        } else if (state == pauseState) {
+            gameState = pauseState;
+        } else if (state == playState1) {
+            cFactory = new ComponentFactory(this, "/Map/world01.txt");
+            iFactory.createItem("/Map/items01.txt");
+            keysNeeded = 3;
+            player.setPlayerValues(20, 10, 8, "up");
+            gameState = playState1;
+        } else if (state == playState2) {
+            cFactory = new ComponentFactory(this, "/Map/world02.txt");
+            iFactory.createItem("/Map/items02.txt");
+            keysNeeded = 1;
+            player.setPlayerValues(3, 16, 8, "down");
+            gameState = playState2;
+        } else if (state == endState) {
+            ui.gameOver = true;
+        }
     }
 }

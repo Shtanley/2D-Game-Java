@@ -63,7 +63,7 @@ public class UI {
         if(gameOver) {
             drawGameOverScreen();
         }
-        if(gp.gameState == gp.playState) {
+        if(gp.gameState == gp.playState1) {
             drawPlayScreen();
         }
         if(gp.gameState == gp.pauseState) {
