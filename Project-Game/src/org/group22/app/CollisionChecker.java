@@ -90,22 +90,14 @@ public class CollisionChecker {
                 gp.obj[i].hitBox.x += gp.obj[i].worldX;
                 gp.obj[i].hitBox.y += gp.obj[i].worldY;
 
-                switch(entity.direction) {
-                case "up":
-                    entity.hitBox.y -= entity.speed;
-                    break;
-                case "down":
-                    entity.hitBox.y += entity.speed;
-                    break;
-                case "left":
-                    entity.hitBox.x -= entity.speed;
-                    break;
-                case "right":
-                    entity.hitBox.x += entity.speed;
-                    break;
+                switch (entity.direction) {
+                    case "up" -> entity.hitBox.y -= entity.speed;
+                    case "down" -> entity.hitBox.y += entity.speed;
+                    case "left" -> entity.hitBox.x -= entity.speed;
+                    case "right" -> entity.hitBox.x += entity.speed;
                 }
                 if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                    if(gp.obj[i].collision == true) {
+                    if(gp.obj[i].collision) {
                         entity.collisionOn = true;
                     }
                     if(isPlayer) {
@@ -123,6 +115,14 @@ public class CollisionChecker {
         return index;
     }
 
+    /**
+     * Check collision between entity and every element of target
+     * Primarily intended for checking collisions between the player and the items in the game
+     *
+     * @param entity primary entity
+     * @param target array of entities
+     * @return the index of the entity in target it collides with
+     */
     public int checkEntity(Entity entity, Entity[] target) {
         int index = 999;
 
@@ -135,19 +135,11 @@ public class CollisionChecker {
                 target[i].hitBox.x += target[i].worldX;
                 target[i].hitBox.y += target[i].worldY;
 
-                switch(entity.direction) {
-                    case "up":
-                        entity.hitBox.y -= entity.speed;
-                        break;
-                    case "down":
-                        entity.hitBox.y += entity.speed;
-                        break;
-                    case "left":
-                        entity.hitBox.x -= entity.speed;
-                        break;
-                    case "right":
-                        entity.hitBox.x += entity.speed;
-                        break;
+                switch (entity.direction) {
+                    case "up" -> entity.hitBox.y -= entity.speed;
+                    case "down" -> entity.hitBox.y += entity.speed;
+                    case "left" -> entity.hitBox.x -= entity.speed;
+                    case "right" -> entity.hitBox.x += entity.speed;
                 }
                 if(entity.hitBox.intersects(target[i].hitBox)) {
                     if(target[i] != entity) {

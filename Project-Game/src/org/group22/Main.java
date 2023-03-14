@@ -37,10 +37,5 @@ public class Main {
 
         gamePanel.setupGame();
         gamePanel.startGameThread();
-
-        // dina game
-        // Game myGame = new Game();
-
-
     }
 }
