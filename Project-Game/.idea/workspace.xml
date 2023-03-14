@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5d8f5af-89c4-4a35-a643-d5675f2ca88c" name="Changes" comment="updated createItems() and createEnemies() to automatically add objects to board">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="3ba660ee-0f8b-4333-9992-0dfde4c3357e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/Bat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/CharacterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/People/Skeleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/Potion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/Drops/Potion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Bat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/CharacterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/Drops/People/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/People/Skeleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/GameMap/MapComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/GameMap/MapComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/app/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/app/CollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/group22/app/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/group22/app/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,16 +42,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Uni/CMPT 276/Ass/Phase2/fantasy-dungeon-game/Project-Game",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.group22.Main" />
@@ -72,11 +82,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a5d8f5af-89c4-4a35-a643-d5675f2ca88c" name="Changes" comment="" />
+      <changelist id="3ba660ee-0f8b-4333-9992-0dfde4c3357e" name="Changes" comment="" />
       <created>1677241016704</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677241016704</updated>
+      <workItem from="1678762730903" duration="608000" />
     </task>
     <task id="LOCAL-00001" summary="added a few toString() methods">
       <created>1678417429274</created>
@@ -109,6 +120,9 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -120,7 +134,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="dina" />
+                        <option value="enemy" />
                       </list>
                     </value>
                   </entry>

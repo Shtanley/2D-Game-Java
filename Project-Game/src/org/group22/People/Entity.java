@@ -1,4 +1,4 @@
-package org.group22.Drops.People;
+package org.group22.People;
 
 import org.group22.GameMap.*;
 

@@ -1,7 +1,7 @@
 package org.group22.GameMap;
 
 import org.group22.Drops.Item;
-import org.group22.Drops.People.Entity;
+import org.group22.People.Entity;
 
 import java.awt.image.BufferedImage;
 

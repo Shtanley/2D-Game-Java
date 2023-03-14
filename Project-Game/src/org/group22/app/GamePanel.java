@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
-import org.group22.Drops.People.Player;
+import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
 //import org.group22.People.*;
 import org.group22.UI.UI;
