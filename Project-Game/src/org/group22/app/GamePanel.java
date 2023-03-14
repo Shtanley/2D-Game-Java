@@ -191,6 +191,7 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory = new ComponentFactory(this, "/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
             keysNeeded = 3;
+            player = new Player(this, keyInputs);
             player.setPlayerValues(35, 10, 8, "up");
             cCheck = new CollisionChecker(this);
             gameState = playState1;
@@ -198,6 +199,7 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory = new ComponentFactory(this, "/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
             keysNeeded = 1;
+            player = new Player(this, keyInputs);
             player.setPlayerValues(3, 16, 8, "down");
             cCheck = new CollisionChecker(this);
             gameState = playState2;
