@@ -152,7 +152,7 @@ public class Player extends Entity {
                         keyCount = 0;
                         gp.changeGameState(gp.gameState+1);
                     } else {
-                        gp.ui.showMsg((7 - keyCount) + " more keys required");
+                        gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
                     }
                 }
             }

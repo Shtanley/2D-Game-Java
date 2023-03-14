@@ -5,32 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19ac81a4-de51-4645-a209-a38bc785e339" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/bat_down_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/bat_down_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/greenslime_down_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/greenslime_down_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/redslime_down_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/redslime_down_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_down_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_down_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_left_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_left_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_right_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_right_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_up_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project-Game/res/Enemy/skeletonlord_up_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Game/res/Map/items01.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/res/Map/items01.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/Drops/ItemFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/Drops/ItemFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Bat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/CharacterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/CharacterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Skeleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/app/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/app/CollisionChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/app/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/app/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -6,11 +6,23 @@ import org.group22.app.GamePanel;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Bat class
+ * Manage bat image and bat movement
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
 public class Bat extends Entity {
+    /**
+     * Bat constructor
+     * Set bat image and bat movement
+     * @param gp    GamePanel
+     */
     public Bat(GamePanel gp) {
         super(gp);
         hitBox = new Rectangle();
-        name = "Green Slime";
+        name = "Bat";
         speed = 1;
 
         hitBox.x = 3;
@@ -25,6 +37,9 @@ public class Bat extends Entity {
         getImage();
     }
 
+    /**
+     * Set bat image
+     */
     public void getImage() {
         up1 = setup("/Enemy/bat_down_1");
         up2 = setup("/Enemy/bat_down_2");
@@ -36,6 +51,9 @@ public class Bat extends Entity {
         right1 = setup("/Enemy/bat_down_2");
     }
 
+    /**
+     * Set bat movement
+     */
     public void setAction() {
         lockActionCount++;
         if(lockActionCount == 120) {
