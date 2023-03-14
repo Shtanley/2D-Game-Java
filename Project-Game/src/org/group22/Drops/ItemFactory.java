@@ -2,6 +2,11 @@ package org.group22.Drops;
 
 import org.group22.app.GamePanel;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Objects;
+
 /**
  * ItemFactory class
  * Create items
@@ -14,17 +19,53 @@ public class ItemFactory {
         this.gp = gp;
     }
 
-    public void createItem() {
-        gp.obj[0] = new Key();
-        gp.obj[0].worldX = 12 * gp.tileSize;
-        gp.obj[0].worldY = 7 * gp.tileSize;
+    /**
+     * Fills the game panel's array of objects based on a csv text file containing data: (type, xCoord, yCoord)
+     * There is a different text file for each level
+     *
+     * @param filePath the location of the text file containing all items to be created
+     */
+    public void createItem(String filePath) {
+        try {
+            InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
+            assert is != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read map file
 
-        gp.obj[1] = new Potion();
-        gp.obj[1].worldX = 11 * gp.tileSize;
-        gp.obj[1].worldY = 9 * gp.tileSize;
+            // Skip header
+            br.readLine();
+            // Read lines
+            int lineNum = 0;
+            String line = br.readLine();
+            while(line != null && lineNum < gp.maxItems) {
+                String[] words = line.split(", "); // Read "type, x, y" comma separated values
+                String type = words[0];
+                int x = Integer.parseInt(words[1]);
+                int y = Integer.parseInt(words[2]);
+                if(Objects.equals(type, "Key")) {
+                    gp.obj[lineNum] = new Key();
+                    gp.obj[lineNum].worldX = x * gp.tileSize;
+                    gp.obj[lineNum].worldY = y * gp.tileSize;
+                } else if(Objects.equals(type, "Potion")) {
+                    gp.obj[lineNum] = new Potion();
+                    gp.obj[lineNum].worldX = x * gp.tileSize;
+                    gp.obj[lineNum].worldY = y * gp.tileSize;
+                } else if(Objects.equals(type, "Door")) {
+                    gp.obj[lineNum] = new Door();
+                    gp.obj[lineNum].worldX = x * gp.tileSize;
+                    gp.obj[lineNum].worldY = y * gp.tileSize;
+                } else if(Objects.equals(type, "Punishment")) {
+                    gp.obj[lineNum] = new Punishment();
+                    gp.obj[lineNum].worldX = x * gp.tileSize;
+                    gp.obj[lineNum].worldY = y * gp.tileSize;
+                }
+                // Read next line
+                line = br.readLine();
+                lineNum++;
+            }
+            br.close();
 
-        gp.obj[2] = new Door();
-        gp.obj[2].worldX = 48 * gp.tileSize;
-        gp.obj[2].worldY = 10 * gp.tileSize;
+        } catch (Exception ignored) {
+
+        }
     }
 }
