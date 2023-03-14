@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  */
 public class Item {
     private Location loc;
-    private int healthAdjustment;
+    private static int healthAdjustment;
     private int pointAdjustment;
     public BufferedImage image;
     public String name;
@@ -39,7 +39,7 @@ public class Item {
         this.loc = loc;
     }
 
-    public int getHealthAdjustment() {
+    public static int getHealthAdjustment() {
         return healthAdjustment;
     }
 
