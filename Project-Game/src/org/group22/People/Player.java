@@ -87,6 +87,7 @@ public class Player extends Entity {
      * Update player image
      */
     public void update() {
+        // Player movement
         if(keyInputs.upPressed || keyInputs.downPressed || keyInputs.leftPressed || keyInputs.rightPressed) {
             if (keyInputs.upPressed) {
                 direction = "up";
@@ -154,13 +155,13 @@ public class Player extends Entity {
                     setPoints(this.getPoints() + Potion.getHealthAdjustment());
                     break;
                 case "Door":
-                    if(keyCount > 0) {  // If player has collected all keys, door is unlocked collison is turned off
+                    if(keyCount == 7) {  // If player has collected all keys, door is unlocked collison is turned off
                         gp.obj[i] = null;
-                        keyCount--;
+                        keyCount = 0;
                         gp.ui.gameOver = true;
                     }
                     else {
-                        gp.ui.showMsg("Key required");
+                        gp.ui.showMsg((7 - keyCount) + " more keys required");
                     }
                     break;
             }

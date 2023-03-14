@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
 <<<<<<< HEAD
     <list default="true" id="19ac81a4-de51-4645-a209-a38bc785e339" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/GameMap/ComponentFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/GameMap/ComponentFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/GameMap/Wall.java" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> 471a205787fcb01a039447d3d9b52898851aa291
     </list>
 =======
     <list default="true" id="19ac81a4-de51-4645-a209-a38bc785e339" name="Changes" comment="" />
