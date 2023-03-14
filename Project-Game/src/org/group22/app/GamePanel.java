@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
     public ComponentFactory cFactory;
     KeyInputs keyInputs = new KeyInputs(this);
     public Thread gameThread;
-    public CollisionChecker cCheck = new CollisionChecker(this);
+    public CollisionChecker cCheck;
     public ItemFactory iFactory = new ItemFactory(this);
     // UI
      public UI ui = new UI(this);
@@ -191,13 +191,15 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory = new ComponentFactory(this, "/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
             keysNeeded = 3;
-            player.setPlayerValues(20, 10, 8, "up");
+            player.setPlayerValues(35, 10, 8, "up");
+            cCheck = new CollisionChecker(this);
             gameState = playState1;
         } else if (state == playState2) {
             cFactory = new ComponentFactory(this, "/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
             keysNeeded = 1;
             player.setPlayerValues(3, 16, 8, "down");
+            cCheck = new CollisionChecker(this);
             gameState = playState2;
         } else if (state == endState) {
             ui.gameOver = true;

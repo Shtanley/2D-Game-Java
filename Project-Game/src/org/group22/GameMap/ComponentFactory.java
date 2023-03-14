@@ -24,11 +24,12 @@ import javax.imageio.ImageIO;
 public class ComponentFactory {
     GamePanel gp;
     public MapComponent[] mc;
-    public int mapTileNum[][];
+    public int[][] mapTileNum;
 
     /**
      * Constructor
-     * @param gp
+     *
+     * @param gp the game panel
      */
     public ComponentFactory(GamePanel gp, String filePath) {
         this.gp = gp;
@@ -76,6 +77,7 @@ public class ComponentFactory {
     public void loadMap(String filePath) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read map file
 
             int col = 0;
@@ -95,7 +97,7 @@ public class ComponentFactory {
             }
             br.close();
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
