@@ -1,5 +1,6 @@
 package org.group22.Drops;
 
+import org.group22.People.Bat;
 import org.group22.app.GamePanel;
 
 import java.io.BufferedReader;
@@ -64,8 +65,6 @@ public class ItemFactory {
             }
             br.close();
 
-        } catch (Exception ignored) {
-
-        }
+        } catch (Exception ignored) {}
     }
 }

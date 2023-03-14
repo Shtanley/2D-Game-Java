@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * @author Sameer
  */
 public class Player extends Entity {
-    GamePanel gp;
     KeyInputs keyInputs;
     public final int screenX, screenY;
     public int keyCount = 0;
@@ -36,12 +35,14 @@ public class Player extends Entity {
      * @param keyIn KeyInputs
      */
     public Player(GamePanel gp, KeyInputs keyIn) {
-        this.gp = gp;
+        super(gp);  // call constructor of super class
+
         this.keyInputs = keyIn;
+        // Screen position of player
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
-        hitBox = new Rectangle();
         // Hitbox position
+        hitBox = new Rectangle();
         hitBox.x = 8;
         hitBox.y = 16;
         hitBoxDefaultX = hitBox.x;
@@ -66,18 +67,14 @@ public class Player extends Entity {
 
 
     public void getPlayerImage() {
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_right_2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        up1 = setup("/Player/boy_up_1");
+        up2 = setup("/Player/boy_up_2");
+        down1 = setup("/Player/boy_down_1");
+        down2 = setup("/Player/boy_down_2");
+        left1 = setup("/Player/boy_left_1");
+        left2 = setup("/Player/boy_left_2");
+        right1 = setup("/Player/boy_right_1");
+        right2 = setup("/Player/boy_right_2");
     }
 
     /**
@@ -101,10 +98,15 @@ public class Player extends Entity {
             }
 
             // Collision detection
+            // Tile collision
             collisionOn = false;
             gp.cCheck.checkComponent(this);
+            // Object collision
             int objIndex = gp.cCheck.checkItem(this, true);
             pickupItem(objIndex);
+            // Enemy collision
+            int enemyIndex = gp.cCheck.checkEntity(this, gp.bat);
+            encounter(enemyIndex);
             if(!collisionOn) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
@@ -154,6 +156,12 @@ public class Player extends Entity {
                     }
                 }
             }
+        }
+    }
+
+    public void encounter(int i) {
+        if(i != 999) {
+            gp.ui.gameOver = true;
         }
     }
 

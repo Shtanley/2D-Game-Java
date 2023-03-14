@@ -1,14 +1,15 @@
 package org.group22.People;
 
 import org.group22.GameMap.Location;
+import org.group22.app.GamePanel;
 
 public abstract class Enemy extends Entity {
 
     /**
      * Constructs new Enemy
      */
-    public Enemy(){
-        setLoc(null);
+    public Enemy(GamePanel gp){
+        super(gp);
     }
 
     /**
@@ -16,9 +17,9 @@ public abstract class Enemy extends Entity {
      *
      * @param loc location of enemy
      */
-    public Enemy(Location loc){
-        setLoc(loc);
-    }
+    // public Enemy(Location loc){
+    //     setLoc(loc);
+    // }
 
     /**
      * Move this character

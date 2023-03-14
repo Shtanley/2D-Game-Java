@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.text.html.parser.Entity;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
+import org.group22.People.Bat;
 import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
 //import org.group22.People.*;
@@ -48,7 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
      public UI ui = new UI(this);
     // Game objects
     public Player player = new Player(this, keyInputs);
-    public Item[] obj = new Item[maxItems];   // Array of objects
+    public Item obj[] = new Item[10];   // Array of objects
+    public Bat bat[] = new Bat[10]; // Array of enemies
     // Game state
     public int gameState;
     public final int titleState = 0;
@@ -139,8 +142,14 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState == playState1 || gameState == playState2)
+        if(gameState == playState1 || gameState == playState2) {
             player.update();
+            for(int i = 0; i < bat.length; i++) {
+                if(bat[i] != null) {
+                    bat[i].update();
+                }
+            }
+        }
         if(gameState == pauseState) {
             // Pause game, do nothing
         }
@@ -170,6 +179,12 @@ public class GamePanel extends JPanel implements Runnable{
             for(int i = 0; i < obj.length; i++) {
                 if(obj[i] != null) {
                     obj[i].draw(g2d, this);
+                }
+            }
+            // Enemy
+            for(int i = 0; i < bat.length; i++) {
+                if(bat[i] != null) {
+                    bat[i].draw(g2d);
                 }
             }
             // Player
