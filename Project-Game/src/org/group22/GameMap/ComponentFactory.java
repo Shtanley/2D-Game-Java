@@ -154,11 +154,4 @@ public class ComponentFactory {
         return new Tile(new Location(x, y));
     }
 
-    public static Wall makeWall(Location loc){
-        return new Wall(loc);
-    }
-
-    public static Wall makeWall(int x, int y){
-        return new Wall(new Location(x, y));
-    }
 }
