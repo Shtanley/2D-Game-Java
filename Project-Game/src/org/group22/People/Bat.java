@@ -3,12 +3,13 @@ package org.group22.People;
 import org.group22.GameMap.Location;
 import org.group22.app.GamePanel;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Bat extends Entity {
     public Bat(GamePanel gp) {
         super(gp);
-
+        hitBox = new Rectangle();
         name = "Green Slime";
         speed = 1;
 
@@ -19,18 +20,20 @@ public class Bat extends Entity {
         hitBoxDefaultX = hitBox.x;
         hitBoxDefaultY = hitBox.y;
 
+        direction = "down";
+
         getImage();
     }
 
     public void getImage() {
-        up1 = setup("/Enemy/greenslime_down_1");
-        up2 = setup("/Enemy/greenslime_down_2");
-        down1 = setup("/Enemy/greenslime_down_1");
-        down2 = setup("/Enemy/greenslime_down_2");
-        left1 = setup("/Enemy/greenslime_down_1");
-        left2 = setup("/Enemy/greenslime_down_2");
-        right1 = setup("/Enemy/greenslime_down_1");
-        right1 = setup("/Enemy/greenslime_down_2");
+        up1 = setup("/Enemy/bat_down_1");
+        up2 = setup("/Enemy/bat_down_2");
+        down1 = setup("/Enemy/bat_down_1");
+        down2 = setup("/Enemy/bat_down_2");
+        left1 = setup("/Enemy/bat_down_1");
+        left2 = setup("/Enemy/bat_down_2");
+        right1 = setup("/Enemy/bat_down_1");
+        right1 = setup("/Enemy/bat_down_2");
     }
 
     public void setAction() {

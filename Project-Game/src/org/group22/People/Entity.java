@@ -22,7 +22,6 @@ public abstract class Entity {
     public Rectangle hitBox;
     public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
-
     public String name;
     public int lockActionCount;
 
@@ -37,6 +36,37 @@ public abstract class Entity {
 
         collisionOn = false;
         gp.cCheck.checkComponent(this);
+
+        // Collision detection
+        collisionOn = false;
+        gp.cCheck.checkComponent(this);
+        gp.cCheck.checkEntity(this, gp.bat);
+
+        if(!collisionOn) {
+            switch(direction) {
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
+            }
+        }
+
+        spriteCount++;
+        if(spriteCount > 10) {
+            spriteCount = 0;
+            if(spriteNum == 1)
+                spriteNum = 2;
+            else
+                spriteNum = 1;
+        }
     };
 
     public BufferedImage scaleImg(BufferedImage original, int width, int height) {

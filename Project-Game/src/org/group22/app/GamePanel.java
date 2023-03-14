@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void setupGame() {
         iFactory.createItem();
-        iFactory.setEnemy();
+        iFactory.createEnemy();
         gameState = titleState;
     }
     
@@ -177,6 +177,12 @@ public class GamePanel extends JPanel implements Runnable{
             for(int i = 0; i < obj.length; i++) {
                 if(obj[i] != null) {
                     obj[i].draw(g2d, this);
+                }
+            }
+            // Enemy
+            for(int i = 0; i < bat.length; i++) {
+                if(bat[i] != null) {
+                    bat[i].draw(g2d);
                 }
             }
             // Player

@@ -4,18 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
     <list default="true" id="19ac81a4-de51-4645-a209-a38bc785e339" name="Changes" comment="">
-<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/Drops/ItemFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/Drops/ItemFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/GameMap/ComponentFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/GameMap/ComponentFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/GameMap/Wall.java" beforeDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
->>>>>>> 471a205787fcb01a039447d3d9b52898851aa291
+      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Bat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Bat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/People/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/app/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/app/CollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project-Game/src/org/group22/app/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project-Game/src/org/group22/app/GamePanel.java" afterDir="false" />
     </list>
-=======
-    <list default="true" id="19ac81a4-de51-4645-a209-a38bc785e339" name="Changes" comment="" />
->>>>>>> 1ec15c87c202d0fc11991a26c036d9c8c5007578
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,18 +38,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/micap/OneDrive/Documents/School/2023-1 Spring/CMPT 276/Group Project/fantasy-dungeon-game",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/micap/OneDrive/Documents/School/2023-1 Spring/CMPT 276/Group Project/fantasy-dungeon-game&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\micap\OneDrive\Documents\School\2023-1 Spring\CMPT 276\Group Project\fantasy-dungeon-game\Project-Game\.idea" />
@@ -81,6 +80,9 @@
       <updated>1678418584159</updated>
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

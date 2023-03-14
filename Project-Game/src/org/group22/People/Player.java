@@ -60,6 +60,7 @@ public class Player extends Entity {
     }
     
     public void setDefaultValues() {
+        // Player spawn location
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         speed = 8;
@@ -68,18 +69,14 @@ public class Player extends Entity {
 
 
     public void getPlayerImage() {
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Player/boy_right_2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        up1 = setup("/Player/boy_up_1");
+        up2 = setup("/Player/boy_up_2");
+        down1 = setup("/Player/boy_down_1");
+        down2 = setup("/Player/boy_down_2");
+        left1 = setup("/Player/boy_left_1");
+        left2 = setup("/Player/boy_left_2");
+        right1 = setup("/Player/boy_right_1");
+        right2 = setup("/Player/boy_right_2");
     }
 
     /**
@@ -103,10 +100,15 @@ public class Player extends Entity {
             }
 
             // Collision detection
+            // Tile collision
             collisionOn = false;
             gp.cCheck.checkComponent(this);
+            // Object collision
             int objIndex = gp.cCheck.checkItem(this, true);
             pickupItem(objIndex);
+            // Enemy collision
+            int enemyIndex = gp.cCheck.checkEntity(this, gp.bat);
+            encounter(enemyIndex);
             if(!collisionOn) {
                 switch(direction) {
                 case "up":
@@ -165,6 +167,12 @@ public class Player extends Entity {
                     }
                     break;
             }
+        }
+    }
+
+    public void encounter(int i) {
+        if(i != 999) {
+            gp.ui.gameOver = true;
         }
     }
 

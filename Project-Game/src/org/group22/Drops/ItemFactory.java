@@ -57,7 +57,7 @@ public class ItemFactory {
         gp.obj[8].worldY = 10 * gp.tileSize;
     }
 
-    public void setEnemy() {
+    public void createEnemy() {
         gp.bat[0] = new Bat(gp);
         gp.bat[0].worldX = 10 * gp.tileSize;
         gp.bat[0].worldY = 10 * gp.tileSize;
