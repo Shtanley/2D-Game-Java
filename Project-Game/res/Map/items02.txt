@@ -1,0 +1,2 @@
+Type, xCoord, yCoord
+Door, 1, 12

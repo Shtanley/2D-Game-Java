@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Set game state
      */
     public void setupGame() {
-        iFactory.createItem("/Map/item01.txt");
+        iFactory.createItem("/Map/items02.txt");
         gameState = titleState;
     }
     
