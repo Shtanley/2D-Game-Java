@@ -1,3 +1,2 @@
 Type, xCoord, yCoord
 Door, 1, 12
-Key, 4, 12
