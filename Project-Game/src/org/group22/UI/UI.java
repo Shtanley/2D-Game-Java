@@ -129,6 +129,7 @@ public class UI {
         // Draw key count
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2d.drawString("x " + gp.player.keyCount, 74, 65);
+        g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
 
         // Time
         playTime += (double)1/60;
