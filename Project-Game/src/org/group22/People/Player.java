@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class Player extends Entity {
     GamePanel gp;
+    ArrayList<Item> obj;
     KeyInputs keyInputs;
     public final int screenX, screenY;
     public int keyCount = 0;
@@ -37,6 +38,7 @@ public class Player extends Entity {
      */
     public Player(GamePanel gp, KeyInputs keyIn) {
         this.gp = gp;
+        this.obj = gp.obj;
         this.keyInputs = keyIn;
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
@@ -140,21 +142,21 @@ public class Player extends Entity {
      */
     public void pickupItem(int i) {
         if(i != 999) {
-            String objName = gp.obj[i].name;
+            String objName = obj.get(i).name;
             switch(objName) {
                 case "Key":
                     keyCount++;
-                    gp.obj[i] = null;
+                    obj.set(i, null);
                     gp.ui.showMsg("Key acquired");
                     setPoints(this.getPoints() + Key.getHealthAdjustment());
                     break;
                 case "Potion":
-                    gp.obj[i] = null;
+                    obj.set(i, null);
                     setPoints(this.getPoints() + Potion.getHealthAdjustment());
                     break;
                 case "Door":
                     if(keyCount > 0) {  // If player has collected all keys, door is unlocked collison is turned off
-                        gp.obj[i] = null;
+                        obj.set(i, null);
                         keyCount--;
                         gp.ui.gameOver = true;
                     }

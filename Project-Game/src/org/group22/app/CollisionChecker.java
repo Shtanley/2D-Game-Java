@@ -1,6 +1,10 @@
 package org.group22.app;
 
+import org.group22.Drops.Item;
+import org.group22.GameMap.ComponentFactory;
 import org.group22.People.Entity;
+
+import java.util.ArrayList;
 
 /**
  * CollisionChecker class
@@ -9,15 +13,21 @@ import org.group22.People.Entity;
  */
 public class CollisionChecker {
     GamePanel gp;
+    ArrayList<Item> obj;
+    ComponentFactory cFactory;
+    int tileSize;
 
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
+        this.obj = gp.obj;
+        this.cFactory = gp.cFactory;
+        this.tileSize = gp.tileSize;
     }
 
     /**
      * Check collision between player and map
      * Checks all tiles on the screen
-     * @param entity
+     * @param entity entity for which we are checking collision with components
      */
     public void checkComponent(Entity entity) {
         int entityLeftX = entity.worldX + entity.hitBox.x;
@@ -25,119 +35,119 @@ public class CollisionChecker {
         int entityTopY = entity.worldY + entity.hitBox.y;
         int entityBottomY = entity.worldY + entity.hitBox.y + entity.hitBox.height;
 
-        int entityLeftCol = entityLeftX / gp.tileSize;
-        int entityRightCol = entityRightX / gp.tileSize;
-        int entityTopRow = entityTopY / gp.tileSize;
-        int entityBottomRow = entityBottomY / gp.tileSize;
+        int entityLeftCol = entityLeftX / tileSize;
+        int entityRightCol = entityRightX / tileSize;
+        int entityTopRow = entityTopY / tileSize;
+        int entityBottomRow = entityBottomY / tileSize;
 
         int tileNum1, tileNum2;
 
-        switch(entity.direction) {
-            case "up":
-                entityTopRow = (entityTopY - entity.speed) / gp.tileSize;
-                tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+        switch (entity.direction) {
+            case "up" -> {
+                entityTopRow = (entityTopY - entity.speed) / tileSize;
+                tileNum1 = cFactory.mapTileNum[entityLeftCol][entityTopRow];
+                tileNum2 = cFactory.mapTileNum[entityRightCol][entityTopRow];
+                if (cFactory.mc[tileNum1].collision || cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
-            case "down":
-                entityBottomRow = (entityBottomY + entity.speed) / gp.tileSize;
-                tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
-                tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+            }
+            case "down" -> {
+                entityBottomRow = (entityBottomY + entity.speed) / tileSize;
+                tileNum1 = cFactory.mapTileNum[entityLeftCol][entityBottomRow];
+                tileNum2 = cFactory.mapTileNum[entityRightCol][entityBottomRow];
+                if (cFactory.mc[tileNum1].collision || cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
-            case "left":
-                entityLeftCol = (entityLeftX - entity.speed) / gp.tileSize;
-                tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+            }
+            case "left" -> {
+                entityLeftCol = (entityLeftX - entity.speed) / tileSize;
+                tileNum1 = cFactory.mapTileNum[entityLeftCol][entityTopRow];
+                tileNum2 = cFactory.mapTileNum[entityLeftCol][entityBottomRow];
+                if (cFactory.mc[tileNum1].collision || cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
-            case "right":
-                entityRightCol = (entityRightX + entity.speed) / gp.tileSize;
-                tileNum1 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
-                tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+            }
+            case "right" -> {
+                entityRightCol = (entityRightX + entity.speed) / tileSize;
+                tileNum1 = cFactory.mapTileNum[entityRightCol][entityTopRow];
+                tileNum2 = cFactory.mapTileNum[entityRightCol][entityBottomRow];
+                if (cFactory.mc[tileNum1].collision || cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
+            }
         }
     }
 
     /**
      * Check collision between player and item
      * Checks only the limited number of items
-     * @param entity
-     * @param isPlayer
+     * @param entity    the entity for which we check collision with item
+     * @param isPlayer  boolean for whether the entity is the player or not
      * @return index of item
      */
     public int checkItem(Entity entity, boolean isPlayer) {
         int index = 999;
 
-        for(int i = 0; i < gp.obj.length; i++) {
-            if(gp.obj[i] != null) {
+        for(int i = 0; i < obj.size(); i++) {
+            if(obj.get(i) != null) {
                 // Get entity hitbox coordinates
                 entity.hitBox.x += entity.worldX;
                 entity.hitBox.y += entity.worldY;
                 // Get item hitbox coordinates
-                gp.obj[i].hitBox.x += gp.obj[i].worldX;
-                gp.obj[i].hitBox.y += gp.obj[i].worldY;
+                obj.get(i).hitBox.x += obj.get(i).worldX;
+                obj.get(i).hitBox.y += obj.get(i).worldY;
 
-                switch(entity.direction) {
-                case "up":
-                    entity.hitBox.y -= entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
-                        }
-                    }
-                    break;
-                case "down":
-                    entity.hitBox.y += entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
+                switch (entity.direction) {
+                    case "up" -> {
+                        entity.hitBox.y -= entity.speed;
+                        if (entity.hitBox.intersects(obj.get(i).hitBox)) {
+                            if (obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
                         }
                     }
-                    break;
-                case "left":
-                    entity.hitBox.x -= entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
-                        }
-                    }
-                    break;
-                case "right":
-                    entity.hitBox.x += entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
+                    case "down" -> {
+                        entity.hitBox.y += entity.speed;
+                        if (entity.hitBox.intersects(obj.get(i).hitBox)) {
+                            if (obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
                         }
                     }
-                    break;
+                    case "left" -> {
+                        entity.hitBox.x -= entity.speed;
+                        if (entity.hitBox.intersects(obj.get(i).hitBox)) {
+                            if (obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
+                        }
+                    }
+                    case "right" -> {
+                        entity.hitBox.x += entity.speed;
+                        if (entity.hitBox.intersects(obj.get(i).hitBox)) {
+                            if (obj.get(i).collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (isPlayer) {
+                                index = i;
+                            }
+                        }
+                    }
                 }
                 // Reset hitbox coordinates
                 entity.hitBox.x = entity.hitBoxDefaultX;
                 entity.hitBox.y = entity.hitBoxDefaultY;
-                gp.obj[i].hitBox.x = gp.obj[i].hitBoxDefaultX;
-                gp.obj[i].hitBox.y = gp.obj[i].hitBoxDefaultY;
+                obj.get(i).hitBox.x = obj.get(i).hitBoxDefaultX;
+                obj.get(i).hitBox.y = obj.get(i).hitBoxDefaultY;
             }
 
         }

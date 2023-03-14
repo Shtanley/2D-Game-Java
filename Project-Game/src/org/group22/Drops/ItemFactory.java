@@ -2,6 +2,11 @@ package org.group22.Drops;
 
 import org.group22.app.GamePanel;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 /**
  * ItemFactory class
  * Create items
@@ -9,22 +14,46 @@ import org.group22.app.GamePanel;
  */
 public class ItemFactory {
     GamePanel gp;
+    ArrayList<Item> obj;
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;
+        this.obj = gp.obj;
+        System.out.println(obj);
     }
 
-    public void createItem() {
-        gp.obj[0] = new Key();
-        gp.obj[0].worldX = 12 * gp.tileSize;
-        gp.obj[0].worldY = 7 * gp.tileSize;
+    public ArrayList<Item> createItems(String filePath) {
+        try {
+            InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read map file
 
-        gp.obj[1] = new Potion();
-        gp.obj[1].worldX = 11 * gp.tileSize;
-        gp.obj[1].worldY = 9 * gp.tileSize;
+            int col = 0;
+            int row = 0;
 
-        gp.obj[2] = new Door();
-        gp.obj[2].worldX = 48 * gp.tileSize;
-        gp.obj[2].worldY = 10 * gp.tileSize;
+            while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
+                String line = br.readLine();
+                while (col < gp.maxWorldCol) {
+                    String numbers[] = line.split(" "); // Split line into numbers
+                    int num = Integer.parseInt(numbers[col]); // Convert string to int
+                    if(num == 7) {
+                        // Keys
+                        obj.add(new Key());
+                        obj.get(obj.size()-1).worldX = col * gp.tileSize;
+                        obj.get(obj.size()-1).worldY = row * gp.tileSize;
+                    }
+                    col++;
+                }
+
+                if(col == gp.maxWorldCol) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+
+        } catch (Exception e) {
+
+        }
+        return obj;
     }
 }

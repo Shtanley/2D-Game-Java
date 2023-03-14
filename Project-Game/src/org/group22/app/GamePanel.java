@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import org.group22.Drops.Item;
@@ -47,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
      public UI ui = new UI(this);
     // Game objects
     public Player player = new Player(this, keyInputs);
-    public Item[] obj = new Item[10];   // Array of objects
+    public ArrayList<Item> obj;   // Array of objects
     // Game state
     public int gameState;
     public final int titleState = 0;
@@ -62,11 +63,16 @@ public class GamePanel extends JPanel implements Runnable{
      * Set focus on game panel to receive key inputs
      */
     public GamePanel() {
+        this.obj = new ArrayList<>();
+        obj.add(new Item());
+        System.out.println(obj);
+
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));    // 768x576 pixels
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs
         this.setFocusable(true);    // Focus on JPanel to receive key inputs
+
     }
     
     /**
@@ -75,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Set game state
      */
     public void setupGame() {
-        iFactory.createItem();
+        obj = iFactory.createItems("/Map/world01.txt");
         gameState = titleState;
     }
     
@@ -153,6 +159,8 @@ public class GamePanel extends JPanel implements Runnable{
      * Draw player in the 2nd layer on top of the tiles
      */
     public void paintComponent(Graphics g) {    // Draw game graphics
+        System.out.println(obj);
+        
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
@@ -164,9 +172,9 @@ public class GamePanel extends JPanel implements Runnable{
             // Tiles
             cFactory.draw(g2d);
             // Objects
-            for(int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) {
-                    obj[i].draw(g2d, this);
+            for(int i = 0; i < obj.size(); i++) {
+                if(obj.get(i) != null) {
+                    obj.get(i).draw(g2d, this);
                 }
             }
             // Player
