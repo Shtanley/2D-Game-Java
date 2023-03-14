@@ -1,6 +1,6 @@
 package org.group22.app;
 
-import org.group22.Drops.People.Entity;
+import org.group22.People.Entity;
 
 /**
  * CollisionChecker class

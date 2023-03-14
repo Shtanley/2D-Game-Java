@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
-import org.group22.Drops.People.Player;
+import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
 //import org.group22.People.*;
 import org.group22.UI.UI;
@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
      public UI ui = new UI(this);
     // Game objects
     public Player player = new Player(this, keyInputs);
-    public Item obj[] = new Item[10];   // Array of objects
+    public Item[] obj = new Item[10];   // Array of objects
     // Game state
     public int gameState;
     public final int titleState = 0;
