@@ -217,7 +217,6 @@ public class GamePanel extends JPanel implements Runnable{
             gameState = playState2;
         } else if (state == endState) {
             gameState = endState;
-            //ui.gameOver = true;
         }
     }
 }

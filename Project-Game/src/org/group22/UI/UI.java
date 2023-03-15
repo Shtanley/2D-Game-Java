@@ -123,17 +123,25 @@ public class UI {
     }
     
     public void drawPlayScreen() {
-        // Set font and color
+        String text;
+        int txtLength, x, y;
+
+        // Display keys and points
         g2d.setFont(trebuchet_40);
         g2d.setColor(Color.WHITE);
-        // Draw key count
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString("x " + gp.player.keyCount, 74, 65);
+        g2d.drawString("x " + gp.player.keyCount, 74, gp.tileSize*3/2);
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
 
         // Time
         playTime += (double)1/60;
-        g2d.drawString("Time: " + dFormat.format(playTime), gp.tileSize*11, 65);
+        text = "Time: " + dFormat.format(playTime);
+        g2d.setFont(trebuchet_40);
+        g2d.setColor(Color.WHITE);
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y = gp.tileSize*3/2;
+        g2d.drawString(text, x, y);
+
         // Draw message
         if(msgOn) {
             g2d.setFont(g2d.getFont().deriveFont(27F));
@@ -148,37 +156,62 @@ public class UI {
     }
 
     public void drawPauseScreen() {
-        // Set font and color
+        String text;
+        int txtLength, x, y;
+
+        // Draw PAUSED
+        text = "PAUSED";
         g2d.setFont(g2d.getFont().deriveFont(Font.PLAIN, 80F));
         g2d.setColor(Color.WHITE);
-        String text = "PAUSED"; // Text to draw
-        // Draw text
-        int x = getHorizontalCenter(text, gp.screenWidth);
-        int y = gp.screenHeight/2;
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y = gp.screenHeight/2;
         g2d.drawString(text, x, y);
+
+        // Display current time
+        text = "Time: " + dFormat.format(playTime);
+        g2d.setFont(trebuchet_40);
+        g2d.setColor(Color.WHITE);
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y = gp.tileSize;
+        g2d.drawString(text, x, y);
+
+        // Display keys and points
+        g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+        g2d.drawString("x " + gp.player.keyCount, 74, 65);
+        g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
+
     }
 
     public void drawGameOverScreen() {
         String text;
         int txtLength, x, y;
-        // Set font and color
-        g2d.setFont(trebuchet_40);
-        g2d.setColor(Color.WHITE);
-        text = "Time: " + dFormat.format(playTime); // Draw time
-        txtLength = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
-        x = gp.screenWidth/2 - txtLength/2;
-        y = gp.screenHeight/2 + (gp.tileSize*4);
-        g2d.drawString(text, x, y); // Draw text
-        // Set font and color
+
+        // Draw Game Over
+        text = "Game Over";
         g2d.setFont(trebuchet_80B);
         g2d.setColor(Color.YELLOW);
-        text = "Game Over"; // Draw game over
-        txtLength = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
-        x = gp.screenWidth/2 - txtLength/2;
+        x = getHorizontalCenter(text, gp.screenWidth);
         y = gp.screenHeight/2 + (gp.tileSize*2);
-        g2d.drawString(text, x, y); // Draw text
+        g2d.drawString(text, x, y);
 
-        gp.gameThread = null;   // Stop game thread
+        // Display time
+        text = "Time: " + dFormat.format(playTime);
+        g2d.setFont(trebuchet_40);
+        g2d.setColor(Color.WHITE);
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y = gp.screenHeight/2 + (gp.tileSize*4);
+        g2d.drawString(text, x, y);
+
+        // Display score
+        text = "Points: " + gp.player.getPoints();
+        g2d.setFont(trebuchet_40);
+        g2d.setColor(Color.WHITE);
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y = gp.screenHeight/2 + (gp.tileSize*6);
+        g2d.drawString(text, x, y);
+
+        // Stop game thread
+        gp.gameThread = null;
     }
     /**
      * Get horizontal center of text

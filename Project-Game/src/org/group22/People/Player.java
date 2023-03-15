@@ -174,7 +174,6 @@ public class Player extends Entity {
     public void encounter(boolean collidedWithEnemy) {
         if(collidedWithEnemy) {
             gp.gameState = gp.endState;
-            //gp.ui.gameOver = true;
         }
     }
 
