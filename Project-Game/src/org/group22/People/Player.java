@@ -107,7 +107,7 @@ public class Player extends Entity {
             pickupItem(objIndex);
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.bat);
-            encounter(enemyIndex);
+            encounter(enemyIndex != -1);
             if(!collisionOn) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
@@ -171,9 +171,10 @@ public class Player extends Entity {
         }
     }
 
-    public void encounter(int i) {
-        if(i != 999) {
-            gp.ui.gameOver = true;
+    public void encounter(boolean collidedWithEnemy) {
+        if(collidedWithEnemy) {
+            gp.gameState = gp.endState;
+            //gp.ui.gameOver = true;
         }
     }
 

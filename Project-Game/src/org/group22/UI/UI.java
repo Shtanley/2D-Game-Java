@@ -22,7 +22,6 @@ public class UI {
     public boolean msgOn = false;
     public String msg = "";
     int msgTimer = 0;
-    public boolean gameOver = false;
     public double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
     public int cmdNum = 0;
@@ -60,14 +59,15 @@ public class UI {
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
-        if(gameOver) {
-            drawGameOverScreen();
-        }
         if(gp.gameState == gp.playState1 || gp.gameState == gp.playState2) {
-            drawPlayScreen();
+            if(gp.paused) {
+                drawPauseScreen();
+            } else {
+                drawPlayScreen();
+            }
         }
-        if(gp.gameState == gp.pauseState) {
-            drawPauseScreen();
+        if(gp.gameState == gp.endState) {
+            drawGameOverScreen();
         }
 
     }

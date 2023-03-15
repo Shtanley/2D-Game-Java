@@ -124,7 +124,7 @@ public class CollisionChecker {
      * @return the index of the entity in target it collides with
      */
     public int checkEntity(Entity entity, Entity[] target) {
-        int index = 999;
+        int index = -1;
 
         for(int i = 0; i < target.length; i++) {
             if(target[i] != null) {

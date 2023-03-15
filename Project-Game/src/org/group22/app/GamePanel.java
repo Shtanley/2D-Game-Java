@@ -55,10 +55,10 @@ public class GamePanel extends JPanel implements Runnable{
     // Game state
     public int gameState;
     public final int titleState = 0;
-    public final int pauseState = 1;
-    public final int playState1 = 2;
-    public final int playState2 = 3;
-    public final int endState = 4;
+    public final int playState1 = 1;
+    public final int playState2 = 2;
+    public final int endState = 3;
+    public boolean paused = false;
     public int keysNeeded;
 
 
@@ -142,19 +142,20 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
+        if(gameState == titleState) {
+
+        }
         if(gameState == playState1 || gameState == playState2) {
-            player.update();
-            for(int i = 0; i < bat.length; i++) {
-                if(bat[i] != null) {
-                    bat[i].update();
+            if(paused) {
+                // Pause game, do nothing
+            } else {
+                player.update();
+                for (int i = 0; i < bat.length; i++) {
+                    if (bat[i] != null) {
+                        bat[i].update();
+                    }
                 }
             }
-        }
-        if(gameState == pauseState) {
-            // Pause game, do nothing
-        }
-        if(gameState == titleState) {
-            
         }
             
     }
@@ -200,26 +201,23 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("Changing game state to " + state);
         if(state == titleState) {
             gameState = titleState;
-        } else if (state == pauseState) {
-            gameState = pauseState;
         } else if (state == playState1) {
             cFactory = new ComponentFactory(this, "/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
             keysNeeded = 3;
             player = new Player(this, keyInputs);
-            player.setPlayerValues(35, 10, 8, "up");
+            player.setPlayerValues(35, 10, 8, "down");
             cCheck = new CollisionChecker(this);
             gameState = playState1;
         } else if (state == playState2) {
             cFactory = new ComponentFactory(this, "/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
             keysNeeded = 1;
-//            player = new Player(this, keyInputs);
             player.setPlayerValues(3, 16, 8, "down");
-//            cCheck = new CollisionChecker(this);
             gameState = playState2;
         } else if (state == endState) {
-            ui.gameOver = true;
+            gameState = endState;
+            //ui.gameOver = true;
         }
     }
 }
