@@ -146,8 +146,10 @@ public class GamePanel extends JPanel implements Runnable{
 
         }
         if(gameState == playState1 || gameState == playState2) {
-            if(paused) {
+            if (paused) {
                 // Pause game, do nothing
+            } else if (player.dead()) {
+                changeGameState(endState);
             } else {
                 player.update();
                 for (int i = 0; i < bat.length; i++) {
@@ -177,15 +179,16 @@ public class GamePanel extends JPanel implements Runnable{
             // Tiles
             cFactory.draw(g2d);
             // Objects
-            for(int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) {
-                    obj[i].draw(g2d, this);
+            for (Item item : obj) {
+                if (item != null) {
+                    item.draw(g2d, this);
                 }
             }
             // Enemy
-            for(int i = 0; i < bat.length; i++) {
-                if(bat[i] != null) {
-                    bat[i].draw(g2d);
+
+            for (Bat value : bat) {
+                if (value != null) {
+                    value.draw(g2d);
                 }
             }
             // Player
