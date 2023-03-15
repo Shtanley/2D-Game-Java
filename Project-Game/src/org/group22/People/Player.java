@@ -173,6 +173,7 @@ public class Player extends Entity {
 
     public void encounter(boolean collidedWithEnemy) {
         if(collidedWithEnemy) {
+            health = 0;
             gp.gameState = gp.endState;
         }
     }
