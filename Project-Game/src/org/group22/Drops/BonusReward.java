@@ -4,8 +4,8 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public abstract class BonusReward extends Item{
-    private final int healthAdjustment = 10;
-    private final int pointAdjustment = 10;
+    private final int healthAdjustment = 20;
+    private final int pointAdjustment = 20;
     private int ticksTillDeath;
 
     public int getHealthAdjustment() { return healthAdjustment;}

@@ -151,6 +151,12 @@ public class Player extends Entity {
                     setPoints(item);
                     setHealth(item);
                 }
+                case "Punishment" -> {
+                    gp.obj[i] = null;
+                    gp.ui.showMsg("Ouch!");
+                    setPoints(item);
+                    setHealth(item);
+                }
                 case "Door" -> {
                     if (keyCount == gp.keysNeeded) {  // If player has collected all keys, door is unlocked collison is turned off
                         gp.obj[i] = null;
