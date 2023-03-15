@@ -31,7 +31,7 @@ public class Skeleton extends Enemy{
         int move = 0;
         boolean collision = true;
         while (collision){
-            move = (int)Math.random()*4 + 1;
+            move = (int) (Math.random() * 4) + 1;
             collision = false;
         }
         if (move == 1){

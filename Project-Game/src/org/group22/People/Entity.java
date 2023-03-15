@@ -5,6 +5,7 @@ import org.group22.app.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -43,19 +44,11 @@ public abstract class Entity {
         gp.cCheck.checkEntity(this, gp.bat);
 
         if(!collisionOn) {
-            switch(direction) {
-                case "up":
-                    worldY -= speed;
-                    break;
-                case "down":
-                    worldY += speed;
-                    break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+            switch (direction) {
+                case "up" -> worldY -= speed;
+                case "down" -> worldY += speed;
+                case "left" -> worldX -= speed;
+                case "right" -> worldX += speed;
             }
         }
 
@@ -81,7 +74,7 @@ public abstract class Entity {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream(imgPath + ".png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imgPath + ".png")));
             image = scaleImg(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,30 +92,30 @@ public abstract class Entity {
         if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
             && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             switch (direction) {
-                case "up":
-                    if(spriteNum == 1)
+                case "up" -> {
+                    if (spriteNum == 1)
                         image = up1;
                     else
                         image = up2;
-                    break;
-                case "down":
-                    if(spriteNum == 1)
+                }
+                case "down" -> {
+                    if (spriteNum == 1)
                         image = down1;
                     else
                         image = down2;
-                    break;
-                case "left":
-                    if(spriteNum == 1)
+                }
+                case "left" -> {
+                    if (spriteNum == 1)
                         image = left1;
                     else
                         image = left2;
-                    break;
-                case "right":
-                    if(spriteNum == 1)
+                }
+                case "right" -> {
+                    if (spriteNum == 1)
                         image = right1;
                     else
                         image = right2;
-                    break;
+                }
             }
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }

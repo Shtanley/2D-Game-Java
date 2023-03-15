@@ -183,6 +183,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Draw map components first
      * Draw player in the 2nd layer on top of the tiles
      */
+    @Override
     public void paintComponent(Graphics g) {    // Draw game graphics
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
