@@ -45,19 +45,21 @@ public class KeyInputs implements KeyListener {
             }
             if(key == KeyEvent.VK_ENTER) {
                 if(gp.ui.cmdNum == 0) {
-                    gp.gameState = gp.playState;
+                    // Start Game
+                    gp.changeGameState(gp.playState1);
                 }
                 if(gp.ui.cmdNum == 1) {
                     // Settings
                     System.exit(0); // exit game for now
                 }
                 if(gp.ui.cmdNum == 2) {
+                    // Exit
                     System.exit(0);
                 }
             }
         }
         // Game State
-        if(gp.gameState == gp.playState || gp.gameState == gp.pauseState) {
+        if(gp.gameState == gp.playState1 || gp.gameState == gp.playState2) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;
                 // System.out.println("UP");
@@ -75,11 +77,7 @@ public class KeyInputs implements KeyListener {
                 // System.out.println("RIGHT");
             }
             if (key == KeyEvent.VK_ESCAPE) {
-                if(gp.gameState == gp.playState) {
-                    gp.gameState = gp.pauseState;
-                } else if(gp.gameState == gp.pauseState) {
-                    gp.gameState = gp.playState;
-                }
+                gp.paused = !gp.paused;
                 // System.out.println("ESCAPE");
             }
         }

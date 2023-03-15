@@ -1,5 +1,6 @@
 package org.group22.Drops;
 
+import org.group22.People.Bat;
 import org.group22.app.GamePanel;
 
 import java.io.BufferedReader;
@@ -9,11 +10,13 @@ import java.util.Objects;
 
 /**
  * ItemFactory class
- * Create items
+ * Create items as specified by a given csv-style items text file
+ *
  * @author Sameer
+ * @author Michael
  */
 public class ItemFactory {
-    GamePanel gp;
+    private GamePanel gp;
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;
@@ -53,10 +56,14 @@ public class ItemFactory {
                     gp.obj[lineNum] = new Door();
                     gp.obj[lineNum].worldX = x * gp.tileSize;
                     gp.obj[lineNum].worldY = y * gp.tileSize;
-                } else if(Objects.equals(type, "Punishment")) {
-                    gp.obj[lineNum] = new Punishment();
+                } else if(Objects.equals(type, "Spikes")) {
+                    gp.obj[lineNum] = new Spikes();
                     gp.obj[lineNum].worldX = x * gp.tileSize;
                     gp.obj[lineNum].worldY = y * gp.tileSize;
+                } else if(Objects.equals(type, "Bat")) {    // Need to repostion bats in the next map
+                    gp.bat[lineNum] = new Bat(gp);
+                    gp.bat[lineNum].worldX = x * gp.tileSize;
+                    gp.bat[lineNum].worldY = y * gp.tileSize;
                 }
                 // Read next line
                 line = br.readLine();
@@ -64,8 +71,6 @@ public class ItemFactory {
             }
             br.close();
 
-        } catch (Exception ignored) {
-
-        }
+        } catch (Exception ignored) {}
     }
 }

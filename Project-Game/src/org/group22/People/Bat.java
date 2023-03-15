@@ -1,52 +1,75 @@
 package org.group22.People;
 
 import org.group22.GameMap.Location;
+import org.group22.app.GamePanel;
 
-public class Bat extends Enemy {
-    private boolean horizontal;
-    private boolean forwardBackward;
-    public Bat() {
-        super();
-        System.out.println("Creating " + this);
+import java.awt.*;
+import java.util.Random;
+
+/**
+ * Bat class
+ * Manage bat image and bat movement
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
+public class Bat extends Entity {
+    /**
+     * Bat constructor
+     * Set bat image and bat movement
+     * @param gp    GamePanel
+     */
+    public Bat(GamePanel gp) {
+        super(gp);
+        hitBox = new Rectangle();
+        name = "Bat";
+        speed = 1;
+
+        hitBox.x = 3;
+        hitBox.y = 18;
+        hitBox.width = 42;
+        hitBox.height = 30;
+        hitBoxDefaultX = hitBox.x;
+        hitBoxDefaultY = hitBox.y;
+
+        direction = "down";
+
+        getImage();
     }
 
     /**
-     * Creates a Bat at Location loc
-     *
-     * @param loc location of this bat
+     * Set bat image
      */
-    public Bat(Location loc, boolean horizontal) {
-        super(loc);
-        System.out.println("Creating " + this);
+    public void getImage() {
+        up1 = setup("/Enemy/bat_down_1");
+        up2 = setup("/Enemy/bat_down_2");
+        down1 = setup("/Enemy/bat_down_1");
+        down2 = setup("/Enemy/bat_down_2");
+        left1 = setup("/Enemy/bat_down_1");
+        left2 = setup("/Enemy/bat_down_2");
+        right1 = setup("/Enemy/bat_down_1");
+        right1 = setup("/Enemy/bat_down_2");
     }
 
     /**
-     * Moves bat
-     * Bats follow a patrolling movement pattern
-     *
+     * Set bat movement
      */
-    @Override
-    public void move(){
-        //condition if forward is
-        boolean collision = true;
-        forwardBackward = collision ? false : true;
+    public void setAction() {
+        lockActionCount++;
+        if(lockActionCount == 120) {
+            Random rand = new Random();
+            int n = rand.nextInt(100) + 1;
 
-        if (horizontal){
-            if (forwardBackward){
-                setLoc(new Location(getLoc().getX() + 1, getLoc().getY()));
+            if(n <= 25) {
+                direction = "up";
+            } else if( n > 25 && n <= 50) {
+                direction = "down";
+            } else if( n > 50 && n <= 75) {
+                direction = "left";
             } else {
-                setLoc(new Location(getLoc().getX() - 1, getLoc().getY()));
+                direction = "right";
             }
-        } else {
-            if (forwardBackward){
-                setLoc(new Location(getLoc().getX(), getLoc().getY() + 1));
-            } else {
-                setLoc(new Location(getLoc().getX(), getLoc().getY() - 1));
-            }
+            lockActionCount = 0;
         }
-    }
-
-    public String toString() {
-        return "bat at " + getLoc();
     }
 }

@@ -17,8 +17,10 @@ public class CollisionChecker {
     /**
      * Check collision between player and map
      * Checks all tiles on the screen
-     * @param entity
+     *
+     * @param entity entity for which collision is being checked
      */
+
     public void checkComponent(Entity entity) {
         int entityLeftX = entity.worldX + entity.hitBox.x;
         int entityRightX = entity.worldX + entity.hitBox.x + entity.hitBox.width;
@@ -32,49 +34,51 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-        switch(entity.direction) {
-            case "up":
+        switch (entity.direction) {
+            case "up" -> {
                 entityTopRow = (entityTopY - entity.speed) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
-            case "down":
+            }
+            case "down" -> {
                 entityBottomRow = (entityBottomY + entity.speed) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
-            case "left":
+            }
+            case "left" -> {
                 entityLeftCol = (entityLeftX - entity.speed) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
-            case "right":
+            }
+            case "right" -> {
                 entityRightCol = (entityRightX + entity.speed) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
-                if(gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-                break;
+            }
         }
     }
 
     /**
      * Check collision between player and item
      * Checks only the limited number of items
-     * @param entity
-     * @param isPlayer
+     *
+     * @param entity entity for which collision is being checked
+     * @param isPlayer boolean specifying whether entity is the player or not
      * @return index of item
      */
+
     public int checkItem(Entity entity, boolean isPlayer) {
         int index = 999;
 
@@ -86,50 +90,18 @@ public class CollisionChecker {
                 // Get item hitbox coordinates
                 gp.obj[i].hitBox.x += gp.obj[i].worldX;
                 gp.obj[i].hitBox.y += gp.obj[i].worldY;
-
-                switch(entity.direction) {
-                case "up":
-                    entity.hitBox.y -= entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
-                        }
+                switch (entity.direction) {
+                    case "up" -> entity.hitBox.y -= entity.speed;
+                    case "down" -> entity.hitBox.y += entity.speed;
+                    case "left" -> entity.hitBox.x -= entity.speed;
+                    case "right" -> entity.hitBox.x += entity.speed;
+                }
+                if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
+                    if(gp.obj[i].collision) {
+                        entity.collisionOn = true;
                     }
-                    break;
-                case "down":
-                    entity.hitBox.y += entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
-                        }
-                    }
-                    break;
-                case "left":
-                    entity.hitBox.x -= entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
-                        }
-                    }
-                    break;
-                case "right":
-                    entity.hitBox.x += entity.speed;
-                    if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                        if(gp.obj[i].collision == true) {
-                            entity.collisionOn = true;
-                        }
-                        if(isPlayer) {
-                            index = i;
-                        }
+                    if(isPlayer) {
+                        index = i;
                     }
                     break;
                 }
@@ -138,6 +110,49 @@ public class CollisionChecker {
                 entity.hitBox.y = entity.hitBoxDefaultY;
                 gp.obj[i].hitBox.x = gp.obj[i].hitBoxDefaultX;
                 gp.obj[i].hitBox.y = gp.obj[i].hitBoxDefaultY;
+            }
+
+        }
+        return index;
+    }
+
+    /**
+     * Check collision between entity and every element of target
+     * Primarily intended for checking collisions between the player and the items in the game
+     *
+     * @param entity primary entity
+     * @param target array of entities
+     * @return the index of the entity in target it collides with
+     */
+    public int checkEntity(Entity entity, Entity[] target) {
+        int index = -1;
+
+        for(int i = 0; i < target.length; i++) {
+            if(target[i] != null) {
+                // Get entity hitbox coordinates
+                entity.hitBox.x += entity.worldX;
+                entity.hitBox.y += entity.worldY;
+                // Get item hitbox coordinates
+                target[i].hitBox.x += target[i].worldX;
+                target[i].hitBox.y += target[i].worldY;
+
+                switch (entity.direction) {
+                    case "up" -> entity.hitBox.y -= entity.speed;
+                    case "down" -> entity.hitBox.y += entity.speed;
+                    case "left" -> entity.hitBox.x -= entity.speed;
+                    case "right" -> entity.hitBox.x += entity.speed;
+                }
+                if(entity.hitBox.intersects(target[i].hitBox)) {
+                    if(target[i] != entity) {
+                        entity.collisionOn = true;
+                        index = i;
+                    }
+                }
+                // Reset hitbox coordinates
+                entity.hitBox.x = entity.hitBoxDefaultX;
+                entity.hitBox.y = entity.hitBoxDefaultY;
+                target[i].hitBox.x = target[i].hitBoxDefaultX;
+                target[i].hitBox.y = target[i].hitBoxDefaultY;
             }
 
         }

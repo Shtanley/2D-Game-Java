@@ -9,14 +9,13 @@ import java.awt.image.BufferedImage;
 /**
  * Item class
  * Manage item image and item movement
+ *
  * @author Dina
  * @author Michael
  * @author Sameer
  */
-public class Item {
+public abstract class Item {
     private Location loc;
-    private static int healthAdjustment;
-    private int pointAdjustment;
     public BufferedImage image;
     public String name;
     public boolean collision = false;
@@ -24,55 +23,35 @@ public class Item {
     public Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
 
-    public Item() {
-    }
+    public abstract int getHealthAdjustment();
+    public abstract int getPointAdjustment();
 
-    public Item(Location loc) {
-        setLoc(loc);
-    }
-
-    public Location getLoc() {
-        return loc;
-    }
-
-    public void setLoc(Location loc) {
-        this.loc = loc;
-    }
-
-    public static int getHealthAdjustment() {
-        return healthAdjustment;
-    }
-
-    public void setHealthAdjustment(int healthAdjustment) {
-        this.healthAdjustment = healthAdjustment;
-    }
-
-    public int getPointAdjustment() {
-        return pointAdjustment;
-    }
-
-    public void setPointAdjustment(int pointAdjustment) {
-        this.pointAdjustment = pointAdjustment;
-    }
-
+    /**
+     * Draw this item if it is on the screen
+     *
+     * @param g2d 2d graphics handler
+     * @param gp the game's game panel
+     */
     public void draw(Graphics2D g2d, GamePanel gp) {
-        // Calculate x and y position of tile on screen
+        // Calculate x and y position of item on screen
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        // Draw tile if it is on screen to save resources
-        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        // Draw item if it is on screen to save resources
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+                && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Item{" +
+        return name + " {" +
                 "loc=" + loc +
-                ", healthAdjustment=" + healthAdjustment +
-                ", pointAdjustment=" + pointAdjustment +
+                ", healthAdjustment=" + getHealthAdjustment() +
+                ", pointAdjustment=" + getPointAdjustment() +
                 '}';
     }
 }

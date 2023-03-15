@@ -1,25 +1,26 @@
 package org.group22.People;
 
 import org.group22.GameMap.Location;
+import org.group22.app.GamePanel;
 
 public class Skeleton extends Enemy{
 
     /**
      * Constructs skeleton with null location
      */
-    public Skeleton() {
-        super();
+    public Skeleton(GamePanel gp) {
+        super(gp);
         System.out.println("Creating " + this);
     }
 
-    /**
-     * Constructs skeleton at location loc
-     * @param loc location of skeleton
-     */
-    public Skeleton(Location loc) {
-        super(loc);
-        System.out.println("Creating " + this);
-    }
+    // /**
+    //  * Constructs skeleton at location loc
+    //  * @param loc location of skeleton
+    //  */
+    // public Skeleton(Location loc) {
+    //     super(loc);
+    //     System.out.println("Creating " + this);
+    // }
 
     /**
      * Moves skeleton

@@ -1,11 +1,21 @@
 package org.group22.Drops;
 
-public class BonusReward extends Item{
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
+/**
+ * Abstract bonus reward class
+ *
+ * @author Michael
+ */
+public abstract class BonusReward extends Item{
+    private final int healthAdjustment = 20;
+    private final int pointAdjustment = 20;
     private int ticksTillDeath;
 
-    public BonusReward(int ticksTillDeath){
-        super();
-        this.ticksTillDeath = ticksTillDeath;
+    public int getHealthAdjustment() { return healthAdjustment;}
+    public int getPointAdjustment() {
+        return pointAdjustment;
     }
 
     public int getTicksTillDeath() {
