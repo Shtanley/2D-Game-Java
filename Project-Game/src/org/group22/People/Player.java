@@ -219,7 +219,7 @@ public class Player extends Entity {
         g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
-    public boolean dead() {return this.health <= 0;}
+    public boolean dead() {return health <= 0 || points < 0;}
     public int getHealth() {
         return health;
     }
