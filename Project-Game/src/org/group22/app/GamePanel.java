@@ -22,36 +22,42 @@ import org.group22.UI.UI;
  */
 public class GamePanel extends JPanel implements Runnable{
     // Screen settings
-    final int orgTileSize = 16; // 16x16 pixels
+    public final int orgTileSize = 16; // 16x16 pixels
     public final int scale = 3;
-
-    public int tileSize = orgTileSize * scale;
-    public int maxScreenCol = 32;
-    public int maxScreenRow = 18;
-    public int screenWidth = maxScreenCol * tileSize;
-    public int screenHeight = maxScreenRow * tileSize;
+    public final int tileSize = orgTileSize * scale;
+    public final int maxScreenCol = 32;
+    public final int maxScreenRow = 18;
+    public final int screenWidth = maxScreenCol * tileSize;
+    public final int screenHeight = maxScreenRow * tileSize;
 
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int worldWidth = maxWorldCol * tileSize;
     public final int worldHeight = maxWorldRow * tileSize;
+
+    // Entity settings
     public final int maxItems = 50;
+    public final int maxBats = 50;
 
     // FPS settings
     int fps = 60;
+
     // System
     public ComponentFactory cFactory;
-    KeyInputs keyInputs = new KeyInputs(this);
+    public KeyInputs keyInputs;
     public Thread gameThread;
     public CollisionChecker cCheck;
-    public ItemFactory iFactory = new ItemFactory(this);
+    public ItemFactory iFactory;
+
     // UI
-     public UI ui = new UI(this);
+     public UI ui;
+
     // Game objects
-    public Player player = new Player(this, keyInputs);
-    public Item[] obj = new Item[10];   // Array of objects
-    public Bat[] bat = new Bat[10]; // Array of enemies
+    public Player player;
+    public Item[] obj;   // Array of objects
+    public Bat[] bat; // Array of enemies
+
     // Game state
     public int gameState;
     public final int titleState = 0;
@@ -69,11 +75,14 @@ public class GamePanel extends JPanel implements Runnable{
      * Set focus on game panel to receive key inputs
      */
     public GamePanel() {
+        ui = new UI(this);
+        keyInputs = new KeyInputs(this);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));    // 768x576 pixels
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs
         this.setFocusable(true);    // Focus on JPanel to receive key inputs
+
     }
     
     /**
@@ -82,6 +91,12 @@ public class GamePanel extends JPanel implements Runnable{
      * Set game state
      */
     public void setupGame() {
+        player = new Player(this, keyInputs);
+
+        iFactory  = new ItemFactory(this);
+        obj = new Item[maxItems];
+        bat = new Bat[maxBats];
+
         gameState = titleState;
     }
     

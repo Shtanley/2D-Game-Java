@@ -2,6 +2,7 @@ package org.group22.Drops;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Potion class
@@ -15,7 +16,7 @@ public class Potion extends BonusReward {
     public Potion() {
         name = "Potion";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/Object/potion_red.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/potion_red.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

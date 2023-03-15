@@ -3,6 +3,7 @@ package org.group22.Drops;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Door class
@@ -18,7 +19,7 @@ public class Door extends Item {
     public Door() {
         name = "Door";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/Object/door.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/door.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

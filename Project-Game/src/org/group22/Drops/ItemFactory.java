@@ -10,11 +10,13 @@ import java.util.Objects;
 
 /**
  * ItemFactory class
- * Create items
+ * Create items as specified by a given csv-style items text file
+ *
  * @author Sameer
+ * @author Michael
  */
 public class ItemFactory {
-    GamePanel gp;
+    private GamePanel gp;
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;

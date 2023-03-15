@@ -5,6 +5,7 @@ import org.group22.app.GamePanel;
 import org.group22.GameMap.Location;
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Key class
@@ -17,7 +18,7 @@ public class Key extends Reward {
     public Key() {
         name = "Key";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/Object/key.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/key.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

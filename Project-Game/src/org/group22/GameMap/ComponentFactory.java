@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 import org.group22.app.GamePanel;
 
@@ -12,14 +13,10 @@ import javax.imageio.ImageIO;
 
 /**
  * ComponentFactory class
- * Manage component image and component movement
+ * Manage map component sprites and world set up
+ *
  * @author Sameer
- *
- * Create map components
- * @author Dina
  * @author Michael
- *
- * this class does two different things ?
  */
 public class ComponentFactory {
     GamePanel gp;
@@ -30,6 +27,7 @@ public class ComponentFactory {
      * Constructor
      *
      * @param gp the game panel
+     * @param filePath path to world text file
      */
     public ComponentFactory(GamePanel gp, String filePath) {
         this.gp = gp;
@@ -41,34 +39,31 @@ public class ComponentFactory {
     }
 
     /**
-     * Get tile image
+     * Set sprite and collision for each type of map component
      */
     public void getTileImage() {
         try {
+            // Grass
             mc[0] = new MapComponent();
-            mc[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/grass00.png"));
-
+            mc[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/grass00.png")));
+            // Wall
             mc[1] = new MapComponent();
-            mc[1].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/wall.png"));
+            mc[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/wall.png")));
             mc[1].collision = true;
-
+            // Water
             mc[2] = new MapComponent();
-            mc[2].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/water00.png"));
+            mc[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/water00.png")));
             mc[2].collision = true;
-
+            // Earth
             mc[3] = new MapComponent();
-            mc[3].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/earth.png"));
-
+            mc[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/earth.png")));
+            // Trees
             mc[4] = new MapComponent();
-            mc[4].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/tree.png"));
+            mc[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/tree.png")));
             mc[4].collision = true;
-
+            // Floor
             mc[5] = new MapComponent();
-            mc[5].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/floor01.png"));
-
-//            mc[6] = new MapComponent();
-//            mc[6].image = ImageIO.read(getClass().getResourceAsStream("/Object/door.png"));
-//            mc[6].collision = true;
+            mc[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/floor01.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -103,15 +98,12 @@ public class ComponentFactory {
     }
 
     /**
-     * Draw tile image
-     * @param g2d   Graphics2D
+     * Draw the map
+     * Draws the sprite of each map component as specified by the world text file
+     *
+     * @param g2d   2D graphics handler
      */
     public void draw(Graphics2D g2d) {
-        // Uncomment to draw all tile types in the top left corner
-        // g2d.drawImage(mc[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
-        // g2d.drawImage(mc[1].image, 0, 48, gp.tileSize, gp.tileSize, null);
-        // g2d.drawImage(mc[2].image, 0, 96, gp.tileSize, gp.tileSize, null);
-
         int worldcol = 0;
         int worldRow = 0;
 
@@ -136,22 +128,6 @@ public class ComponentFactory {
                 worldRow++;
             }
         }
-    }
-
-    public static Barrier makeBarrier(Location loc){
-        return new Barrier(loc);
-    }
-
-    public static Barrier makeBarrier(int x, int y){
-        return new Barrier(new Location(x, y));
-    }
-
-    public static Tile makeTile(Location loc){
-        return new Tile(loc);
-    }
-
-    public static Tile makeTile(int x, int y){
-        return new Tile(new Location(x, y));
     }
 
 }
