@@ -12,13 +12,9 @@ import java.io.IOException;
  * @author Sameer
  */
 public class Door extends Item {
-    // public BufferedImage closedGate, openedGate;
-    // Boolean open = false;
+    private final int healthAdjustment = 0;
+    private final int pointAdjustment = 50;
 
-    /**
-     * Door class
-     * Create door item
-     */
     public Door() {
         name = "Door";
         try {
@@ -29,28 +25,9 @@ public class Door extends Item {
         collision = true;
     }
 
-    // /**
-    //  * Opens the gate when player has the required number of keys.
-    //  * Then it teleports the player to the next stage after colliding with it.
-    //  */
-    // public void update(GamePanel gp) {
-    //     if (open == false) {
-    //         open = true;
-    //         image = openedGate;
-    //     }
-    //     else {  // Uncomment after implementing nextMap()
-    //         // gp.mapManager.nextMap();
+    public int getHealthAdjustment() { return healthAdjustment;}
+    public int getPointAdjustment() {
+        return pointAdjustment;
+    }
 
-    //     }
-    // }
-
-    // public Door(Location loc) {
-    //     setLoc(loc);
-    //     setItem(null);
-    //     System.out.println("Created " + this);
-    // }
-
-    // public String toString() {
-    //     return "Door at " + loc + " containing item: \"" + item + "\" and character: \"" + charHere + "\"";
-    // }
 }

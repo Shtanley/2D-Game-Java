@@ -1,5 +1,6 @@
 package org.group22.People;
 
+import org.group22.Drops.Door;
 import org.group22.Drops.Item;
 import org.group22.Drops.Key;
 import org.group22.Drops.Potion;
@@ -130,26 +131,31 @@ public class Player extends Entity {
     /**
      * Check if player is colliding with an object to pick up
      * @param i index of object in object array
-     * @return  true if player is colliding with an object
      */
     public void pickupItem(int i) {
         if(i != 999) {
-            String objName = gp.obj[i].name;
+            Item item = gp.obj[i];
+            String objName = item.name;
             switch (objName) {
                 case "Key" -> {
+
                     keyCount++;
                     gp.obj[i] = null;
                     gp.ui.showMsg("Key acquired");
-                    setPoints(this.getPoints() + Key.getHealthAdjustment());
+                    setHealth(item);
+                    setPoints(item);
                 }
                 case "Potion" -> {
                     gp.obj[i] = null;
-                    setPoints(this.getPoints() + Potion.getHealthAdjustment());
+                    gp.ui.showMsg("Potion acquired");
+                    setPoints(item);
+                    setHealth(item);
                 }
                 case "Door" -> {
                     if (keyCount == gp.keysNeeded) {  // If player has collected all keys, door is unlocked collison is turned off
                         gp.obj[i] = null;
                         keyCount = 0;
+                        setPoints(item);
                         gp.changeGameState(gp.gameState+1);
                     } else {
                         gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
@@ -217,7 +223,9 @@ public class Player extends Entity {
         return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void setPoints(Item item) {
+        this.points += item.getPointAdjustment();
     }
+
+    public void setHealth(Item item) { this.health += item.getHealthAdjustment();}
 }

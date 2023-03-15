@@ -6,11 +6,12 @@ import java.io.IOException;
 /**
  * Potion class
  * Create potion item
+ *
  * @author Dina
  * @author Michael
  * @author Sameer
  */
-public class Potion extends Item {
+public class Potion extends BonusReward {
     public Potion() {
         name = "Potion";
         try {
@@ -18,6 +19,5 @@ public class Potion extends Item {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setHealthAdjustment(10);
     }
 }

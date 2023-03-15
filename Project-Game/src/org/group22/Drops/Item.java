@@ -13,23 +13,14 @@ import java.awt.image.BufferedImage;
  * @author Michael
  * @author Sameer
  */
-public class Item {
+public abstract class Item {
     private Location loc;
-    private static int healthAdjustment;
-    private int pointAdjustment;
     public BufferedImage image;
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
     public Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
-
-    public Item() {
-    }
-
-    public Item(Location loc) {
-        setLoc(loc);
-    }
 
     public Location getLoc() {
         return loc;
@@ -39,21 +30,8 @@ public class Item {
         this.loc = loc;
     }
 
-    public static int getHealthAdjustment() {
-        return healthAdjustment;
-    }
-
-    public void setHealthAdjustment(int healthAdjustment) {
-        this.healthAdjustment = healthAdjustment;
-    }
-
-    public int getPointAdjustment() {
-        return pointAdjustment;
-    }
-
-    public void setPointAdjustment(int pointAdjustment) {
-        this.pointAdjustment = pointAdjustment;
-    }
+    public abstract int getHealthAdjustment();
+    public abstract int getPointAdjustment();
 
     public void draw(Graphics2D g2d, GamePanel gp) {
         // Calculate x and y position of tile on screen
@@ -69,10 +47,10 @@ public class Item {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Item{" +
+        return name + " {" +
                 "loc=" + loc +
-                ", healthAdjustment=" + healthAdjustment +
-                ", pointAdjustment=" + pointAdjustment +
+                ", healthAdjustment=" + getHealthAdjustment() +
+                ", pointAdjustment=" + getPointAdjustment() +
                 '}';
     }
 }
