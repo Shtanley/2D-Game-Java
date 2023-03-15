@@ -18,7 +18,9 @@ import org.group22.UI.UI;
 /**
  * Game panel
  * Manage game graphics and game logic
+ *
  * @author Sameer
+ * @author Michael
  */
 public class GamePanel extends JPanel implements Runnable{
     // Screen settings

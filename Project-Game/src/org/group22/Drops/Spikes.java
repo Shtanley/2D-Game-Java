@@ -4,6 +4,11 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Create spike item
+ *
+ * @author Michael
+ */
 public class Spikes extends Punishment {
     public Spikes() {
         name = "Spikes";

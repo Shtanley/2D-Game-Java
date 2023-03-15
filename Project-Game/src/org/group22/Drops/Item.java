@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 /**
  * Item class
  * Manage item image and item movement
+ *
  * @author Dina
  * @author Michael
  * @author Sameer

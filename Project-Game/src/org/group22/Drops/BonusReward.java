@@ -3,6 +3,11 @@ package org.group22.Drops;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+/**
+ * Abstract bonus reward class
+ *
+ * @author Michael
+ */
 public abstract class BonusReward extends Item{
     private final int healthAdjustment = 20;
     private final int pointAdjustment = 20;

@@ -8,6 +8,7 @@ import java.util.Objects;
 /**
  * Door class
  * Create door item
+ *
  * @author Dina
  * @author Michael
  * @author Sameer
