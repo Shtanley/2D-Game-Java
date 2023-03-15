@@ -151,7 +151,7 @@ public class Player extends Entity {
                     setPoints(item);
                     setHealth(item);
                 }
-                case "Punishment" -> {
+                case "Spikes" -> {
                     gp.obj[i] = null;
                     gp.ui.showMsg("Ouch!");
                     setPoints(item);

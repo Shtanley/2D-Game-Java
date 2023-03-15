@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldRow = 50;
     public final int worldWidth = maxWorldCol * tileSize;
     public final int worldHeight = maxWorldRow * tileSize;
-    public final int maxItems = 10;
+    public final int maxItems = 50;
 
     // FPS settings
     int fps = 60;
@@ -50,8 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
      public UI ui = new UI(this);
     // Game objects
     public Player player = new Player(this, keyInputs);
-    public Item obj[] = new Item[10];   // Array of objects
-    public Bat bat[] = new Bat[10]; // Array of enemies
+    public Item[] obj = new Item[10];   // Array of objects
+    public Bat[] bat = new Bat[10]; // Array of enemies
     // Game state
     public int gameState;
     public final int titleState = 0;
@@ -152,9 +152,9 @@ public class GamePanel extends JPanel implements Runnable{
                 changeGameState(endState);
             } else {
                 player.update();
-                for (int i = 0; i < bat.length; i++) {
-                    if (bat[i] != null) {
-                        bat[i].update();
+                for (Bat value : bat) {
+                    if (value != null) {
+                        value.update();
                     }
                 }
             }

@@ -22,25 +22,25 @@ public abstract class Item {
     public Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
 
-    public Location getLoc() {
-        return loc;
-    }
-
-    public void setLoc(Location loc) {
-        this.loc = loc;
-    }
-
     public abstract int getHealthAdjustment();
     public abstract int getPointAdjustment();
 
+    /**
+     * Draw this item if it is on the screen
+     *
+     * @param g2d 2d graphics handler
+     * @param gp the game's game panel
+     */
     public void draw(Graphics2D g2d, GamePanel gp) {
         // Calculate x and y position of tile on screen
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        // Draw tile if it is on screen to save resources
-        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        // Draw item if it is on screen to save resources
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+                && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }

@@ -54,8 +54,8 @@ public class ItemFactory {
                     gp.obj[lineNum] = new Door();
                     gp.obj[lineNum].worldX = x * gp.tileSize;
                     gp.obj[lineNum].worldY = y * gp.tileSize;
-                } else if(Objects.equals(type, "Punishment")) {
-                    gp.obj[lineNum] = new Punishment();
+                } else if(Objects.equals(type, "Spikes")) {
+                    gp.obj[lineNum] = new Spikes();
                     gp.obj[lineNum].worldX = x * gp.tileSize;
                     gp.obj[lineNum].worldY = y * gp.tileSize;
                 } else if(Objects.equals(type, "Bat")) {    // Need to repostion bats in the next map
