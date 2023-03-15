@@ -1,5 +1,7 @@
 Type, xCoord, yCoord
 Door, 1, 12
-Key, 4, 12
-Potion, 8, 10
-Punishment, 3, 18
+Key, 9, 13
+Potion, 4, 12
+Punishment, 3, 19
+Punishment, 27, 24
+Punishment, 35, 22
