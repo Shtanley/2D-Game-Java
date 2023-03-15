@@ -186,13 +186,23 @@ public class UI {
         String text;
         int txtLength, x, y;
 
-        // Draw Game Over
-        text = "Game Over";
-        g2d.setFont(trebuchet_80B);
-        g2d.setColor(Color.YELLOW);
-        x = getHorizontalCenter(text, gp.screenWidth);
-        y = gp.screenHeight/2 + (gp.tileSize*2);
-        g2d.drawString(text, x, y);
+        if(gp.player.dead()) {
+            // Draw Youch!
+            text = "Youch!";
+            g2d.setFont(trebuchet_80B);
+            g2d.setColor(Color.YELLOW);
+            x = getHorizontalCenter(text, gp.screenWidth);
+            y = gp.screenHeight/2 + (gp.tileSize*2);
+            g2d.drawString(text, x, y);
+        } else {
+            // Draw Escaped! :D
+            text = "Escaped! :D";
+            g2d.setFont(trebuchet_80B);
+            g2d.setColor(Color.YELLOW);
+            x = getHorizontalCenter(text, gp.screenWidth);
+            y = gp.screenHeight/2 + (gp.tileSize*2);
+            g2d.drawString(text, x, y);
+        }
 
         // Display time
         text = "Time: " + dFormat.format(playTime);
