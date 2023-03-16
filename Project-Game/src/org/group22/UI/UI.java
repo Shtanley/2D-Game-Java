@@ -129,7 +129,6 @@ public class UI {
     public void drawPlayScreen() {
         String text;
         int x, y;
-        healthImg = setHealthImg(gp.player.getHealth());
 
         // Display keys and points
         g2d.setFont(trebuchet_40);
@@ -139,9 +138,7 @@ public class UI {
         // Display score
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
         // Display health
-        g2d.drawImage(healthImg, gp.tileSize/2, gp.tileSize*11/4, gp.tileSize, gp.tileSize, null);
-        g2d.drawString("Health: " + gp.player.getHealth(), gp.tileSize*2, gp.tileSize*4);
-
+        drawHearts(gp.player.getHealth());
 
         // Time
         playTime += (double)1/60;
@@ -168,7 +165,6 @@ public class UI {
     public void drawPauseScreen() {
         String text;
         int x, y;
-        healthImg = setHealthImg(gp.player.getHealth());
 
         // Draw PAUSED
         text = "PAUSED";
@@ -190,8 +186,8 @@ public class UI {
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2d.drawString("x " + gp.player.keyCount, 74, gp.tileSize*3/2);
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
-        g2d.drawImage(healthImg, gp.tileSize/2, gp.tileSize*11/4, gp.tileSize, gp.tileSize, null);
-//        g2d.drawString("Health: " + gp.player.getHealth(), gp.tileSize*2, gp.tileSize*4);
+        drawHearts(gp.player.getHealth());
+//        g2d.drawString("Health: " + gp.player.getHealth(), gp.tileSize*4, gp.tileSize*4);
     }
 
     public void drawGameOverScreen() {
@@ -245,23 +241,30 @@ public class UI {
         int txtLength = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
         return screenWidth/2 - txtLength/2;
     }
-
-    public BufferedImage setHealthImg(int health) {
-        try {
-            healthFull = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/heart_full.png")));
-            healthEmpty = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/heart_blank.png")));
-            healthHalf = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/heart_half.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Draw heart images onto screen based on player health
+     * @param health    player current health
+     */
+    public void drawHearts(int health) {
+        // Set x & y coordinates for heart images
+        int heart1_x = gp.tileSize/2;
+        int heart1_y = gp.tileSize*11/4;
+        int heart2_x = gp.tileSize*5/4;
+        int heart2_y = gp.tileSize*11/4;
+        // Draw hearts depending on health
+        if(health >= 100) { // First heart
+            g2d.drawImage(gp.player.getFullHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
+        } else if (health == 50) {
+            g2d.drawImage(gp.player.getHalfHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
+        } else {
+            g2d.drawImage(gp.player.getBlankHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
         }
-        if(health <= 0) {
-            return healthEmpty;
-        }
-        else if(health <= 50) {
-            return healthHalf;
-        }
-        else {
-            return healthFull;
+        if(health == 150) { // Second heart
+            g2d.drawImage(gp.player.getHalfHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
+        } else if (health > 150) {
+            g2d.drawImage(gp.player.getFullHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
+        } else {
+            g2d.drawImage(gp.player.getBlankHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
         }
     }
 }

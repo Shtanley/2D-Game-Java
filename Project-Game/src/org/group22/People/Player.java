@@ -20,9 +20,10 @@ public class Player extends Entity {
     KeyInputs keyInputs;
     public final int screenX, screenY;
     public int keyCount = 0;
-    private final static int maxHealth = 100;
+    private final static int maxHealth = 200;
     private int health;
     private int points;
+    private BufferedImage halfHeart, fullHeart, blankHeart;
 
     /**
      * Player constructor
@@ -72,6 +73,16 @@ public class Player extends Entity {
         left2 = setup("/Player/boy_left_2");
         right1 = setup("/Player/boy_right_1");
         right2 = setup("/Player/boy_right_2");
+    }
+
+    public BufferedImage getFullHeart() {
+        return fullHeart = setup("/Object/heart_full");
+    }
+    public BufferedImage getBlankHeart() {
+        return fullHeart = setup("/Object/heart_blank");
+    }
+    public BufferedImage getHalfHeart() {
+        return fullHeart = setup("/Object/heart_half");
     }
 
     /**
