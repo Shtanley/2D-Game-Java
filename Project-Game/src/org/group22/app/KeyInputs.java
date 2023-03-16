@@ -21,7 +21,7 @@ public class KeyInputs implements KeyListener {
     }
 
     /**
-     * Check which key is pressed
+     * Check which key is pressed in the menu
      */
     @Override
     public void keyPressed(KeyEvent e) {
@@ -58,7 +58,7 @@ public class KeyInputs implements KeyListener {
                 }
             }
         }
-        // Game State
+        // Game State, player movement
         if(gp.gameState == gp.playState1 || gp.gameState == gp.playState2) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;

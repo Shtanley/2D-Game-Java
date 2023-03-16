@@ -3,12 +3,16 @@ package org.group22.UI;
 import org.group22.Drops.Key;
 import org.group22.app.GamePanel;
 
+import javax.imageio.ImageIO;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Objects;
+
 /**
  * UI class
  * Manage UI elements
@@ -18,7 +22,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2d;
     Font trebuchet_40, trebuchet_80B;
-    BufferedImage keyImg;
+    BufferedImage keyImg, healthImg, healthFull, healthEmpty, healthHalf;
     public boolean msgOn = false;
     public String msg = "";
     int msgTimer = 0;
@@ -34,9 +38,9 @@ public class UI {
         this.gp = gp;
         trebuchet_40 = new Font("Trebuchet", Font.PLAIN, 40);
         trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
-
         Key key = new Key();
         keyImg = key.image;
+//        healthImg = setHealthImg(gp.getPlayerHealth()); // gp.player is null here
     }
     /**
      * Display message on screen
@@ -125,13 +129,19 @@ public class UI {
     public void drawPlayScreen() {
         String text;
         int x, y;
+        healthImg = setHealthImg(gp.player.getHealth());
 
         // Display keys and points
         g2d.setFont(trebuchet_40);
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2d.drawString("x " + gp.player.keyCount, 74, gp.tileSize*3/2);
+        // Display score
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
+        // Display health
+        g2d.drawImage(healthImg, gp.tileSize/2, gp.tileSize*11/4, gp.tileSize, gp.tileSize, null);
+        g2d.drawString("Health: " + gp.player.getHealth(), gp.tileSize*2, gp.tileSize*4);
+
 
         // Time
         playTime += (double)1/60;
@@ -158,6 +168,7 @@ public class UI {
     public void drawPauseScreen() {
         String text;
         int x, y;
+        healthImg = setHealthImg(gp.player.getHealth());
 
         // Draw PAUSED
         text = "PAUSED";
@@ -175,11 +186,12 @@ public class UI {
         y = gp.tileSize;
         g2d.drawString(text, x, y);
 
-        // Display keys and points
+        // Display health, keys and points
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString("x " + gp.player.keyCount, 74, 65);
+        g2d.drawString("x " + gp.player.keyCount, 74, gp.tileSize*3/2);
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
-
+        g2d.drawImage(healthImg, gp.tileSize/2, gp.tileSize*11/4, gp.tileSize, gp.tileSize, null);
+//        g2d.drawString("Health: " + gp.player.getHealth(), gp.tileSize*2, gp.tileSize*4);
     }
 
     public void drawGameOverScreen() {
@@ -232,5 +244,24 @@ public class UI {
     protected int getHorizontalCenter(String text, int screenWidth) {
         int txtLength = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
         return screenWidth/2 - txtLength/2;
+    }
+
+    public BufferedImage setHealthImg(int health) {
+        try {
+            healthFull = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/heart_full.png")));
+            healthEmpty = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/heart_blank.png")));
+            healthHalf = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/heart_half.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(health <= 0) {
+            return healthEmpty;
+        }
+        else if(health <= 50) {
+            return healthHalf;
+        }
+        else {
+            return healthFull;
+        }
     }
 }

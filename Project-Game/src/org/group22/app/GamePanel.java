@@ -244,4 +244,8 @@ public class GamePanel extends JPanel implements Runnable{
             gameState = endState;
         }
     }
+
+    public int getPlayerHealth() {
+      return player.getHealth();
+    }
 }

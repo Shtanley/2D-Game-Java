@@ -3,10 +3,13 @@ package org.group22.People;
 import org.group22.Drops.Item;
 import org.group22.app.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Player class
@@ -20,7 +23,6 @@ public class Player extends Entity {
     private final static int maxHealth = 100;
     private int health;
     private int points;
-
 
     /**
      * Player constructor
@@ -135,14 +137,15 @@ public class Player extends Entity {
                     keyCount++;
                     gp.obj[i] = null;
                     gp.ui.showMsg("Key acquired");
-                    setHealth(item);
                     setPoints(item);
                 }
                 case "Potion" -> {
                     gp.obj[i] = null;
                     gp.ui.showMsg("Potion acquired");
                     setPoints(item);
-                    setHealth(item);
+                    if(this.health < maxHealth) {
+                        setHealth(item);
+                    }
                 }
                 case "Spikes" -> {
                     gp.obj[i] = null;
