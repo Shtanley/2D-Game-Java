@@ -1,7 +1,0 @@
-Type, xCoord, yCoord
-Door, 1, 12
-Key, 9, 13
-Potion, 4, 12
-Spikes, 3, 19
-Spikes, 27, 24
-Spikes, 35, 22

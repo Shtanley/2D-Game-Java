@@ -66,7 +66,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int titleState = 0;
     public final int playState1 = 1;
     public final int playState2 = 2;
-    public final int endState = 3;
+    public final int playState3 = 3;
+    public final int endState = 4;
     public boolean paused = false;
 
     /**
@@ -161,7 +162,7 @@ public class GamePanel extends JPanel implements Runnable{
         if(gameState == titleState) {
 
         }
-        if(gameState == playState1 || gameState == playState2) {
+        if(gameState >= playState1 && gameState <= playState3) {
             if (paused) {
                 // Pause game, do nothing
             } else if (player.dead()) {
@@ -237,6 +238,12 @@ public class GamePanel extends JPanel implements Runnable{
             keysNeeded = 1;
             player.setPlayerValues(3, 16, 8, "down");
             gameState = playState2;
+        } else if (state == playState3) {
+            cFactory = new ComponentFactory(this, "/Map/world03.txt");
+            iFactory.createItem("/Map/items03.txt");
+            keysNeeded = 5;
+            player.setPlayerValues(7, 27, 8, "down");
+            gameState = playState3;
         } else if (state == endState) {
             gameState = endState;
         }
