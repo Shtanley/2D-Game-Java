@@ -64,14 +64,22 @@ public class Player extends Entity {
 
 
     public void getPlayerImage() {
-        up1 = setup("/Player/boy_up_1");
-        up2 = setup("/Player/boy_up_2");
-        down1 = setup("/Player/boy_down_1");
-        down2 = setup("/Player/boy_down_2");
-        left1 = setup("/Player/boy_left_1");
-        left2 = setup("/Player/boy_left_2");
-        right1 = setup("/Player/boy_right_1");
-        right2 = setup("/Player/boy_right_2");
+        left1 = setup("/Player/priest_left1");
+        left2 = setup("/Player/priest_left2");
+        left3 = setup("/Player/priest_left3");
+        left4 = setup("/Player/priest_left4");
+        right1 = setup("/Player/priest_right1");
+        right2 = setup("/Player/priest_right2");
+        right3 = setup("/Player/priest_right3");
+        right4 = setup("/Player/priest_right4");
+        up1 = right1;
+        up2 = right2;
+        up3 = right3;
+        up4 = right4;
+        down1 = left1;
+        down2 = left2;
+        down3 = left3;
+        down4 = left4;
     }
 
     public BufferedImage getFullHeart() {
@@ -164,7 +172,7 @@ public class Player extends Entity {
                     setHealth(item);
                 }
                 case "Door" -> {
-                    if (keyCount == gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+                    if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
                         gp.obj[i] = null;
                         keyCount = 0;
                         setPoints(item);

@@ -63,7 +63,7 @@ public class UI {
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
-        if(gp.gameState == gp.playState1 || gp.gameState == gp.playState2) {
+        if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
             if(gp.paused) {
                 drawPauseScreen();
             } else {
@@ -131,10 +131,10 @@ public class UI {
         int x, y;
 
         // Display keys and points
-        g2d.setFont(trebuchet_40);
+        g2d.setFont(trebuchet_40.deriveFont(24F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString("x " + gp.player.keyCount, 74, gp.tileSize*3/2);
+        g2d.drawString("x " + gp.player.keyCount, gp.tileSize*3/2, gp.tileSize*5/4);
         // Display score
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
         // Display health
@@ -176,7 +176,7 @@ public class UI {
 
         // Display current time
         text = "Time: " + dFormat.format(playTime);
-        g2d.setFont(trebuchet_40);
+        g2d.setFont(trebuchet_40.deriveFont(27F));
         g2d.setColor(Color.WHITE);
         x = getHorizontalCenter(text, gp.screenWidth);
         y = gp.tileSize;
