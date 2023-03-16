@@ -10,15 +10,6 @@ Potion, 19, 22
 Potion, 11, 10
 Potion, 15, 34
 Door, 2, 1
-Bat, 23, 32
-Bat, 31, 27
-Bat, 17, 9
-Bat, 29, 5
-Bat, 37, 17
-Bat, 31, 27
-Bat, 9, 17
-Bat, 18, 3
-Bat, 3, 24
 Spikes, 11, 38
 Spikes, 22, 31
 Spikes, 27, 14
