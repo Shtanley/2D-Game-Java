@@ -11,6 +11,8 @@ import java.awt.event.KeyListener;
 public class KeyInputs implements KeyListener {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    // Debug
+    boolean checkDrawTime = false;
 
     public KeyInputs(GamePanel gp) {
         this.gp = gp;
@@ -79,6 +81,13 @@ public class KeyInputs implements KeyListener {
             if (key == KeyEvent.VK_ESCAPE) {
                 gp.paused = !gp.paused;
                 // System.out.println("ESCAPE");
+            }
+            if (key == KeyEvent.VK_T) { // Draw time button for debugging
+                if (!checkDrawTime) {
+                    checkDrawTime = true;
+                } else if(checkDrawTime) {
+                    checkDrawTime = false;
+                }
             }
         }
     }

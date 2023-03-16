@@ -12,10 +12,6 @@ import java.util.Objects;
 public class Spikes extends Punishment {
     public Spikes() {
         name = "Spikes";
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/peaks_1.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = setup("/Object/peaks_1");
     }
 }

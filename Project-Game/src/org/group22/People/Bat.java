@@ -60,7 +60,7 @@ public class Bat extends Enemy {
      */
     public void setAction() {
         lockActionCount++;
-        if(lockActionCount == 120) {
+        if(lockActionCount == 100) {
             Random rand = new Random();
             int n = rand.nextInt(100) + 1;
 

@@ -1,6 +1,7 @@
 package org.group22.GameMap;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,46 +44,42 @@ public class ComponentFactory {
      * Set sprite and collision for each type of map component
      */
     public void getTileImage() {
-        try {
-            // ground normal
-            mc[0] = new MapComponent();
-            mc[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/ground01.png")));
-            // ground dark
-            mc[1] = new MapComponent();
-            mc[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/ground02.png")));
-            mc[1].collision = true;
-            // barrier horizontal or wall up
-            mc[2] = new MapComponent();
-            mc[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier01.png")));
-            mc[2].collision = true;
-            // barrier vertical
-            mc[3] = new MapComponent();
-            mc[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier02.png")));
-            mc[3].collision = true;
-            // wall left
-            mc[4] = new MapComponent();
-            mc[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier03.png")));
-            mc[4].collision = true;
-            // wall corner
-            mc[5] = new MapComponent();
-            mc[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier04.png")));
-            mc[5].collision = true;
-            // wall down
-            mc[6] = new MapComponent();
-            mc[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier05.png")));
-            mc[6].collision = true;
-            // barrier corner left down
-            mc[7] = new MapComponent();
-            mc[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barriercorner01.png")));
-            mc[7].collision = true;
-            // barrier corner right up
-            mc[8] = new MapComponent();
-            mc[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barriercorner02.png")));
-            mc[8].collision = true;
+        // ground normal
+        mc[0] = new MapComponent();
+        mc[0].image = setup("/Tilesv2/ground01");
+        // ground dark
+        mc[1] = new MapComponent();
+        mc[1].image = setup("/Tilesv2/ground02");
+        mc[1].collision = true;
+        // barrier horizontal or wall up
+        mc[2] = new MapComponent();
+        mc[2].image = setup("/Tilesv2/barrier01");
+        mc[2].collision = true;
+        // barrier vertical
+        mc[3] = new MapComponent();
+        mc[3].image = setup("/Tilesv2/barrier02");
+        mc[3].collision = true;
+        // wall left
+        mc[4] = new MapComponent();
+        mc[4].image = setup("/Tilesv2/barrier03");
+        mc[4].collision = true;
+        // wall corner
+        mc[5] = new MapComponent();
+        mc[5].image = setup("/Tilesv2/barrier04");
+        mc[5].collision = true;
+        // wall down
+        mc[6] = new MapComponent();
+        mc[6].image = setup("/Tilesv2/barrier05");
+        mc[6].collision = true;
+        // barrier corner left down
+        mc[7] = new MapComponent();
+        mc[7].image = setup("/Tilesv2/barriercorner01");
+        mc[7].collision = true;
+        // barrier corner right up
+        mc[8] = new MapComponent();
+        mc[8].image = setup("/Tilesv2/barriercorner02");
+        mc[8].collision = true;
 
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void loadMap(String filePath) {
@@ -146,4 +143,23 @@ public class ComponentFactory {
         }
     }
 
+    public BufferedImage scaleImg(BufferedImage original, int width, int height) {
+        BufferedImage newImg = new BufferedImage(width, height, original.getType());
+        Graphics2D g2d = newImg.createGraphics();
+        g2d.drawImage(original, 0, 0, width, height, null);
+        g2d.dispose();
+        return newImg;
+    }
+
+    public BufferedImage setup(String imgPath) {
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imgPath + ".png")));
+//            image = scaleImg(image, gp.tileSize, gp.tileSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 }

@@ -2,8 +2,12 @@ package org.group22.GameMap;
 
 import org.group22.Drops.Item;
 import org.group22.People.Entity;
+import org.group22.app.GamePanel;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 /**
  * MapComponent class
@@ -15,6 +19,7 @@ import java.awt.image.BufferedImage;
  * @author Dina
  */
 public class MapComponent {
+    GamePanel gp;
     protected boolean validLocation;
     protected Entity charHere;
 //    protected Location loc;

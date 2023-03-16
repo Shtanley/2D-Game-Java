@@ -15,10 +15,6 @@ import java.util.Objects;
 public class Potion extends BonusReward {
     public Potion() {
         name = "Potion";
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/newpotion.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = setup("/Object/newpotion");
     }
 }

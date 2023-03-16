@@ -15,10 +15,6 @@ import java.util.Objects;
 public class Key extends Reward {
     public Key() {
         name = "Key";
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/newkey.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = setup("/Object/newkey");
     }
 }

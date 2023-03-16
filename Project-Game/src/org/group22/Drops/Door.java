@@ -19,11 +19,7 @@ public class Door extends Item {
 
     public Door() {
         name = "Door";
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/newdoor.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = setup("/Object/newdoor");
         collision = true;
     }
 
