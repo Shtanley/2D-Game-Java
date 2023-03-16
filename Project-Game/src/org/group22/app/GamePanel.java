@@ -235,14 +235,14 @@ public class GamePanel extends JPanel implements Runnable{
         } else if (state == playState2) {
             cFactory = new ComponentFactory(this, "/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
-            keysNeeded = 1;
-            player.setPlayerValues(3, 16, 8, "down");
+            keysNeeded = 4;
+            player.setPlayerValues(1, 16, 8, "down");
             gameState = playState2;
         } else if (state == playState3) {
             cFactory = new ComponentFactory(this, "/Map/world03.txt");
             iFactory.createItem("/Map/items03.txt");
-            keysNeeded = 5;
-            player.setPlayerValues(7, 27, 8, "down");
+            keysNeeded = 6;
+            player.setPlayerValues(1, 23, 8, "down");
             gameState = playState3;
         } else if (state == endState) {
             gameState = endState;

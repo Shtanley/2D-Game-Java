@@ -7,7 +7,7 @@ Potion, 40, 19
 Potion, 16, 19
 Potion, 45, 7
 Potion, 7, 7
-Door, 1, 16
+Door, 1, 12
 Bat, 15, 7
 Bat, 8, 10
 Bat, 14, 7
