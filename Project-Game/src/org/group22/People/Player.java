@@ -241,8 +241,6 @@ public class Player extends Entity {
 
     public int getMaxHealth(){ return maxHealth;}
 
-    public void shiftHealth(int deltaHealth) {this.health += deltaHealth;}
-
     public int getPoints() {
         return points;
     }
