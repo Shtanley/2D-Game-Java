@@ -50,6 +50,7 @@ public class ComponentFactory {
             // ground dark
             mc[1] = new MapComponent();
             mc[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/ground02.png")));
+            mc[1].collision = true;
             // barrier horizontal or wall up
             mc[2] = new MapComponent();
             mc[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier01.png")));
