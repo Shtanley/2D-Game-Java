@@ -1,7 +1,5 @@
 package org.group22.Drops;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 /**
  * Abstract punishment class

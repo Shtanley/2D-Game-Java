@@ -1,6 +1,5 @@
 package org.group22.Drops;
 
-import org.group22.GameMap.Location;
 import org.group22.app.GamePanel;
 
 import java.awt.*;
@@ -15,7 +14,6 @@ import java.awt.image.BufferedImage;
  * @author Sameer
  */
 public abstract class Item {
-    private Location loc;
     public BufferedImage image;
     public String name;
     public boolean collision = false;
@@ -46,12 +44,12 @@ public abstract class Item {
         }
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return name + " {" +
-                "loc=" + loc +
-                ", healthAdjustment=" + getHealthAdjustment() +
-                ", pointAdjustment=" + getPointAdjustment() +
-                '}';
-    }
+//    @java.lang.Override
+//    public java.lang.String toString() {
+//        return name + " {" +
+//                "loc=" + loc +
+//                ", healthAdjustment=" + getHealthAdjustment() +
+//                ", pointAdjustment=" + getPointAdjustment() +
+//                '}';
+//    }
 }

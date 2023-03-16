@@ -1,15 +1,10 @@
 package org.group22.People;
 
-import org.group22.Drops.Door;
 import org.group22.Drops.Item;
-import org.group22.Drops.Key;
-import org.group22.Drops.Potion;
 import org.group22.app.*;
 
 import java.awt.*;
 import java.awt.Graphics2D;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
