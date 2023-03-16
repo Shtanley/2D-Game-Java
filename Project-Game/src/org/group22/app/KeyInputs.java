@@ -58,8 +58,8 @@ public class KeyInputs implements KeyListener {
                 }
             }
         }
-        // Game State, player movement
-        if(gp.gameState == gp.playState1 || gp.gameState == gp.playState2) {
+        // Game State
+        if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;
                 // System.out.println("UP");

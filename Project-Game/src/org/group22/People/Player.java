@@ -23,7 +23,6 @@ public class Player extends Entity {
     private final static int maxHealth = 200;
     private int health;
     private int points;
-    private BufferedImage halfHeart, fullHeart, blankHeart;
 
     /**
      * Player constructor
@@ -76,13 +75,13 @@ public class Player extends Entity {
     }
 
     public BufferedImage getFullHeart() {
-        return fullHeart = setup("/Object/heart_full");
+        return setup("/Object/heart_full");
     }
     public BufferedImage getBlankHeart() {
-        return fullHeart = setup("/Object/heart_blank");
+        return setup("/Object/heart_blank");
     }
     public BufferedImage getHalfHeart() {
-        return fullHeart = setup("/Object/heart_half");
+        return setup("/Object/heart_half");
     }
 
     /**
