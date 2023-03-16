@@ -1,6 +1,5 @@
 package org.group22.People;
 
-import org.group22.GameMap.Location;
 import org.group22.app.GamePanel;
 
 import java.awt.*;

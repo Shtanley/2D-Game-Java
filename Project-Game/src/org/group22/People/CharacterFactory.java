@@ -4,7 +4,6 @@ import org.group22.Drops.Door;
 import org.group22.Drops.Key;
 import org.group22.Drops.Potion;
 import org.group22.Drops.Spikes;
-import org.group22.GameMap.Location;
 import org.group22.app.GamePanel;
 
 import java.io.BufferedReader;

@@ -1,6 +1,5 @@
 package org.group22.People;
 
-import org.group22.GameMap.*;
 import org.group22.app.GamePanel;
 
 import java.awt.*;
@@ -11,7 +10,6 @@ import javax.imageio.ImageIO;
 
 public abstract class Entity {
     GamePanel gp;
-    private Location loc;
     public int worldX, worldY;
     public int speed;
 
@@ -126,23 +124,23 @@ public abstract class Entity {
      *
      * @return the location of this character
      */
-    public Location getLoc(){
-        return loc;
-    }
+//    public Location getLoc(){
+//        return loc;
+//    }
 
     /**
      * Set the location of this character
      *
      * @param newLoc new location of character
      */
-    public void setLoc(Location newLoc) {
-        loc = newLoc;
-    }
+//    public void setLoc(Location newLoc) {
+//        loc = newLoc;
+//    }
 
-    @Override
-    public java.lang.String toString() {
-        return "Character{" +
-                "loc=" + loc +
-                '}';
-    }
+//    @Override
+//    public java.lang.String toString() {
+//        return "Character{" +
+//                "loc=" + loc +
+//                '}';
+//    }
 }

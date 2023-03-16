@@ -1,8 +1,5 @@
 package org.group22.Drops;
 
-import org.group22.app.GamePanel;
-
-import org.group22.GameMap.Location;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.Objects;

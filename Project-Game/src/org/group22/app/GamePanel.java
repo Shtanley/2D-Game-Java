@@ -5,14 +5,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-import javax.swing.text.html.parser.Entity;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
 import org.group22.People.Bat;
 import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
-//import org.group22.People.*;
 import org.group22.UI.UI;
 
 /**

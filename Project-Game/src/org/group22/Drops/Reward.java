@@ -1,9 +1,5 @@
 package org.group22.Drops;
 
-import org.group22.GameMap.Location;
-
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 /**
  * Abstract reward class

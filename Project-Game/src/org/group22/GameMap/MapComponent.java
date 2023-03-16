@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
 public class MapComponent {
     protected boolean validLocation;
     protected Entity charHere;
-    protected Location loc;
+//    protected Location loc;
     protected Item item;
     public BufferedImage image;
     public boolean collision = false;
@@ -43,18 +43,18 @@ public class MapComponent {
         return item;
     }
 
-    public Location getLoc() {
-        return loc;
-    }
+//    public Location getLoc() {
+//        return loc;
+//    }
 
     // Setters
     public void setValidLocation(boolean validLocation) {
         this.validLocation = validLocation;
     }
 
-    public void setLoc(Location loc) {
-        this.loc = loc;
-    }
+//    public void setLoc(Location loc) {
+//        this.loc = loc;
+//    }
 
     public void setItem(Item item) {
         this.item = item;
@@ -69,7 +69,7 @@ public class MapComponent {
         }
     }
 
-    public String toString() {
-        return "Map component at " + loc + " containing item: " + item + " and character: " + charHere;
-    }
+//    public String toString() {
+//        return "Map component at " + loc + " containing item: " + item + " and character: " + charHere;
+//    }
 }
