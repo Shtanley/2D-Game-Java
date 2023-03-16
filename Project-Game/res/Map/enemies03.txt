@@ -1,0 +1,10 @@
+Type, xCoord, yCoord, pathDirections
+Bat, 23, 32
+Bat, 31, 27
+Bat, 17, 9
+Bat, 29, 5
+Bat, 37, 17
+Bat, 31, 27
+Bat, 9, 17
+Bat, 18, 3
+Bat, 3, 24

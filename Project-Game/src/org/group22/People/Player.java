@@ -239,7 +239,7 @@ public class Player extends Entity {
         return health;
     }
 
-    public void shiftHealth(int deltaHealth) {this.health += deltaHealth;}
+    public int getMaxHealth(){ return maxHealth;}
 
     public int getPoints() {
         return points;

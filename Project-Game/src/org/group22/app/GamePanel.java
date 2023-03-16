@@ -253,12 +253,13 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory = new ComponentFactory(this, "/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
             eFactory.createEnemies("/Map/enemies02.txt");
-            keysNeeded = 1;
+            keysNeeded = 3;
             player.setPlayerValues(3, 16, 8, "down");
             gameState = playState2;
         } else if (state == playState3) {
             cFactory = new ComponentFactory(this, "/Map/world03.txt");
             iFactory.createItem("/Map/items03.txt");
+            eFactory.createEnemies("/Map/enemies03.txt");
             keysNeeded = 6;
             player.setPlayerValues(1, 23, 8, "down");
             gameState = playState3;

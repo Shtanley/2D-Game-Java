@@ -7,20 +7,6 @@ Potion, 40, 19
 Potion, 16, 19
 Potion, 45, 7
 Potion, 7, 7
-Door, 1, 12
-Bat, 15, 7
-Bat, 8, 10
-Bat, 14, 7
-Bat, 17, 14
-Bat, 13, 19
-Bat, 22, 3
-Bat, 3, 5
-Bat, 35, 9
-Bat, 32, 23
-Bat, 36, 3
-Bat, 25, 17
-Bat, 38, 7
-Bat, 44, 19
 Spikes, 29, 22
 Spikes, 44, 19
 Spikes, 43, 5
@@ -29,3 +15,4 @@ Spikes, 26, 15
 Spikes, 13, 19
 Spikes, 2, 9
 Spikes, 20, 9
+Door, 1, 12
