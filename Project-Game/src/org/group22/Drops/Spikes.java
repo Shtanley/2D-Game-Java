@@ -13,7 +13,7 @@ public class Spikes extends Punishment {
     public Spikes() {
         name = "Spikes";
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/tent.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/peaks_1.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -20,7 +20,7 @@ public class Door extends Item {
     public Door() {
         name = "Door";
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/door.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Object/newdoor.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
