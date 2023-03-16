@@ -53,7 +53,6 @@ public class EnemyFactory {
                     newSkeleton.setWorldY(y * gp.tileSize);
                     int i = 3;
                     while(i < words.length){
-                        System.out.println(words[i]);
                         newSkeleton.addToPath(words[i]);
                         i++;
                     }

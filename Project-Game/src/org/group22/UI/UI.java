@@ -130,15 +130,8 @@ public class UI {
         String text;
         int x, y;
 
-        // Display keys and points
-        g2d.setFont(trebuchet_40.deriveFont(24F));
-        g2d.setColor(Color.WHITE);
-        g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString("x " + gp.player.keyCount, gp.tileSize*3/2, gp.tileSize*5/4);
-        // Display score
-        g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
-        // Display health
-        drawHearts(gp.player.getHealth());
+        // Display keys and points and health
+        drawStats();
 
         // Time
         playTime += (double)1/60;
@@ -183,11 +176,7 @@ public class UI {
         g2d.drawString(text, x, y);
 
         // Display health, keys and points
-        g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString("x " + gp.player.keyCount, 74, gp.tileSize*3/2);
-        g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
-        drawHearts(gp.player.getHealth());
-//        g2d.drawString("Health: " + gp.player.getHealth(), gp.tileSize*4, gp.tileSize*4);
+        drawStats();
     }
 
     public void drawGameOverScreen() {
@@ -197,20 +186,15 @@ public class UI {
         if(gp.player.dead()) {
             // Draw Youch!
             text = "Youch!";
-            g2d.setFont(trebuchet_80B);
-            g2d.setColor(Color.YELLOW);
-            x = getHorizontalCenter(text, gp.screenWidth);
-            y = gp.screenHeight/2 + (gp.tileSize*2);
-            g2d.drawString(text, x, y);
         } else {
             // Draw Escaped! :D
             text = "Escaped! :D";
-            g2d.setFont(trebuchet_80B);
-            g2d.setColor(Color.YELLOW);
-            x = getHorizontalCenter(text, gp.screenWidth);
-            y = gp.screenHeight/2 + (gp.tileSize*2);
-            g2d.drawString(text, x, y);
         }
+        g2d.setFont(trebuchet_80B);
+        g2d.setColor(Color.YELLOW);
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y = gp.screenHeight/2 + (gp.tileSize*2);
+        g2d.drawString(text, x, y);
 
         // Display time
         text = "Time: " + dFormat.format(playTime);
@@ -231,6 +215,7 @@ public class UI {
         // Stop game thread
         gp.gameThread = null;
     }
+
     /**
      * Get horizontal center of text
      * @param text  Text to center
@@ -241,16 +226,30 @@ public class UI {
         int txtLength = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
         return screenWidth/2 - txtLength/2;
     }
+
+    public void drawStats(){
+        g2d.setFont(trebuchet_40);
+        g2d.setColor(Color.WHITE);
+        g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+        g2d.drawString(": " + gp.player.keyCount + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
+        g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
+        drawHealth(gp.tileSize/2, gp.tileSize*11/4);
+    }
+
     /**
      * Draw heart images onto screen based on player health
-     * @param health    player current health
+     * @param x    x coordinate to draw hearts at
+     * @param y    y coordinate to draw hearts at
      */
-    public void drawHearts(int health) {
+    public void drawHealth(int x, int y) {
+        int health = gp.player.getHealth();
         // Set x & y coordinates for heart images
-        int heart1_x = gp.tileSize/2;
-        int heart1_y = gp.tileSize*11/4;
-        int heart2_x = gp.tileSize*5/4;
-        int heart2_y = gp.tileSize*11/4;
+        int heart1_x = x;
+        int heart1_y = y;
+        int heart2_x = x + gp.tileSize*3/4;
+        int heart2_y = y;
+        int text_x = x + 90;
+        int text_y = y + 40;
         // Draw hearts depending on health
         if(health >= 100) { // First heart
             g2d.drawImage(gp.player.getFullHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
@@ -266,5 +265,6 @@ public class UI {
         } else {
             g2d.drawImage(gp.player.getBlankHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
         }
+        g2d.drawString(": " + gp.player.getHealth() + "/" + gp.player.getMaxHealth(), text_x, text_y);
     }
 }

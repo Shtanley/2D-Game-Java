@@ -9,7 +9,6 @@ Potion, 35, 22
 Potion, 19, 22
 Potion, 11, 10
 Potion, 15, 34
-Door, 2, 1
 Spikes, 11, 38
 Spikes, 22, 31
 Spikes, 27, 14
@@ -17,5 +16,6 @@ Spikes, 34, 14
 Spikes, 11, 7
 Spikes, 31, 27
 Spikes, 10, 30
+Door, 2, 1
 
 
