@@ -44,27 +44,41 @@ public class ComponentFactory {
      */
     public void getTileImage() {
         try {
-            // Grass
+            // ground normal
             mc[0] = new MapComponent();
-            mc[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/grass00.png")));
-            // Wall
+            mc[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/ground01.png")));
+            // ground dark
             mc[1] = new MapComponent();
-            mc[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/wall.png")));
-            mc[1].collision = true;
-            // Water
+            mc[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/ground02.png")));
+            // barrier horizontal or wall up
             mc[2] = new MapComponent();
-            mc[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/water00.png")));
+            mc[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier01.png")));
             mc[2].collision = true;
-            // Earth
+            // barrier vertical
             mc[3] = new MapComponent();
-            mc[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/earth.png")));
-            // Trees
+            mc[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier02.png")));
+            mc[3].collision = true;
+            // wall left
             mc[4] = new MapComponent();
-            mc[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/tree.png")));
+            mc[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier03.png")));
             mc[4].collision = true;
-            // Floor
+            // wall corner
             mc[5] = new MapComponent();
-            mc[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/floor01.png")));
+            mc[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier04.png")));
+            mc[5].collision = true;
+            // wall down
+            mc[6] = new MapComponent();
+            mc[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barrier05.png")));
+            mc[6].collision = true;
+            // barrier corner left down
+            mc[7] = new MapComponent();
+            mc[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barriercorner01.png")));
+            mc[7].collision = true;
+            // barrier corner right up
+            mc[8] = new MapComponent();
+            mc[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tilesv2/barriercorner02.png")));
+            mc[8].collision = true;
+
         } catch(IOException e) {
             e.printStackTrace();
         }
