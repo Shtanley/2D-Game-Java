@@ -2,40 +2,103 @@ package org.group22.People;
 
 import org.group22.app.GamePanel;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Skeleton extends Enemy{
+
+    ArrayList<String> path;
+    int pathIndex;
+    int nextX;
+    int nextY;
 
     /**
      * Constructs skeleton with null location
      */
     public Skeleton(GamePanel gp) {
         super(gp);
-        System.out.println("Creating " + this);
+        path = new ArrayList<>();
+        pathIndex = 0;
+
+
+        hitBox = new Rectangle();
+        name = "Skeleton";
+        speed = 1;
+
+        // Tile size = 48
+        // Given buffer of 4
+        hitBox.x = 4;
+        hitBox.y = 4;
+        hitBox.width = 40;
+        hitBox.height = 40;
+        hitBoxDefaultX = hitBox.x;
+        hitBoxDefaultY = hitBox.y;
+
+        direction = "down";
+
+        getImage();
     }
 
-    /**
-     * Moves skeleton
-     * Skeletons have a random movement pattern
-     * @condition if skeleton moves collides with a map element, it does not move
-     */
-    public void move(){
-//        int move = 0;
-//        boolean collision = true;
-//        while (collision){
-//            move = (int) (Math.random() * 4) + 1;
-//            collision = false;
-//        }
-//        if (move == 1){
-//            setLoc(new Location(getLoc().getX() + 1, getLoc().getY()));
-//        } else if (move == 2){
-//            setLoc(new Location(getLoc().getX() - 1, getLoc().getY()));
-//        } else if (move == 3){
-//            setLoc(new Location(getLoc().getX(), getLoc().getY() + 1));
-//        } else {
-//            setLoc(new Location(getLoc().getX(), getLoc().getY() - 1));
-//        }
+
+    public void getImage() {
+        up1 = setup("/Enemy/skeletonlord_up_1");
+        up2 = setup("/Enemy/skeletonlord_up_2");
+        down1 = setup("/Enemy/skeletonlord_down_1");
+        down2 = setup("/Enemy/skeletonlord_down_2");
+        left1 = setup("/Enemy/skeletonlord_left_1");
+        left2 = setup("/Enemy/skeletonlord_left_2");
+        right1 = setup("/Enemy/skeletonlord_right_1");
+        right1 = setup("/Enemy/skeletonlord_right_2");
     }
 
-//    public String toString() {
-//        return "skeleton at " + getLoc();
-//    }
+    public void setAction(){
+        boolean condition = false;
+        switch (direction){
+            case "up" -> condition = worldY <= nextY;
+            case "down" -> condition = worldY >= nextY;
+            case "left" -> condition = worldX <= nextX;
+            case "right" -> condition = worldX >= nextX;
+        }
+        if(condition) {
+            this.direction = path.get(pathIndex);
+            switch (direction){
+                case "up" -> nextY = worldY - gp.tileSize;
+                case "down" -> nextY = worldY + gp.tileSize;
+                case "left" -> nextX = worldX - gp.tileSize;
+                case "right" -> nextX = worldX + gp.tileSize;
+            }
+            pathIndex++;
+            if(pathIndex == path.size()) {
+                pathIndex = 0;
+            }
+        }
+    }
+
+    public void addToPath(String dir){
+        assert(Objects.equals(dir, "U")
+                || Objects.equals(dir, "D")
+                || Objects.equals(dir, "L")
+                || Objects.equals(dir, "R"));
+        switch (dir) {
+            case "U" -> path.add("up");
+            case "D" -> path.add("down");
+            case "L" -> path.add("left");
+            case "R" -> path.add("right");
+        }
+    }
+
+    public boolean verifyPath(){
+        int deltaX = 0;
+        int deltaY = 0;
+        for(String dir : path) {
+            switch(dir){
+                case ("up") -> deltaY += 1;
+                case ("down") -> deltaY -= 1;
+                case ("right") -> deltaX += 1;
+                case ("left") -> deltaX -= 1;
+            }
+        }
+        return deltaX == 0 && deltaY == 0;
+    }
 }

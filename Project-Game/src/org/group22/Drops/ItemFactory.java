@@ -29,6 +29,7 @@ public class ItemFactory {
      * @param filePath the location of the text file containing all items to be created
      */
     public void createItem(String filePath) {
+        gp.obj = new Item[gp.maxItems];
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             assert is != null;
@@ -60,10 +61,6 @@ public class ItemFactory {
                     gp.obj[lineNum] = new Spikes();
                     gp.obj[lineNum].worldX = x * gp.tileSize;
                     gp.obj[lineNum].worldY = y * gp.tileSize;
-                } else if(Objects.equals(type, "Bat")) {    // Need to repostion bats in the next map
-                    gp.bat[lineNum] = new Bat(gp);
-                    gp.bat[lineNum].worldX = x * gp.tileSize;
-                    gp.bat[lineNum].worldY = y * gp.tileSize;
                 }
                 // Read next line
                 line = br.readLine();

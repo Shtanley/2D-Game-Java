@@ -28,37 +28,7 @@ public abstract class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {};
-
-    public void update() {
-        setAction();
-
-        collisionOn = false;
-        gp.cCheck.checkComponent(this);
-
-        // Collision detection
-        collisionOn = false;
-        gp.cCheck.checkComponent(this);
-        gp.cCheck.checkEntity(this, gp.bat);
-
-        if(!collisionOn) {
-            switch (direction) {
-                case "up" -> worldY -= speed;
-                case "down" -> worldY += speed;
-                case "left" -> worldX -= speed;
-                case "right" -> worldX += speed;
-            }
-        }
-
-        spriteCount++;
-        if(spriteCount > 10) {
-            spriteCount = 0;
-            if(spriteNum == 1)
-                spriteNum = 2;
-            else
-                spriteNum = 1;
-        }
-    };
+    public abstract void update();
 
     public BufferedImage scaleImg(BufferedImage original, int width, int height) {
         BufferedImage newImg = new BufferedImage(width, height, original.getType());
@@ -119,28 +89,11 @@ public abstract class Entity {
         }
     }
 
-    /**
-     * Get the location of this character
-     *
-     * @return the location of this character
-     */
-//    public Location getLoc(){
-//        return loc;
-//    }
+    public void setWorldX(int x){
+        worldX = x;
+    }
 
-    /**
-     * Set the location of this character
-     *
-     * @param newLoc new location of character
-     */
-//    public void setLoc(Location newLoc) {
-//        loc = newLoc;
-//    }
-
-//    @Override
-//    public java.lang.String toString() {
-//        return "Character{" +
-//                "loc=" + loc +
-//                '}';
-//    }
+    public void setWorldY(int y) {
+        worldY = y;
+    }
 }

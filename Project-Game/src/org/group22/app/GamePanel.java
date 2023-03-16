@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
-import org.group22.People.Bat;
+import org.group22.People.EnemyFactory;
+import org.group22.People.Enemy;
 import org.group22.People.Player;
 import org.group22.GameMap.ComponentFactory;
 import org.group22.UI.UI;
@@ -38,17 +39,18 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Entity settings
     public final int maxItems = 50;
-    public final int maxBats = 50;
+    public final int maxEnemies = 50;
 
     // FPS settings
     int fps = 60;
 
     // System
-    public ComponentFactory cFactory;
-    public KeyInputs keyInputs;
     public Thread gameThread;
+    public KeyInputs keyInputs;
     public CollisionChecker cCheck;
     public ItemFactory iFactory;
+    public ComponentFactory cFactory;
+    public EnemyFactory eFactory;
 
     // UI
      public UI ui;
@@ -56,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game objects
     public Player player;
     public Item[] obj;   // Array of objects
-    public Bat[] bat; // Array of enemies
+    public Enemy[] enemies; // Array of enemies
     public int keysNeeded;
 
     // Game state
@@ -91,10 +93,12 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void setupGame() {
         player = new Player(this, keyInputs);
+        cCheck = new CollisionChecker(this);
 
         iFactory  = new ItemFactory(this);
+        eFactory = new EnemyFactory(this);
         obj = new Item[maxItems];
-        bat = new Bat[maxBats];
+        enemies = new Enemy[maxEnemies];
 
         gameState = titleState;
     }
@@ -166,9 +170,9 @@ public class GamePanel extends JPanel implements Runnable{
                 changeGameState(endState);
             } else {
                 player.update();
-                for (Bat value : bat) {
-                    if (value != null) {
-                        value.update();
+                for (Enemy enemy : enemies) {
+                    if (enemy != null) {
+                        enemy.update();
                     }
                 }
             }
@@ -199,9 +203,9 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             // Enemy
-            for (Bat value : bat) {
-                if (value != null) {
-                    value.draw(g2d);
+            for (Enemy enemy : enemies) {
+                if (enemy != null) {
+                    enemy.draw(g2d);
                 }
             }
             // Player
@@ -225,14 +229,14 @@ public class GamePanel extends JPanel implements Runnable{
         } else if (state == playState1) {
             cFactory = new ComponentFactory(this, "/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
+            eFactory.createEnemies("/Map/enemies01.txt");
             keysNeeded = 3;
-            player = new Player(this, keyInputs);
             player.setPlayerValues(35, 10, 8, "down");
-            cCheck = new CollisionChecker(this);
             gameState = playState1;
         } else if (state == playState2) {
             cFactory = new ComponentFactory(this, "/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
+            eFactory.createEnemies("/Map/enemies02.txt");
             keysNeeded = 1;
             player.setPlayerValues(3, 16, 8, "down");
             gameState = playState2;

@@ -20,7 +20,6 @@ public class Player extends Entity {
     private final static int maxHealth = 100;
     private int health;
     private int points;
-    private ArrayList<Item> itemsCollected;
 
 
     /**
@@ -51,7 +50,6 @@ public class Player extends Entity {
         System.out.println("Creating Player");
         this.health = maxHealth;
         this.points = 0;
-        itemsCollected = new ArrayList<>();
     }
 
     public void setPlayerValues(int x, int y, int speed, String direction) {
@@ -102,7 +100,7 @@ public class Player extends Entity {
             int objIndex = gp.cCheck.checkItem(this, true);
             pickupItem(objIndex);
             // Enemy collision
-            int enemyIndex = gp.cCheck.checkEntity(this, gp.bat);
+            int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
             encounter(enemyIndex != -1);
             if(!collisionOn) {
                 switch (direction) {

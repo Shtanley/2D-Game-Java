@@ -12,7 +12,7 @@ import java.util.Random;
  * @author Michael
  * @author Sameer
  */
-public class Bat extends Entity {
+public class Bat extends Enemy {
     /**
      * Bat constructor
      * Set bat image and bat movement
@@ -35,6 +35,11 @@ public class Bat extends Entity {
 
         getImage();
     }
+
+//    @Override
+//    void move() {
+//
+//    }
 
     /**
      * Set bat image

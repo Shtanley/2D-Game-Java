@@ -5,6 +5,7 @@ import org.group22.People.Entity;
 /**
  * CollisionChecker class
  * Check collision between player and map
+ *
  * @author Sameer
  */
 public class CollisionChecker {
@@ -15,8 +16,8 @@ public class CollisionChecker {
     }
 
     /**
-     * Check collision between player and map
-     * Checks all tiles on the screen
+     * Check collision between entity and map
+     * Checks for each map component
      *
      * @param entity entity for which collision is being checked
      */
@@ -72,7 +73,7 @@ public class CollisionChecker {
 
     /**
      * Check collision between player and item
-     * Checks only the limited number of items
+     * Checks for all items in the level
      *
      * @param entity entity for which collision is being checked
      * @param isPlayer boolean specifying whether entity is the player or not
