@@ -119,7 +119,7 @@ public class CollisionChecker {
 
     /**
      * Check collision between entity and every element of target
-     * Primarily intended for checking collisions between the player and the items in the game
+     * Primarily intended for checking collisions between the player and the enemies in the game
      *
      * @param entity primary entity
      * @param target array of entities

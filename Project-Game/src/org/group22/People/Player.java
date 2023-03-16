@@ -3,10 +3,13 @@ package org.group22.People;
 import org.group22.Drops.Item;
 import org.group22.app.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Player class
@@ -17,10 +20,9 @@ public class Player extends Entity {
     KeyInputs keyInputs;
     public final int screenX, screenY;
     public int keyCount = 0;
-    private final static int maxHealth = 100;
+    private final static int maxHealth = 200;
     private int health;
     private int points;
-
 
     /**
      * Player constructor
@@ -62,14 +64,32 @@ public class Player extends Entity {
 
 
     public void getPlayerImage() {
-        up1 = setup("/Player/boy_up_1");
-        up2 = setup("/Player/boy_up_2");
-        down1 = setup("/Player/boy_down_1");
-        down2 = setup("/Player/boy_down_2");
-        left1 = setup("/Player/boy_left_1");
-        left2 = setup("/Player/boy_left_2");
-        right1 = setup("/Player/boy_right_1");
-        right2 = setup("/Player/boy_right_2");
+        left1 = setup("/Player/priest_left1");
+        left2 = setup("/Player/priest_left2");
+        left3 = setup("/Player/priest_left3");
+        left4 = setup("/Player/priest_left4");
+        right1 = setup("/Player/priest_right1");
+        right2 = setup("/Player/priest_right2");
+        right3 = setup("/Player/priest_right3");
+        right4 = setup("/Player/priest_right4");
+        up1 = right1;
+        up2 = right2;
+        up3 = right3;
+        up4 = right4;
+        down1 = left1;
+        down2 = left2;
+        down3 = left3;
+        down4 = left4;
+    }
+
+    public BufferedImage getFullHeart() {
+        return setup("/Object/heart_full");
+    }
+    public BufferedImage getBlankHeart() {
+        return setup("/Object/heart_blank");
+    }
+    public BufferedImage getHalfHeart() {
+        return setup("/Object/heart_half");
     }
 
     /**
@@ -135,14 +155,15 @@ public class Player extends Entity {
                     keyCount++;
                     gp.obj[i] = null;
                     gp.ui.showMsg("Key acquired");
-                    setHealth(item);
                     setPoints(item);
                 }
                 case "Potion" -> {
                     gp.obj[i] = null;
                     gp.ui.showMsg("Potion acquired");
                     setPoints(item);
-                    setHealth(item);
+                    if(this.health < maxHealth) {
+                        setHealth(item);
+                    }
                 }
                 case "Spikes" -> {
                     gp.obj[i] = null;
@@ -151,7 +172,7 @@ public class Player extends Entity {
                     setHealth(item);
                 }
                 case "Door" -> {
-                    if (keyCount == gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+                    if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
                         gp.obj[i] = null;
                         keyCount = 0;
                         setPoints(item);
