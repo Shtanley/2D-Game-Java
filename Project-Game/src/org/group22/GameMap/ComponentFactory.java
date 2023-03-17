@@ -28,22 +28,18 @@ public class ComponentFactory {
      * Constructor
      *
      * @param gp the game panel
-     * @param filePath path to world text file
      */
-    public ComponentFactory(GamePanel gp, String filePath) {
+    public ComponentFactory(GamePanel gp) {
         this.gp = gp;
         mc = new MapComponent[10];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
-
-        getTileImage();
-        loadMap(filePath);
+        getTileImages();
     }
 
 
     /**
      * Set sprite and collision for each type of map component
      */
-    public void getTileImage() {
+    public void getTileImages() {
         // ground normal
         mc[0] = new MapComponent();
         mc[0].image = setup("/Tilesv2/ground01");
@@ -83,6 +79,7 @@ public class ComponentFactory {
     }
 
     public void loadMap(String filePath) {
+        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             assert is != null;
@@ -104,7 +101,6 @@ public class ComponentFactory {
                 line = br.readLine();
             }
             br.close();
-
         } catch (Exception ignored) {
 
         }

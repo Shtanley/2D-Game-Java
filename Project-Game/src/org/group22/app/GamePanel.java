@@ -100,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable{
         player = new Player(this, keyInputs);
         cCheck = new CollisionChecker(this);
 
+        cFactory = new ComponentFactory(this);
         iFactory  = new ItemFactory(this);
         eFactory = new EnemyFactory(this);
         obj = new Item[maxItems];
@@ -167,15 +168,11 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState == titleState) {
-
-        }
-        if(gameState >= playState1 && gameState <= playState3) {
-            if (paused) {
-                // Pause game, do nothing
-            } else if (player.dead()) {
+        if(gameState >= playState1 && gameState <= playState3 && !paused) {
+            if (player.dead()) {
                 changeGameState(endState);
             } else {
+                // Drain health
                 if(difficulty > 0) {
                     tickCounter++;
                     if (tickCounter >= healthDrainRate) {
@@ -183,7 +180,9 @@ public class GamePanel extends JPanel implements Runnable{
                         tickCounter = 0;
                     }
                 }
+                // Update player
                 player.update();
+                // Update enemies
                 for (Enemy enemy : enemies) {
                     if (enemy != null) {
                         enemy.update();
@@ -259,25 +258,28 @@ public class GamePanel extends JPanel implements Runnable{
             gameState = settingsState;
         } else if (state == playState1) {
             player.resetPlayer();
-            cFactory = new ComponentFactory(this, "/Map/world01.txt");
+            cFactory.loadMap("/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
             eFactory.createEnemies("/Map/enemies01.txt");
-            keysNeeded = 3;
+
             player.setPlayerValues(35, 10, 8, "down");
+            keysNeeded = 3;
             gameState = playState1;
         } else if (state == playState2) {
-            cFactory = new ComponentFactory(this, "/Map/world02.txt");
+            cFactory.loadMap("/Map/world02.txt");
             iFactory.createItem("/Map/items02.txt");
             eFactory.createEnemies("/Map/enemies02.txt");
-            keysNeeded = 3;
+
             player.setPlayerValues(3, 16, 8, "down");
+            keysNeeded = 3;
             gameState = playState2;
         } else if (state == playState3) {
-            cFactory = new ComponentFactory(this, "/Map/world03.txt");
+            cFactory.loadMap("/Map/world03.txt");
             iFactory.createItem("/Map/items03.txt");
             eFactory.createEnemies("/Map/enemies03.txt");
-            keysNeeded = 6;
+
             player.setPlayerValues(1, 23, 8, "down");
+            keysNeeded = 6;
             gameState = playState3;
         } else if (state == endState) {
             gameState = endState;
