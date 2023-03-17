@@ -239,7 +239,7 @@ public class UI {
     }
 
     public void drawStats(){
-        g2d.setFont(g2d.getFont().deriveFont(26F));
+        g2d.setFont(g2d.getFont().deriveFont(48F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2d.drawString(": " + gp.player.keyCount + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
