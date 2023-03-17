@@ -10,7 +10,9 @@ public abstract class BonusReward extends Item{
     private final int healthAdjustment = 50;
     private final int pointAdjustment = 50;
     private static final int spawnTimer = 100;
-    private static final double spawnChance = 1;
+    private static final double spawnChance = 0.2;
+    public long birthTime;
+    public long lifetime;
     private int ticksTillDeath;
 
     public int getHealthAdjustment() { return healthAdjustment;}

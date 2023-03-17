@@ -52,7 +52,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     // System
     public Thread gameThread;
-    private final Object lock = new Object();
+    private final Object lock1 = new Object();
+    private final Object lock2 = new Object();
+    private final Object lock3 = new Object();
+    public long timer;
     public KeyInputs keyInputs;
     public CollisionChecker cCheck;
     public ItemFactory iFactory;
@@ -138,28 +141,32 @@ public class GamePanel extends JPanel implements Runnable{
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        long timer = 0;
-        int drawCount = 0;
+        //timer = 0;
 
         while(gameThread != null) {
             currentTime = System.nanoTime();
+            timer = currentTime / 1000000000;
             delta += (currentTime - lastTime) / timePerTick; // Get delta time
-            timer += (currentTime - lastTime);    // Get time passed
+            //timer += (currentTime - lastTime) / 1000000000;  // Get time passed in seconds
             lastTime = currentTime;
 
             if(delta >= 1) {
                 // Update game logic
-                update();
+                synchronized (lock1) {
+                    update();
+                }
                 // Draw game graphics
-                repaint();
+                synchronized (lock2) {
+                    repaint();
+                }
                 delta--;
-                drawCount++;
             }
 
-            if(timer >= 1000000000) {
-                //System.out.println("FPS: " + drawCount);
-                timer = 0;
-                drawCount = 0;
+            // Handle despawning potions
+            synchronized (lock3) {
+                if (gameState >= playState1) {
+                    tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
+                }
             }
         }
     }
@@ -193,10 +200,13 @@ public class GamePanel extends JPanel implements Runnable{
                     spawnTickCounter = 0;
                 }
                 // Update temporary items
-//                for (BonusReward bonus : tempItems) {
-//                    bonus.decrementTicksTillDeath();
-//                    if (bonus.getTicksTillDeath() <= 0) {
-//                        tempItems.remove(bonus);
+//                synchronized (lock1) {
+//                    for (BonusReward bonus : tempItems) {
+//                        bonus.decrementTicksTillDeath();
+//                        if (bonus.getTicksTillDeath() <= 0) {
+//                            System.out.println("Despawning potion");
+//                            tempItems.remove(bonus);
+//                        }
 //                    }
 //                }
                 // Update player
@@ -241,8 +251,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             // Bonus Rewards
-            for (BonusReward bonus : tempItems) {
-                bonus.draw(g2d, this);
+            synchronized (lock2) {
+                for (BonusReward bonus : tempItems) {
+                    bonus.draw(g2d, this);
+                }
             }
             // Enemy
             for (Enemy enemy : enemies) {
