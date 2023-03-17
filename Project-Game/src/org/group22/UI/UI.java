@@ -244,27 +244,68 @@ public class UI {
     public void drawHealth(int x, int y) {
         int health = gp.player.getHealth();
         // Set x & y coordinates for heart images
+        BufferedImage heart1;
+        BufferedImage heart2;
         int heart1_x = x;
         int heart1_y = y;
         int heart2_x = x + gp.tileSize*3/4;
         int heart2_y = y;
         int text_x = x + 90;
         int text_y = y + 40;
-        // Draw hearts depending on health
-        if(health >= 100) { // First heart
-            g2d.drawImage(gp.player.getFullHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
-        } else if (health == 50) {
-            g2d.drawImage(gp.player.getHalfHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
-        } else {
-            g2d.drawImage(gp.player.getBlankHeart(), heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
+        // Draw first heart
+        if(health >= 100) {
+            heart1 = gp.player.getHeartSprite(10);
+        } else if(health >= 90) {
+            heart1 = gp.player.getHeartSprite(9);
+        } else if(health >= 80) {
+            heart1 = gp.player.getHeartSprite(8);
+        } else if(health >= 70) {
+            heart1 = gp.player.getHeartSprite(7);
+        } else if(health >= 60) {
+            heart1 = gp.player.getHeartSprite(6);
+        } else if(health >= 50) {
+            heart1 = gp.player.getHeartSprite(5);
+        } else if(health >= 40) {
+            heart1 = gp.player.getHeartSprite(4);
+        } else if(health >= 30) {
+            heart1 = gp.player.getHeartSprite(3);
+        } else if(health >= 20) {
+            heart1 = gp.player.getHeartSprite(2);
+        } else if(health >= 10) {
+            heart1 = gp.player.getHeartSprite(1);
+        } else if(health > 0) {
+            heart1 = gp.player.getHeartSprite(0);
+        } else {//health <= 0
+            heart1 = gp.player.getHeartSprite(-1);
         }
-        if(health == 150) { // Second heart
-            g2d.drawImage(gp.player.getHalfHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
-        } else if (health > 150) {
-            g2d.drawImage(gp.player.getFullHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
-        } else {
-            g2d.drawImage(gp.player.getBlankHeart(), heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
+        // Draw second heart
+        if(health == 200) {
+            heart2 = gp.player.getHeartSprite(10);
+        } else if(health >= 190) {
+            heart2 = gp.player.getHeartSprite(9);
+        } else if(health >= 180) {
+            heart2 = gp.player.getHeartSprite(8);
+        } else if(health >= 170) {
+            heart2 = gp.player.getHeartSprite(7);
+        } else if(health >= 160) {
+            heart2 = gp.player.getHeartSprite(6);
+        } else if(health >= 150) {
+            heart2 = gp.player.getHeartSprite(5);
+        } else if(health >= 140) {
+            heart2 = gp.player.getHeartSprite(4);
+        } else if(health >= 130) {
+            heart2 = gp.player.getHeartSprite(3);
+        } else if(health >= 120) {
+            heart2 = gp.player.getHeartSprite(2);
+        } else if(health >= 110) {
+            heart2 = gp.player.getHeartSprite(1);
+        } else if(health > 100) {
+            heart2 = gp.player.getHeartSprite(0);
+        } else { //health <= 100
+            heart2 = gp.player.getHeartSprite(-1);
         }
+        g2d.drawImage(heart1, heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(heart2, heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
         g2d.drawString(": " + gp.player.getHealth() + "/" + gp.player.getMaxHealth(), text_x, text_y);
     }
 }

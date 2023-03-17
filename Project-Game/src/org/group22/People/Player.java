@@ -92,6 +92,27 @@ public class Player extends Entity {
         return setup("/Object/heart_half");
     }
 
+    public BufferedImage getHeartSprite(int num){
+        BufferedImage result = null;
+        switch(num){
+            case(-1) -> result = setup("/Object/heart_empty");
+            case(0) -> result = setup("/Object/heart_0");
+            case(1) -> result = setup("/Object/heart_1");
+            case(2) -> result = setup("/Object/heart_2");
+            case(3) -> result = setup("/Object/heart_3");
+            case(4) -> result = setup("/Object/heart_4");
+            case(5) -> result = setup("/Object/heart_5");
+            case(6) -> result = setup("/Object/heart_6");
+            case(7) -> result = setup("/Object/heart_7");
+            case(8) -> result = setup("/Object/heart_8");
+            case(9) -> result = setup("/Object/heart_9");
+            case(10) -> result = setup("/Object/heart_full");
+            case(11) -> result = setup("/Object/heart_");
+        }
+        assert(result != null);
+        return result;
+    }
+
     /**
      * Update player position
      * Update player image
