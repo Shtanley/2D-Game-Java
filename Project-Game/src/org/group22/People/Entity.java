@@ -63,26 +63,42 @@ public abstract class Entity {
                 case "up" -> {
                     if (spriteNum == 1)
                         image = up1;
-                    else
+                    else if (spriteNum == 2)
                         image = up2;
+                    else if (spriteNum == 3)
+                        image = up3;
+                    else
+                        image = up4;
                 }
                 case "down" -> {
                     if (spriteNum == 1)
                         image = down1;
-                    else
+                    else if (spriteNum == 2)
                         image = down2;
+                    else if (spriteNum == 3)
+                        image = down3;
+                    else
+                        image = down4;
                 }
                 case "left" -> {
                     if (spriteNum == 1)
                         image = left1;
-                    else
+                    else if (spriteNum == 2)
                         image = left2;
+                    else if (spriteNum == 3)
+                        image = left3;
+                    else
+                        image = left4;
                 }
                 case "right" -> {
                     if (spriteNum == 1)
                         image = right1;
-                    else
+                    else if (spriteNum == 2)
                         image = right2;
+                    else if (spriteNum == 3)
+                        image = right3;
+                    else
+                        image = right4;
                 }
             }
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

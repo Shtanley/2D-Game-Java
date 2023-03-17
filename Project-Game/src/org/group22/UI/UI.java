@@ -4,12 +4,10 @@ import org.group22.Drops.Key;
 import org.group22.app.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Color;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
@@ -21,6 +19,7 @@ import java.util.Objects;
 public class UI {
     GamePanel gp;
     Graphics2D g2d;
+    Font maruMonica, purisaB;
     Font trebuchet_40, trebuchet_80B;
     BufferedImage keyImg, healthImg, healthFull, healthEmpty, healthHalf;
     public boolean msgOn = false;
@@ -38,6 +37,17 @@ public class UI {
         this.gp = gp;
         trebuchet_40 = new Font("Trebuchet", Font.PLAIN, 40);
         trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
+
+        try {
+            InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = getClass().getResourceAsStream("/font/Purisa Bold.ttf");
+            purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Key key = new Key();
         keyImg = key.image;
 //        healthImg = setHealthImg(gp.getPlayerHealth()); // gp.player is null here
@@ -57,7 +67,7 @@ public class UI {
     public void draw(Graphics2D g2d) {
         this.g2d = g2d;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2d.setFont(trebuchet_40);
+        g2d.setFont(maruMonica);
 //        g2d.setColor(Color.WHITE);
         
         if(gp.gameState == gp.titleState) {
@@ -95,7 +105,7 @@ public class UI {
         // Add image
         x = gp.screenWidth/2 - (gp.tileSize);
         y += gp.tileSize * 2;
-        g2d.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+        g2d.drawImage(Objects.requireNonNull(gp.player.right1), x, y, gp.tileSize*2, gp.tileSize*2, null);
 
         // Menu
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
@@ -135,8 +145,8 @@ public class UI {
 
         // Time
         playTime += (double)1/60;
+        g2d.setFont(g2d.getFont().deriveFont(40F));
         text = "Time: " + dFormat.format(playTime);
-        g2d.setFont(trebuchet_40);
         g2d.setColor(Color.WHITE);
         x = getHorizontalCenter(text, gp.screenWidth);
         y = gp.tileSize*3/2;
@@ -168,9 +178,9 @@ public class UI {
         g2d.drawString(text, x, y);
 
         // Display current time
-        text = "Time: " + dFormat.format(playTime);
-        g2d.setFont(trebuchet_40.deriveFont(27F));
+        g2d.setFont(g2d.getFont().deriveFont(40F));
         g2d.setColor(Color.WHITE);
+        text = "Time: " + dFormat.format(playTime);
         x = getHorizontalCenter(text, gp.screenWidth);
         y = gp.tileSize;
         g2d.drawString(text, x, y);
@@ -184,32 +194,33 @@ public class UI {
         int x, y;
 
         if(gp.player.dead()) {
+            g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
             // Draw Youch!
             text = "Youch!";
         } else {
+            g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
             // Draw Escaped! :D
             text = "Escaped! :D";
         }
-        g2d.setFont(trebuchet_80B);
         g2d.setColor(Color.YELLOW);
         x = getHorizontalCenter(text, gp.screenWidth);
         y = gp.screenHeight/2 + (gp.tileSize*2);
         g2d.drawString(text, x, y);
 
         // Display time
-        text = "Time: " + dFormat.format(playTime);
-        g2d.setFont(trebuchet_40);
+        g2d.setFont(g2d.getFont().deriveFont(40F));
         g2d.setColor(Color.WHITE);
+        text = "Time: " + dFormat.format(playTime);
         x = getHorizontalCenter(text, gp.screenWidth);
         y = gp.screenHeight/2 + (gp.tileSize*4);
         g2d.drawString(text, x, y);
 
         // Display score
-        text = "Points: " + gp.player.getPoints();
-        g2d.setFont(trebuchet_40);
+        g2d.setFont(g2d.getFont().deriveFont(40F));
         g2d.setColor(Color.WHITE);
+        text = "Points: " + gp.player.getPoints();
         x = getHorizontalCenter(text, gp.screenWidth);
-        y = gp.screenHeight/2 + (gp.tileSize*6);
+        y = gp.screenHeight/2 + (gp.tileSize*5);
         g2d.drawString(text, x, y);
 
         // Stop game thread
@@ -228,7 +239,7 @@ public class UI {
     }
 
     public void drawStats(){
-        g2d.setFont(trebuchet_40);
+        g2d.setFont(g2d.getFont().deriveFont(26F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2d.drawString(": " + gp.player.keyCount + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
