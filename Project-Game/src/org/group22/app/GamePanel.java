@@ -116,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable{
         eFactory = new EnemyFactory(this);
 
         gameState = titleState;
-        changeDifficulty(0);
+        changeDifficulty(1);
     }
     
     /**
@@ -331,13 +331,13 @@ public class GamePanel extends JPanel implements Runnable{
                 healthDrainRate = -1;
             }
             case(1) -> {
-                healthDrainRate = 15;
+                healthDrainRate = 30;
             }
             case(2) -> {
-                healthDrainRate = 10;
+                healthDrainRate = 20;
             }
             case(3) -> {
-                healthDrainRate = 5;
+                healthDrainRate = 10;
             }
         }
         System.out.println("New difficulty: " + difficulty);
