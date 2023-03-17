@@ -65,10 +65,11 @@ public class GamePanel extends JPanel implements Runnable{
     // Game state
     public int gameState;
     public final int titleState = 0;
-    public final int playState1 = 1;
-    public final int playState2 = 2;
-    public final int playState3 = 3;
-    public final int endState = 4;
+    public final int settingsState = 1;
+    public final int playState1 = 2;
+    public final int playState2 = 3;
+    public final int playState3 = 4;
+    public final int endState = 5;
     public boolean paused = false;
     public int difficulty;
     public int tickCounter = 0;
@@ -154,7 +155,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
             if(timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
+                //System.out.println("FPS: " + drawCount);
                 timer = 0;
                 drawCount = 0;
             }
@@ -175,10 +176,12 @@ public class GamePanel extends JPanel implements Runnable{
             } else if (player.dead()) {
                 changeGameState(endState);
             } else {
-                tickCounter++;
-                if(tickCounter >= healthDrainRate){
-                    player.setHealth(-1);
-                    tickCounter = 0;
+                if(difficulty > 0) {
+                    tickCounter++;
+                    if (tickCounter >= healthDrainRate) {
+                        player.setHealth(-1);
+                        tickCounter = 0;
+                    }
                 }
                 player.update();
                 for (Enemy enemy : enemies) {
@@ -208,7 +211,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         // Title Screen
-        if (gameState == titleState) {
+        if (gameState == titleState || gameState == settingsState) {
             ui.draw(g2d);
         } else {
             // Tiles
@@ -252,6 +255,8 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("Changing game state to " + state);
         if(state == titleState) {
             gameState = titleState;
+        } else if (state == settingsState){
+            gameState = settingsState;
         } else if (state == playState1) {
             cFactory = new ComponentFactory(this, "/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
@@ -276,5 +281,16 @@ public class GamePanel extends JPanel implements Runnable{
         } else if (state == endState) {
             gameState = endState;
         }
+    }
+
+    public void changeDifficulty(int newDifficulty){
+        difficulty = newDifficulty;
+        switch (difficulty) {
+            case(0) -> healthDrainRate = -1;
+            case(1) -> healthDrainRate = 15;
+            case(2) -> healthDrainRate = 10;
+            case(3) -> healthDrainRate = 5;
+        }
+        System.out.println("New difficulty: " + difficulty);
     }
 }

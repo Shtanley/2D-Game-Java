@@ -29,65 +29,79 @@ public class KeyInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        // Title State
+        // Title State, 3 buttons
         if(gp.gameState == gp.titleState) {
             if(key == KeyEvent.VK_UP) {
-                gp.ui.cmdNum--;
-                System.out.println("UP");
-                if(gp.ui.cmdNum < 0) {
-                    gp.ui.cmdNum = 2;
+                gp.ui.titleCmdNum--;
+                if(gp.ui.titleCmdNum < 0) {
+                    gp.ui.titleCmdNum = 2;
                 }
             }
             if(key == KeyEvent.VK_DOWN) {
-                gp.ui.cmdNum++;
-                System.out.println("DOWN");
-                if(gp.ui.cmdNum > 2) {
-                    gp.ui.cmdNum = 0;
+                gp.ui.titleCmdNum++;
+                if(gp.ui.titleCmdNum > 2) {
+                    gp.ui.titleCmdNum = 0;
                 }
             }
             if(key == KeyEvent.VK_ENTER) {
-                if(gp.ui.cmdNum == 0) {
+                if(gp.ui.titleCmdNum == 0) {
                     // Start Game
                     gp.changeGameState(gp.playState1);
                 }
-                if(gp.ui.cmdNum == 1) {
+                if(gp.ui.titleCmdNum == 1) {
                     // Settings
-                    System.exit(0); // exit game for now
+                    gp.changeGameState(gp.settingsState);
                 }
-                if(gp.ui.cmdNum == 2) {
+                if(gp.ui.titleCmdNum == 2) {
                     // Exit
+                    System.out.println("Exit!");
                     System.exit(0);
                 }
             }
         }
+
+        // Setting State, 4 buttons
+        else if(gp.gameState == gp.settingsState) {
+            if(key == KeyEvent.VK_UP) {
+                gp.ui.diffCmdNum--;
+                if(gp.ui.diffCmdNum < 0) {
+                    gp.ui.diffCmdNum = 3;
+                }
+            }
+            if(key == KeyEvent.VK_DOWN) {
+                gp.ui.diffCmdNum++;
+                if(gp.ui.diffCmdNum > 3) {
+                    gp.ui.diffCmdNum = 0;
+                }
+            }
+            if(key == KeyEvent.VK_ENTER) {
+                gp.changeDifficulty(gp.ui.diffCmdNum);
+                gp.changeGameState(gp.titleState);
+            }
+            if(key == KeyEvent.VK_ESCAPE) {
+                gp.changeGameState(gp.titleState);
+            }
+        }
+
         // Game State
-        if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
+        else if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;
-                // System.out.println("UP");
             }
             if (key == KeyEvent.VK_DOWN) {
                 downPressed = true;
-                // System.out.println("DOWN");
             }
             if (key == KeyEvent.VK_LEFT) {
                 leftPressed = true;
-                // System.out.println("LEFT");
             }
             if (key == KeyEvent.VK_RIGHT) {
                 rightPressed = true;
-                // System.out.println("RIGHT");
             }
-            if (key == KeyEvent.VK_ESCAPE) {
+            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_P) {
                 gp.paused = !gp.paused;
-                // System.out.println("ESCAPE");
             }
             if (key == KeyEvent.VK_T) { // Draw time button for debugging
-                if (!checkDrawTime) {
-                    checkDrawTime = true;
-                } else if(checkDrawTime) {
-                    checkDrawTime = false;
-                }
+                checkDrawTime = !checkDrawTime;
             }
         }
     }

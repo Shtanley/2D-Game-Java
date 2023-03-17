@@ -27,7 +27,8 @@ public class UI {
     int msgTimer = 0;
     public double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
-    public int cmdNum = 0;
+    public int titleCmdNum = 0;
+    public int diffCmdNum = 0;
 
     /**
      * UI constructor
@@ -40,12 +41,11 @@ public class UI {
 
         try {
             InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            assert is != null;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
             is = getClass().getResourceAsStream("/font/Purisa Bold.ttf");
             purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
-        } catch (FontFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
         Key key = new Key();
@@ -72,15 +72,15 @@ public class UI {
         
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
-        }
-        if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
+        } else if (gp.gameState == gp.settingsState){
+            drawDifficultyScreen();
+        } else if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
             if(gp.paused) {
                 drawPauseScreen();
             } else {
                 drawPlayScreen();
             }
-        }
-        if(gp.gameState == gp.endState) {
+        } else if(gp.gameState == gp.endState) {
             drawGameOverScreen();
         }
 
@@ -113,16 +113,16 @@ public class UI {
         x = getHorizontalCenter(text, gp.screenWidth);
         y += gp.tileSize*4;
         g2d.drawString(text, x, y);
-        if(cmdNum == 0) {
+        if(titleCmdNum == 0) {
             g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
         }
 
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
-        text = "Settings";
+        text = "Difficulty";
         x = getHorizontalCenter(text, gp.screenWidth);
         y += gp.tileSize;
         g2d.drawString(text, x, y);
-        if(cmdNum == 1) {
+        if(titleCmdNum == 1) {
             g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
         }
 
@@ -131,7 +131,60 @@ public class UI {
         x = getHorizontalCenter(text, gp.screenWidth);
         y += gp.tileSize;
         g2d.drawString(text, x, y);
-        if(cmdNum == 2) {
+        if(titleCmdNum == 2) {
+            g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
+        }
+    }
+
+    public void drawDifficultyScreen() {
+        // Set background
+        g2d.setColor(new Color(0, 0, 0));
+        g2d.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        // Set font
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
+        String text = "Difficulty";   // Title
+        int x = getHorizontalCenter(text, gp.screenWidth);
+        int y = gp.tileSize * 2;
+        // Text shadow
+        g2d.setColor(Color.GRAY);
+        g2d.drawString(text, x+5, y+5);
+        // Draw text
+        g2d.setColor(Color.WHITE);
+        g2d.drawString(text, x, y);
+
+        // Menu
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
+        text = "Peaceful";
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y += gp.tileSize*4;
+        g2d.drawString(text, x, y);
+        if(diffCmdNum == 0) {
+            g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
+        }
+
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
+        text = "Easy";
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y += gp.tileSize;
+        g2d.drawString(text, x, y);
+        if(diffCmdNum == 1) {
+            g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
+        }
+
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
+        text = "Medium";
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y += gp.tileSize;
+        g2d.drawString(text, x, y);
+        if(diffCmdNum == 2) {
+            g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
+        }
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
+        text = "Hard";
+        x = getHorizontalCenter(text, gp.screenWidth);
+        y += gp.tileSize;
+        g2d.drawString(text, x, y);
+        if(diffCmdNum == 3) {
             g2d.drawString(">", x - gp.tileSize, y);    // Use drawImage if you want to use a selection icon instead
         }
     }
@@ -140,7 +193,7 @@ public class UI {
         String text;
         int x, y;
 
-        // Display keys and points and health
+        // Display keys, points, and health
         drawStats();
 
         // Time
@@ -152,7 +205,7 @@ public class UI {
         y = gp.tileSize*3/2;
         g2d.drawString(text, x, y);
 
-        // Draw message
+        // Game messages
         if(msgOn) {
             g2d.setFont(g2d.getFont().deriveFont(27F));
             g2d.drawString(msg, gp.tileSize/2, gp.tileSize*5);
@@ -163,6 +216,9 @@ public class UI {
                 msgOn = false;
             }
         }
+
+        // Pause tooltip
+
     }
 
     public void drawPauseScreen() {
