@@ -218,6 +218,12 @@ public class UI {
         }
 
         // Pause tooltip
+        g2d.setFont(g2d.getFont().deriveFont(20F));
+        g2d.setColor(Color.WHITE);
+        text = "Press P to pause";
+        x = gp.tileSize/2;
+        y = gp.screenHeight - gp.tileSize/2;
+        g2d.drawString(text, x, y);
 
     }
 
@@ -243,6 +249,14 @@ public class UI {
 
         // Display health, keys and points
         drawStats();
+
+        // Draw "return to main menu" option
+        g2d.setFont(g2d.getFont().deriveFont(20F));
+        g2d.setColor(Color.WHITE);
+        text = "Press esc to return to main menu";
+        x = gp.tileSize/2;
+        y = gp.screenHeight - gp.tileSize/2;
+        g2d.drawString(text, x, y);
     }
 
     public void drawGameOverScreen() {

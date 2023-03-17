@@ -58,6 +58,11 @@ public class KeyInputs implements KeyListener {
                     System.exit(0);
                 }
             }
+            if(key == KeyEvent.VK_ESCAPE){
+                // Exit
+                System.out.println("Exit!");
+                System.exit(0);
+            }
         }
 
         // Setting State, 4 buttons

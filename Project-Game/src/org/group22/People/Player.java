@@ -48,8 +48,6 @@ public class Player extends Entity {
         hitBox.width = 22;
         hitBox.height = 25;
         getPlayerImage();
-
-        System.out.println("Creating Player");
         resetPlayer();
     }
 
@@ -211,12 +209,7 @@ public class Player extends Entity {
      * @param g2d   Graphics2D object
      */
     public void draw(Graphics2D g2d) {
-        // Easter egg idea: player image is a white square
-        // g.setColor(Color.WHITE);
-        // g.fillRect(worldX, worldY, gp.tileSize, gp.tileSize);
-
         BufferedImage image = null;
-
         switch (direction) {
             case "up" -> {
                 if (spriteNum == 1)
@@ -243,7 +236,6 @@ public class Player extends Entity {
                     image = right2;
             }
         }
-
         g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
