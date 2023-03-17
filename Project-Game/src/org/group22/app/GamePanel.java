@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Item[] obj;   // Array of objects
     public Enemy[] enemies; // Array of enemies
     public int keysNeeded;
+    public int healthDrainRate;
 
     // Game state
     public int gameState;
@@ -69,6 +70,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int playState3 = 3;
     public final int endState = 4;
     public boolean paused = false;
+    public int difficulty;
+    public int tickCounter = 0;
 
     /**
      * Game panel constructor
@@ -102,6 +105,8 @@ public class GamePanel extends JPanel implements Runnable{
         enemies = new Enemy[maxEnemies];
 
         gameState = titleState;
+        difficulty = 0;
+        healthDrainRate = 5;
     }
     
     /**
@@ -170,6 +175,11 @@ public class GamePanel extends JPanel implements Runnable{
             } else if (player.dead()) {
                 changeGameState(endState);
             } else {
+                tickCounter++;
+                if(tickCounter >= healthDrainRate){
+                    player.setHealth(-1);
+                    tickCounter = 0;
+                }
                 player.update();
                 for (Enemy enemy : enemies) {
                     if (enemy != null) {

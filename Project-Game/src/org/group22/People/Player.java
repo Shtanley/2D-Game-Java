@@ -82,37 +82,6 @@ public class Player extends Entity {
         down4 = left4;
     }
 
-    public BufferedImage getFullHeart() {
-        return setup("/Object/heart_full");
-    }
-    public BufferedImage getBlankHeart() {
-        return setup("/Object/heart_blank");
-    }
-    public BufferedImage getHalfHeart() {
-        return setup("/Object/heart_half");
-    }
-
-    public BufferedImage getHeartSprite(int num){
-        BufferedImage result = null;
-        switch(num){
-            case(-1) -> result = setup("/Object/heart_empty");
-            case(0) -> result = setup("/Object/heart_0");
-            case(1) -> result = setup("/Object/heart_1");
-            case(2) -> result = setup("/Object/heart_2");
-            case(3) -> result = setup("/Object/heart_3");
-            case(4) -> result = setup("/Object/heart_4");
-            case(5) -> result = setup("/Object/heart_5");
-            case(6) -> result = setup("/Object/heart_6");
-            case(7) -> result = setup("/Object/heart_7");
-            case(8) -> result = setup("/Object/heart_8");
-            case(9) -> result = setup("/Object/heart_9");
-            case(10) -> result = setup("/Object/heart_full");
-            case(11) -> result = setup("/Object/heart_");
-        }
-        assert(result != null);
-        return result;
-    }
-
     /**
      * Update player position
      * Update player image
@@ -139,10 +108,14 @@ public class Player extends Entity {
             gp.cCheck.checkComponent(this);
             // Object collision
             int objIndex = gp.cCheck.checkItem(this, true);
-            pickupItem(objIndex);
+            if(objIndex != -1) {
+                pickupItem(objIndex);
+            }
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
-            encounter(enemyIndex != -1);
+            if(enemyIndex != -1) {
+                encounter();
+            }
             if(!collisionOn) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
@@ -164,58 +137,59 @@ public class Player extends Entity {
     }
 
     /**
-     * Check if player is colliding with an object to pick up
+     * Check if player is colliding with an item
+     *
      * @param i index of object in object array
      */
     public void pickupItem(int i) {
-        if(i != 999) {
-            Item item = gp.obj[i];
-            String objName = item.name;
-            switch (objName) {
-                case "Key" -> {
-                    keyCount++;
-                    gp.obj[i] = null;
-                    gp.ui.showMsg("Key acquired");
-                    setPoints(item);
-                }
-                case "Potion" -> {
-                    gp.obj[i] = null;
-                    gp.ui.showMsg("Potion acquired");
-                    setPoints(item);
-                    if(this.health < maxHealth) {
-                        setHealth(item);
-                    }
-                }
-                case "Spikes" -> {
-                    gp.obj[i] = null;
-                    gp.ui.showMsg("Ouch!");
-                    setPoints(item);
+        Item item = gp.obj[i];
+        String objName = item.name;
+        switch (objName) {
+            case "Key" -> {
+                keyCount++;
+                gp.obj[i] = null;
+                gp.ui.showMsg("Key acquired");
+                setPoints(item);
+            }
+            case "Potion" -> {
+                gp.obj[i] = null;
+                gp.ui.showMsg("Potion acquired");
+                setPoints(item);
+                if(this.health < maxHealth) {
                     setHealth(item);
                 }
-                case "Door" -> {
-                    if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
-                        gp.obj[i] = null;
-                        keyCount = 0;
-                        setPoints(item);
-                        gp.changeGameState(gp.gameState+1);
-                    } else {
-                        gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
-                    }
-                    break;
+            }
+            case "Spikes" -> {
+                gp.obj[i] = null;
+                gp.ui.showMsg("Ouch!");
+                setPoints(item);
+                setHealth(item);
+            }
+            case "Door" -> {
+                if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+                    gp.obj[i] = null;
+                    keyCount = 0;
+                    setPoints(item);
+                    gp.changeGameState(gp.gameState+1);
+                } else {
+                    gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
                 }
             }
         }
     }
 
-    public void encounter(boolean collidedWithEnemy) {
-        if(collidedWithEnemy) {
-            health = 0;
-            gp.gameState = gp.endState;
-        }
+    /**
+     * Method for when the player collides with an enemy
+     * Sets the players health to zero and ends the game
+     */
+    public void encounter() {
+        health = 0;
+        gp.gameState = gp.endState;
     }
 
     /**
      * Draw player image
+     *
      * @param g2d   Graphics2D object
      */
     public void draw(Graphics2D g2d) {
@@ -255,7 +229,38 @@ public class Player extends Entity {
         g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
+    /**
+     * Get the appropriate heart sprite depending on the player's health
+     *
+     * @param num   number indicating the state of the player's health
+     * @return a BufferedImage heart sprite
+     */
+    public BufferedImage getHeartSprite(int num){
+        BufferedImage result = null;
+        switch(num){
+            case(-1) -> result = setup("/Object/heart_empty");
+            case(0) -> result = setup("/Object/heart_0");
+            case(1) -> result = setup("/Object/heart_1");
+            case(2) -> result = setup("/Object/heart_2");
+            case(3) -> result = setup("/Object/heart_3");
+            case(4) -> result = setup("/Object/heart_4");
+            case(5) -> result = setup("/Object/heart_5");
+            case(6) -> result = setup("/Object/heart_6");
+            case(7) -> result = setup("/Object/heart_7");
+            case(8) -> result = setup("/Object/heart_8");
+            case(9) -> result = setup("/Object/heart_9");
+            case(10) -> result = setup("/Object/heart_full");
+            case(11) -> result = setup("/Object/heart_");
+        }
+        assert(result != null);
+        return result;
+    }
+
+    /**
+     * @return whether the player is dead or not
+     */
     public boolean dead() {return health <= 0 || points < 0;}
+
     public int getHealth() {
         return health;
     }
@@ -271,4 +276,5 @@ public class Player extends Entity {
     }
 
     public void setHealth(Item item) { this.health += item.getHealthAdjustment();}
+    public void setHealth(int deltaHealth) { this.health += deltaHealth;}
 }
