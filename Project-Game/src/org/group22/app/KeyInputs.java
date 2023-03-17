@@ -97,11 +97,19 @@ public class KeyInputs implements KeyListener {
             if (key == KeyEvent.VK_RIGHT) {
                 rightPressed = true;
             }
-            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_P) {
+            if (key == KeyEvent.VK_P) {
                 gp.paused = !gp.paused;
             }
             if (key == KeyEvent.VK_T) { // Draw time button for debugging
                 checkDrawTime = !checkDrawTime;
+            }
+
+            // Paused
+            if(gp.paused) {
+                if (key == KeyEvent.VK_ESCAPE) {
+                    gp.paused = false;
+                    gp.changeGameState(gp.titleState);
+                }
             }
         }
     }

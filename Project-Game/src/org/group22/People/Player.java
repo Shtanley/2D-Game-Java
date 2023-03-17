@@ -50,10 +50,17 @@ public class Player extends Entity {
         getPlayerImage();
 
         System.out.println("Creating Player");
-        this.health = maxHealth;
-        this.points = 0;
+        resetPlayer();
     }
 
+    /**
+     * Set the player's in game values
+     *
+     * @param x         Player's x coordinate
+     * @param y         Player's y coordinate
+     * @param speed     Player's speed
+     * @param direction Direction the player is facing
+     */
     public void setPlayerValues(int x, int y, int speed, String direction) {
         worldX = gp.tileSize * x;
         worldY = gp.tileSize * y;
@@ -61,8 +68,19 @@ public class Player extends Entity {
         this.direction = direction;
     }
 
+    /**
+     * Reset the player's health, points, and keys
+     */
+    public void resetPlayer(){
+        this.health = maxHealth;
+        this.points = 0;
+        this.keyCount = 0;
+    }
 
 
+    /**
+     * Set up player sprites
+     */
     public void getPlayerImage() {
         left1 = setup("/Player/priest_left1");
         left2 = setup("/Player/priest_left2");

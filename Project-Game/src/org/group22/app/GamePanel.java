@@ -258,6 +258,7 @@ public class GamePanel extends JPanel implements Runnable{
         } else if (state == settingsState){
             gameState = settingsState;
         } else if (state == playState1) {
+            player.resetPlayer();
             cFactory = new ComponentFactory(this, "/Map/world01.txt");
             iFactory.createItem("/Map/items01.txt");
             eFactory.createEnemies("/Map/enemies01.txt");
