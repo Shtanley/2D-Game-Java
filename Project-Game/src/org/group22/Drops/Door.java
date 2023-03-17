@@ -17,9 +17,11 @@ public class Door extends Item {
     private final int healthAdjustment = 0;
     private final int pointAdjustment = 50;
 
-    public Door() {
+    public Door(int x, int y) {
         name = "Door";
-        image = setup("/Object/newdoor");
+        image = Item.setupSprite("/Object/newdoor");
+        worldX = x;
+        worldY = y;
         collision = true;
     }
 

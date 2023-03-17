@@ -2,12 +2,6 @@ Type, xCoord, yCoord
 Key, 44, 10
 Key, 45, 10
 Key, 46, 10
-Potion, 36, 13
-Potion, 38, 13
-Potion, 40, 13
-Potion, 42, 13
-Potion, 44, 13
-Potion, 46, 13
 Spikes, 36, 7
 Spikes, 38, 7
 Spikes, 40, 7

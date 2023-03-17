@@ -55,11 +55,11 @@ public abstract class Item {
         return newImg;
     }
 
-    public BufferedImage setup(String imgPath) {
+    public static BufferedImage setupSprite(String imgPath) {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imgPath + ".png")));
+            image = ImageIO.read(Objects.requireNonNull(Item.class.getResourceAsStream(imgPath + ".png")));
 //            image = scaleImg(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();

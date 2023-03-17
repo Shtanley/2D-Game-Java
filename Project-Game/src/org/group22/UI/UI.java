@@ -48,9 +48,8 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
-        Key key = new Key();
-        keyImg = key.image;
-//        healthImg = setHealthImg(gp.getPlayerHealth()); // gp.player is null here
+        keyImg = Key.getImage();
+        assert(keyImg != null);
     }
     /**
      * Display message on screen
