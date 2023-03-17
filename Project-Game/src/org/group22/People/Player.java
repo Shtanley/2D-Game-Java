@@ -123,9 +123,9 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cCheck.checkComponent(this);
             // Object collision
-            int objIndex = gp.cCheck.checkItem(this, true);
-            if(objIndex != -1) {
-                pickupItem(objIndex);
+            Item obj = gp.cCheck.checkItem(this, true);
+            if(obj != null) {
+                pickupItem(obj);
             }
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
@@ -155,20 +155,18 @@ public class Player extends Entity {
     /**
      * Check if player is colliding with an item
      *
-     * @param i index of object in object array
+     * @param item the item being checked for
      */
-    public void pickupItem(int i) {
-        Item item = gp.obj[i];
+    public void pickupItem(Item item) {
+        boolean pickedUp = true;
         String objName = item.name;
         switch (objName) {
             case "Key" -> {
                 keyCount++;
-                gp.obj[i] = null;
                 gp.ui.showMsg("Key acquired");
                 setPoints(item);
             }
             case "Potion" -> {
-                gp.obj[i] = null;
                 gp.ui.showMsg("Potion acquired");
                 setPoints(item);
                 if(this.health < maxHealth) {
@@ -176,21 +174,30 @@ public class Player extends Entity {
                 }
             }
             case "Spikes" -> {
-                gp.obj[i] = null;
                 gp.ui.showMsg("Ouch!");
                 setPoints(item);
                 setHealth(item);
             }
             case "Door" -> {
                 if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
-                    gp.obj[i] = null;
                     keyCount = 0;
                     setPoints(item);
                     gp.changeGameState(gp.gameState+1);
                 } else {
                     gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
+                    pickedUp = false;
                 }
             }
+        }
+        // If successful, delete the item from the game, wherever it is
+        if(pickedUp) {
+            // Traverse obj
+            for(int i = 0; i < gp.obj.length; i++) {
+                if(item.equals(gp.obj[i])){
+                    gp.obj[i] = null;
+                }
+            }
+            gp.tempItems.remove(item);
         }
     }
 

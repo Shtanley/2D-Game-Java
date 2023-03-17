@@ -1,6 +1,7 @@
 package org.group22.Drops;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -13,8 +14,20 @@ import java.util.Objects;
  * @author Sameer
  */
 public class Key extends Reward {
-    public Key() {
+    public Key(int x, int y) {
         name = "Key";
-        image = setup("/Object/newkey");
+        image = Item.setupSprite("/Object/newkey");
+        worldX = x;
+        worldY = y;
     }
+
+    /**
+     * Static method for getting key sprite
+     *
+     * @return a BufferedImage key sprite
+     */
+    public static BufferedImage getImage(){
+        return Item.setupSprite("/Object/newkey");
+    }
+
 }

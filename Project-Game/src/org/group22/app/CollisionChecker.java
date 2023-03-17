@@ -1,5 +1,7 @@
 package org.group22.app;
 
+import org.group22.Drops.BonusReward;
+import org.group22.Drops.Item;
 import org.group22.People.Entity;
 
 /**
@@ -73,48 +75,82 @@ public class CollisionChecker {
 
     /**
      * Check collision between player and item
-     * Checks for all items in the level
+     * Checks for all items in the game
      *
      * @param entity entity for which collision is being checked
      * @param isPlayer boolean specifying whether entity is the player or not
      * @return index of item
      */
 
-    public int checkItem(Entity entity, boolean isPlayer) {
-        int index = -1;
+    public Item checkItem(Entity entity, boolean isPlayer) {
+        Item result = null;
 
-        for(int i = 0; i < gp.obj.length; i++) {
-            if(gp.obj[i] != null) {
+        // Objects array
+        for(Item obj : gp.obj) {
+            if(obj != null) {
                 // Get entity hitbox coordinates
                 entity.hitBox.x += entity.worldX;
                 entity.hitBox.y += entity.worldY;
                 // Get item hitbox coordinates
-                gp.obj[i].hitBox.x += gp.obj[i].worldX;
-                gp.obj[i].hitBox.y += gp.obj[i].worldY;
+                obj.hitBox.x += obj.worldX;
+                obj.hitBox.y += obj.worldY;
                 switch (entity.direction) {
                     case "up" -> entity.hitBox.y -= entity.speed;
                     case "down" -> entity.hitBox.y += entity.speed;
                     case "left" -> entity.hitBox.x -= entity.speed;
                     case "right" -> entity.hitBox.x += entity.speed;
                 }
-                if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
-                    if(gp.obj[i].collision) {
-                        entity.collisionOn = true;
-                    }
+                if(entity.hitBox.intersects(obj.hitBox)) {
+                    // Enemies are supposed to be able to walk through items unaffected
+//                    if(obj.collision) {
+//                        entity.collisionOn = true;
+//                    }
                     if(isPlayer) {
-                        index = i;
+                        result = obj;
                     }
                     break;
                 }
                 // Reset hitbox coordinates
                 entity.hitBox.x = entity.hitBoxDefaultX;
                 entity.hitBox.y = entity.hitBoxDefaultY;
-                gp.obj[i].hitBox.x = gp.obj[i].hitBoxDefaultX;
-                gp.obj[i].hitBox.y = gp.obj[i].hitBoxDefaultY;
+                obj.hitBox.x = obj.hitBoxDefaultX;
+                obj.hitBox.y = obj.hitBoxDefaultY;
             }
+        }
+
+        // Bonus rewards ArrayList
+        for(BonusReward bonus : gp.tempItems) {
+            // Get entity hitbox coordinates
+            entity.hitBox.x += entity.worldX;
+            entity.hitBox.y += entity.worldY;
+            // Get item hitbox coordinates
+            bonus.hitBox.x += bonus.worldX;
+            bonus.hitBox.y += bonus.worldY;
+            switch (entity.direction) {
+                case "up" -> entity.hitBox.y -= entity.speed;
+                case "down" -> entity.hitBox.y += entity.speed;
+                case "left" -> entity.hitBox.x -= entity.speed;
+                case "right" -> entity.hitBox.x += entity.speed;
+            }
+            if(entity.hitBox.intersects(bonus.hitBox)) {
+                // Enemies are supposed to be able to walk through items unaffected
+//                    if(obj.collision) {
+//                        entity.collisionOn = true;
+//                    }
+                if(isPlayer) {
+                    result = bonus;
+                }
+                break;
+            }
+            // Reset hitbox coordinates
+            entity.hitBox.x = entity.hitBoxDefaultX;
+            entity.hitBox.y = entity.hitBoxDefaultY;
+            bonus.hitBox.x = bonus.hitBoxDefaultX;
+            bonus.hitBox.y = bonus.hitBoxDefaultY;
 
         }
-        return index;
+
+        return result;
     }
 
     /**

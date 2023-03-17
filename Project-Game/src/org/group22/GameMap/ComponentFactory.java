@@ -24,6 +24,9 @@ public class ComponentFactory {
     public MapComponent[] mc;
     public int[][] mapTileNum;
 
+    public int mapWidth;
+    public int mapHeight;
+
     /**
      * Constructor
      *
@@ -80,6 +83,8 @@ public class ComponentFactory {
 
     public void loadMap(String filePath) {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapWidth = 0;
+        mapHeight = 0;
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             assert is != null;
@@ -94,16 +99,21 @@ public class ComponentFactory {
                 while (col < numbers.length && col < gp.maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]); // Convert string to int
                     mapTileNum[col][row] = num; // Store number in mapTileNum array
+                    if(mapWidth < col){mapWidth = col;}
                     col++;
                 }
                 col = 0;
+                if(mapHeight < row){mapHeight = row;}
                 row++;
                 line = br.readLine();
             }
             br.close();
+            mapWidth++;
+            mapHeight++;
         } catch (Exception ignored) {
 
         }
+        System.out.println("Map loaded: (" + mapWidth + ", " + mapHeight + ")");
     }
 
     /**

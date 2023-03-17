@@ -4,10 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.locks.Lock;
 import javax.swing.JPanel;
 
+import org.group22.Drops.BonusReward;
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
+import org.group22.Drops.Potion;
+import org.group22.GameMap.MapComponent;
 import org.group22.People.EnemyFactory;
 import org.group22.People.Enemy;
 import org.group22.People.Player;
@@ -46,6 +52,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     // System
     public Thread gameThread;
+    private final Object lock1 = new Object();
+    private final Object lock2 = new Object();
+    private final Object lock3 = new Object();
+    public long timer;
     public KeyInputs keyInputs;
     public CollisionChecker cCheck;
     public ItemFactory iFactory;
@@ -58,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game objects
     public Player player;
     public Item[] obj;   // Array of objects
+    public ArrayList<BonusReward> tempItems; // Array of temporary items
     public Enemy[] enemies; // Array of enemies
     public int keysNeeded;
     public int healthDrainRate;
@@ -72,7 +83,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int endState = 5;
     public boolean paused = false;
     public int difficulty;
-    public int tickCounter = 0;
+    public int healthTickCounter = 0;
+    public int spawnTickCounter = 0;
 
     /**
      * Game panel constructor
@@ -88,7 +100,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs
         this.setFocusable(true);    // Focus on JPanel to receive key inputs
-
     }
     
     /**
@@ -103,12 +114,9 @@ public class GamePanel extends JPanel implements Runnable{
         cFactory = new ComponentFactory(this);
         iFactory  = new ItemFactory(this);
         eFactory = new EnemyFactory(this);
-        obj = new Item[maxItems];
-        enemies = new Enemy[maxEnemies];
 
         gameState = titleState;
-        difficulty = 0;
-        healthDrainRate = 5;
+        changeDifficulty(0);
     }
     
     /**
@@ -133,28 +141,32 @@ public class GamePanel extends JPanel implements Runnable{
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        long timer = 0;
-        int drawCount = 0;
+        //timer = 0;
 
         while(gameThread != null) {
             currentTime = System.nanoTime();
+            timer = currentTime / 1000000000;
             delta += (currentTime - lastTime) / timePerTick; // Get delta time
-            timer += (currentTime - lastTime);    // Get time passed
+            //timer += (currentTime - lastTime) / 1000000000;  // Get time passed in seconds
             lastTime = currentTime;
 
             if(delta >= 1) {
                 // Update game logic
-                update();
+                synchronized (lock1) {
+                    update();
+                }
                 // Draw game graphics
-                repaint();
+                synchronized (lock2) {
+                    repaint();
+                }
                 delta--;
-                drawCount++;
             }
 
-            if(timer >= 1000000000) {
-                //System.out.println("FPS: " + drawCount);
-                timer = 0;
-                drawCount = 0;
+            // Handle despawning potions
+            synchronized (lock3) {
+                if (gameState >= playState1) {
+                    tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
+                }
             }
         }
     }
@@ -168,14 +180,35 @@ public class GamePanel extends JPanel implements Runnable{
             if (player.dead()) {
                 changeGameState(endState);
             } else {
+                healthTickCounter++;
+                spawnTickCounter++;
                 // Drain health
                 if(difficulty > 0) {
-                    tickCounter++;
-                    if (tickCounter >= healthDrainRate) {
+                    if (healthTickCounter >= healthDrainRate) {
                         player.setHealth(-1);
-                        tickCounter = 0;
+                        healthTickCounter = 0;
                     }
                 }
+                // Attempt to spawn bonus reward
+                if(spawnTickCounter >= Potion.getSpawnTimer()) {
+                    System.out.println("Attempting to spawn potion");
+                    Random rand = new Random();
+                    if(rand.nextDouble() < Potion.getSpawnChance()) {
+                        tempItems.add(iFactory.spawnPotion());
+//                        System.out.println(tempItems);
+                    }
+                    spawnTickCounter = 0;
+                }
+                // Update temporary items
+//                synchronized (lock1) {
+//                    for (BonusReward bonus : tempItems) {
+//                        bonus.decrementTicksTillDeath();
+//                        if (bonus.getTicksTillDeath() <= 0) {
+//                            System.out.println("Despawning potion");
+//                            tempItems.remove(bonus);
+//                        }
+//                    }
+//                }
                 // Update player
                 player.update();
                 // Update enemies
@@ -217,6 +250,12 @@ public class GamePanel extends JPanel implements Runnable{
                     item.draw(g2d, this);
                 }
             }
+            // Bonus Rewards
+            synchronized (lock2) {
+                for (BonusReward bonus : tempItems) {
+                    bonus.draw(g2d, this);
+                }
+            }
             // Enemy
             for (Enemy enemy : enemies) {
                 if (enemy != null) {
@@ -255,24 +294,27 @@ public class GamePanel extends JPanel implements Runnable{
         } else if (state == playState1) {
             player.resetPlayer();
             cFactory.loadMap("/Map/world01.txt");
-            iFactory.createItem("/Map/items01.txt");
+            iFactory.createItems("/Map/items01.txt");
             eFactory.createEnemies("/Map/enemies01.txt");
+            tempItems = new ArrayList<>();
 
             player.setPlayerValues(35, 10, 8, "down");
             keysNeeded = 3;
             gameState = playState1;
         } else if (state == playState2) {
             cFactory.loadMap("/Map/world02.txt");
-            iFactory.createItem("/Map/items02.txt");
+            iFactory.createItems("/Map/items02.txt");
             eFactory.createEnemies("/Map/enemies02.txt");
+            tempItems = new ArrayList<>();
 
             player.setPlayerValues(3, 16, 8, "down");
             keysNeeded = 3;
             gameState = playState2;
         } else if (state == playState3) {
             cFactory.loadMap("/Map/world03.txt");
-            iFactory.createItem("/Map/items03.txt");
+            iFactory.createItems("/Map/items03.txt");
             eFactory.createEnemies("/Map/enemies03.txt");
+            tempItems = new ArrayList<>();
 
             player.setPlayerValues(1, 23, 8, "down");
             keysNeeded = 6;
@@ -285,10 +327,18 @@ public class GamePanel extends JPanel implements Runnable{
     public void changeDifficulty(int newDifficulty){
         difficulty = newDifficulty;
         switch (difficulty) {
-            case(0) -> healthDrainRate = -1;
-            case(1) -> healthDrainRate = 15;
-            case(2) -> healthDrainRate = 10;
-            case(3) -> healthDrainRate = 5;
+            case(0) -> {
+                healthDrainRate = -1;
+            }
+            case(1) -> {
+                healthDrainRate = 15;
+            }
+            case(2) -> {
+                healthDrainRate = 10;
+            }
+            case(3) -> {
+                healthDrainRate = 5;
+            }
         }
         System.out.println("New difficulty: " + difficulty);
     }

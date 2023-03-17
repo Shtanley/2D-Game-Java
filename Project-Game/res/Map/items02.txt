@@ -3,10 +3,6 @@ Key, 12, 10
 Key, 25, 11
 Key, 2, 2
 Key, 7, 19
-Potion, 40, 19
-Potion, 16, 19
-Potion, 45, 7
-Potion, 7, 7
 Spikes, 29, 22
 Spikes, 44, 19
 Spikes, 43, 5

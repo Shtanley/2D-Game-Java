@@ -13,8 +13,15 @@ import java.util.Objects;
  * @author Sameer
  */
 public class Potion extends BonusReward {
-    public Potion() {
+    private static final int despawnTimer = 100;
+
+    public Potion(int x, int y, long time) {
         name = "Potion";
-        image = setup("/Object/newpotion");
+        image = Item.setupSprite("/Object/newpotion");
+        worldX = x;
+        worldY = y;
+        setTicksTillDeath(despawnTimer);
+        birthTime = time;
+        lifetime = 4;
     }
 }

@@ -10,8 +10,10 @@ import java.util.Objects;
  * @author Michael
  */
 public class Spikes extends Punishment {
-    public Spikes() {
+    public Spikes(int x, int y) {
         name = "Spikes";
-        image = setup("/Object/peaks_1");
+        image = Item.setupSprite("/Object/peaks_1");
+        worldX = x;
+        worldY = y;
     }
 }
