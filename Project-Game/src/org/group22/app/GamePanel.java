@@ -129,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     @Override
     public void run() { // Delta time method
-        double timePerTick = 1000000000 / fps;   // 1000000000 nanoseconds = 1 second
+        double timePerTick = 1000000000.0 / fps;   // 1000000000 nanoseconds = 1 second
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -137,10 +137,6 @@ public class GamePanel extends JPanel implements Runnable{
         int drawCount = 0;
 
         while(gameThread != null) {
-            // System.out.println("Game is running");
-            // long currentTime = System.nanoTime();   // Get current time in nanoseconds
-            // System.out.println("Current time: " + currentTime);
-
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / timePerTick; // Get delta time
             timer += (currentTime - lastTime);    // Get time passed
