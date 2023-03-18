@@ -22,6 +22,6 @@ public class Potion extends BonusReward {
         worldY = y;
         setTicksTillDeath(despawnTimer);
         birthTime = time;
-        lifetime = 4;
+        lifetime = 5;
     }
 }
