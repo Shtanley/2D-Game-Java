@@ -14,7 +14,8 @@ public class Skeleton extends Enemy{
     int nextY;
 
     /**
-     * Constructs skeleton with null location
+     * Constructs skeleton
+     * Sets skeleton's hitbox, speed, and sprite
      */
     public Skeleton(GamePanel gp) {
         super(gp);
@@ -40,18 +41,25 @@ public class Skeleton extends Enemy{
         getImage();
     }
 
-
+    /**
+     * Set skeleton sprite
+     */
     public void getImage() {
-        up1 = setup("/Enemy/skeletonlord_up_1");
-        up2 = setup("/Enemy/skeletonlord_up_2");
-        down1 = setup("/Enemy/skeletonlord_down_1");
-        down2 = setup("/Enemy/skeletonlord_down_2");
-        left1 = setup("/Enemy/skeletonlord_left_1");
-        left2 = setup("/Enemy/skeletonlord_left_2");
-        right1 = setup("/Enemy/skeletonlord_right_1");
-        right1 = setup("/Enemy/skeletonlord_right_2");
+        up1 = Entity.setupSprite("/Enemy/skeletonlord_up_1");
+        up2 = Entity.setupSprite("/Enemy/skeletonlord_up_2");
+        down1 = Entity.setupSprite("/Enemy/skeletonlord_down_1");
+        down2 = Entity.setupSprite("/Enemy/skeletonlord_down_2");
+        left1 = Entity.setupSprite("/Enemy/skeletonlord_left_1");
+        left2 = Entity.setupSprite("/Enemy/skeletonlord_left_2");
+        right1 = Entity.setupSprite("/Enemy/skeletonlord_right_1");
+        right1 = Entity.setupSprite("/Enemy/skeletonlord_right_2");
     }
 
+    /**
+     * Determines the skeletons next direction of movement
+     * Skeletons follow a patrolling movement pattern
+     * i.e. they follow a set path which is specified in the enemies.txt files
+     */
     public void setAction(){
         boolean condition = false;
         switch (direction){

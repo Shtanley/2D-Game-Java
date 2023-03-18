@@ -52,9 +52,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     // System
     public Thread gameThread;
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
-    private final Object lock3 = new Object();
+    public final Object lock1 = new Object();
+    public final Object lock2 = new Object();
+    public final Object lock3 = new Object();
     public long timer;
     public KeyInputs keyInputs;
     public CollisionChecker cCheck;

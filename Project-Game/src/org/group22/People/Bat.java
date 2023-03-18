@@ -36,27 +36,23 @@ public class Bat extends Enemy {
         getImage();
     }
 
-//    @Override
-//    void move() {
-//
-//    }
-
     /**
-     * Set bat image
+     * Set bat sprite
      */
     public void getImage() {
-        up1 = setup("/Enemy/bat_down_1");
-        up2 = setup("/Enemy/bat_down_2");
-        down1 = setup("/Enemy/bat_down_1");
-        down2 = setup("/Enemy/bat_down_2");
-        left1 = setup("/Enemy/bat_down_1");
-        left2 = setup("/Enemy/bat_down_2");
-        right1 = setup("/Enemy/bat_down_1");
-        right1 = setup("/Enemy/bat_down_2");
+        up1 = Entity.setupSprite("/Enemy/bat_down_1");
+        up2 = Entity.setupSprite("/Enemy/bat_down_2");
+        down1 = Entity.setupSprite("/Enemy/bat_down_1");
+        down2 = Entity.setupSprite("/Enemy/bat_down_2");
+        left1 = Entity.setupSprite("/Enemy/bat_down_1");
+        left2 = Entity.setupSprite("/Enemy/bat_down_2");
+        right1 = Entity.setupSprite("/Enemy/bat_down_1");
+        right1 = Entity.setupSprite("/Enemy/bat_down_2");
     }
 
     /**
-     * Set bat movement
+     * Determines the bat's next direction of movement
+     * Bat move uniformly randomly in all directions
      */
     public void setAction() {
         lockActionCount++;
@@ -66,9 +62,9 @@ public class Bat extends Enemy {
 
             if(n <= 25) {
                 direction = "up";
-            } else if( n > 25 && n <= 50) {
+            } else if(n <= 50) {
                 direction = "down";
-            } else if( n > 50 && n <= 75) {
+            } else if(n <= 75) {
                 direction = "left";
             } else {
                 direction = "right";

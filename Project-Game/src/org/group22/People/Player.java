@@ -3,13 +3,9 @@ package org.group22.People;
 import org.group22.Drops.Item;
 import org.group22.app.*;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Player class
@@ -80,14 +76,14 @@ public class Player extends Entity {
      * Set up player sprites
      */
     public void getPlayerImage() {
-        left1 = setup("/Player/priest_left1");
-        left2 = setup("/Player/priest_left2");
-        left3 = setup("/Player/priest_left3");
-        left4 = setup("/Player/priest_left4");
-        right1 = setup("/Player/priest_right1");
-        right2 = setup("/Player/priest_right2");
-        right3 = setup("/Player/priest_right3");
-        right4 = setup("/Player/priest_right4");
+        left1 = setupSprite("/Player/priest_left1");
+        left2 = setupSprite("/Player/priest_left2");
+        left3 = setupSprite("/Player/priest_left3");
+        left4 = setupSprite("/Player/priest_left4");
+        right1 = setupSprite("/Player/priest_right1");
+        right2 = setupSprite("/Player/priest_right2");
+        right3 = setupSprite("/Player/priest_right3");
+        right4 = setupSprite("/Player/priest_right4");
         up1 = right1;
         up2 = right2;
         up3 = right3;
@@ -190,14 +186,16 @@ public class Player extends Entity {
             }
         }
         // If successful, delete the item from the game, wherever it is
-        if(pickedUp) {
-            // Traverse obj
-            for(int i = 0; i < gp.obj.length; i++) {
-                if(item.equals(gp.obj[i])){
-                    gp.obj[i] = null;
+        synchronized (gp.lock1) {
+            if (pickedUp) {
+                // Traverse obj
+                for (int i = 0; i < gp.obj.length; i++) {
+                    if (item.equals(gp.obj[i])) {
+                        gp.obj[i] = null;
+                    }
                 }
+                gp.tempItems.remove(item);
             }
-            gp.tempItems.remove(item);
         }
     }
 
@@ -255,19 +253,19 @@ public class Player extends Entity {
     public BufferedImage getHeartSprite(int num){
         BufferedImage result = null;
         switch(num){
-            case(-1) -> result = setup("/Object/heart_empty");
-            case(0) -> result = setup("/Object/heart_0");
-            case(1) -> result = setup("/Object/heart_1");
-            case(2) -> result = setup("/Object/heart_2");
-            case(3) -> result = setup("/Object/heart_3");
-            case(4) -> result = setup("/Object/heart_4");
-            case(5) -> result = setup("/Object/heart_5");
-            case(6) -> result = setup("/Object/heart_6");
-            case(7) -> result = setup("/Object/heart_7");
-            case(8) -> result = setup("/Object/heart_8");
-            case(9) -> result = setup("/Object/heart_9");
-            case(10) -> result = setup("/Object/heart_full");
-            case(11) -> result = setup("/Object/heart_");
+            case(-1) -> result = Entity.setupSprite("/Object/heart_empty");
+            case(0) -> result = Entity.setupSprite("/Object/heart_0");
+            case(1) -> result = Entity.setupSprite("/Object/heart_1");
+            case(2) -> result = Entity.setupSprite("/Object/heart_2");
+            case(3) -> result = Entity.setupSprite("/Object/heart_3");
+            case(4) -> result = Entity.setupSprite("/Object/heart_4");
+            case(5) -> result = Entity.setupSprite("/Object/heart_5");
+            case(6) -> result = Entity.setupSprite("/Object/heart_6");
+            case(7) -> result = Entity.setupSprite("/Object/heart_7");
+            case(8) -> result = Entity.setupSprite("/Object/heart_8");
+            case(9) -> result = Entity.setupSprite("/Object/heart_9");
+            case(10) -> result = Entity.setupSprite("/Object/heart_full");
+            case(11) -> result = Entity.setupSprite("/Object/heart_");
         }
         assert(result != null);
         return result;
