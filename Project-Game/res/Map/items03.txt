@@ -13,5 +13,3 @@ Spikes, 11, 7
 Spikes, 31, 27
 Spikes, 10, 30
 Door, 2, 1
-
-

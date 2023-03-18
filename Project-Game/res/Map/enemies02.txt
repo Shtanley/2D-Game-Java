@@ -13,3 +13,6 @@ Bat, 38, 7
 Bat, 44, 19
 Skeleton, 35, 7, L, L, L, L, L, L, L, L, D, D, D, R, R, R, R, R, R, R, R, U, U, U
 Skeleton, 45, 6, L, L, D, D, D, D, R, R, U, U, U, U
+Slime, 18, 14
+Slime, 19, 23
+Slime, 34, 17
