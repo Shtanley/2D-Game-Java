@@ -290,6 +290,16 @@ public class Player extends Entity {
         this.points += item.getPointAdjustment();
     }
 
-    public void setHealth(Item item) { this.health += item.getHealthAdjustment();}
-    public void setHealth(int deltaHealth) { this.health += deltaHealth;}
+    public void setHealth(Item item) {
+        health += item.getHealthAdjustment();
+        if(health > maxHealth){
+            health = maxHealth;
+        }
+    }
+    public void setHealth(int deltaHealth) {
+        health += deltaHealth;
+        if(health > maxHealth){
+            health = maxHealth;
+        }
+    }
 }
