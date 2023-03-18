@@ -13,6 +13,7 @@ import java.util.Random;
  * @author Sameer
  */
 public class Bat extends Enemy {
+    private final int changeDirRate = 50;
     /**
      * Bat constructor
      * Set bat image and bat movement
@@ -56,7 +57,7 @@ public class Bat extends Enemy {
      */
     public void setAction() {
         lockActionCount++;
-        if(lockActionCount == 100) {
+        if(lockActionCount >= changeDirRate) {
             Random rand = new Random();
             int n = rand.nextInt(100) + 1;
 
