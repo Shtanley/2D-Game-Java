@@ -132,12 +132,15 @@ public class ComponentFactory {
             int worldX = worldcol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             // Calculate x and y position of tile on screen
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int playerScreenX = gp.player.getScreenX();
+            int playerScreenY = gp.player.getScreenY();
+
+            int screenX = worldX - gp.player.getWorldX() + playerScreenX;
+            int screenY = worldY - gp.player.getWorldY() + playerScreenY;
 
             // Draw tile if it is on screen to save resources
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-                    && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - gp.tileSize < gp.player.getWorldX() + gp.player.getScreenX()
+                    && worldY + gp.tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - gp.tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
                 g2d.drawImage(mc[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
             worldcol++;

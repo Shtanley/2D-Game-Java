@@ -5,8 +5,6 @@ import org.group22.app.GamePanel;
 import java.awt.*;
 import java.util.Random;
 
-import static java.lang.Math.abs;
-
 /**
  * Slime class
  * Manage slime image and slime movement
@@ -24,18 +22,14 @@ public class Slime extends Enemy {
      */
     public Slime(GamePanel gp) {
         super(gp);
-        hitBox = new Rectangle();
-        name = "Slime";
-        speed = 1;
+        setHitBox(new Rectangle(3, 18, 42, 30));
+        setName("Slime");
+        setSpeed(1);
 
-        hitBox.x = 3;
-        hitBox.y = 18;
-        hitBox.width = 42;
-        hitBox.height = 30;
-        hitBoxDefaultX = hitBox.x;
-        hitBoxDefaultY = hitBox.y;
+        setHitBoxDefaultX(getHitBox().x);
+        setHitBoxDefaultY(getHitBox().y);
 
-        direction = "down";
+        setDirection("down");
 
         getImage();
     }
@@ -47,25 +41,28 @@ public class Slime extends Enemy {
     public void getImage() {
         Random rand = new Random();
         double p = rand.nextDouble();
-        int n = rand.nextInt(2);
+
+        // spawn green slime
         if(p < 0.5) {
-            up1 = Entity.setupSprite("/Enemy/greenslime_down_1");
-            up2 = Entity.setupSprite("/Enemy/greenslime_down_2");
-            down1 = Entity.setupSprite("/Enemy/greenslime_down_1");
-            down2 = Entity.setupSprite("/Enemy/greenslime_down_2");
-            left1 = Entity.setupSprite("/Enemy/greenslime_down_1");
-            left2 = Entity.setupSprite("/Enemy/greenslime_down_2");
-            right1 = Entity.setupSprite("/Enemy/greenslime_down_1");
-            right1 = Entity.setupSprite("/Enemy/greenslime_down_2");
+            setUp1(Entity.setupSprite("/Enemy/greenslime_down_1"));
+            setUp2(Entity.setupSprite("/Enemy/greenslime_down_2"));
+            setDown1(Entity.setupSprite("/Enemy/greenslime_down_1"));
+            setDown2(Entity.setupSprite("/Enemy/greenslime_down_2"));
+            setLeft1(Entity.setupSprite("/Enemy/greenslime_down_1"));
+            setLeft2(Entity.setupSprite("/Enemy/greenslime_down_2"));
+            setRight1(Entity.setupSprite("/Enemy/greenslime_down_1"));
+            setRight2(Entity.setupSprite("/Enemy/greenslime_down_2"));
+
+        // spawn red slime
         } else {
-            up1 = Entity.setupSprite("/Enemy/redslime_down_1");
-            up2 = Entity.setupSprite("/Enemy/redslime_down_2");
-            down1 = Entity.setupSprite("/Enemy/redslime_down_1");
-            down2 = Entity.setupSprite("/Enemy/redslime_down_2");
-            left1 = Entity.setupSprite("/Enemy/redslime_down_1");
-            left2 = Entity.setupSprite("/Enemy/redslime_down_2");
-            right1 = Entity.setupSprite("/Enemy/redslime_down_1");
-            right1 = Entity.setupSprite("/Enemy/redslime_down_2");
+            setUp1(Entity.setupSprite("/Enemy/redslime_down_1"));
+            setUp2(Entity.setupSprite("/Enemy/redslime_down_2"));
+            setDown1(Entity.setupSprite("/Enemy/redslime_down_1"));
+            setDown2(Entity.setupSprite("/Enemy/redslime_down_2"));
+            setLeft1(Entity.setupSprite("/Enemy/redslime_down_1"));
+            setLeft2(Entity.setupSprite("/Enemy/redslime_down_2"));
+            setRight1(Entity.setupSprite("/Enemy/redslime_down_1"));
+            setRight2(Entity.setupSprite("/Enemy/redslime_down_2"));
         }
     }
 
@@ -78,26 +75,25 @@ public class Slime extends Enemy {
         // The slime can either move closer to the player in the x-direction or the y-direction
         // The chances of choosing x vs y is weighted by the ratio of the distances in either direction
         // This way, the slime will move in an approximately straight line directly towards the player.
-        int deltax = Math.abs(gp.player.worldX - this.worldX);
-        int deltay = Math.abs(gp.player.worldY - this.worldY);
-        double ratio = (double)deltax/(deltay + deltax); // Manhattan metric (straight line)
-//        double ratio = (double)deltax*deltax/(deltay*deltay + deltax*deltax); // Euclidean metric (curved)
+        int deltaX = Math.abs(gp.player.getWorldX() - getWorldX());
+        int deltaY = Math.abs(gp.player.getWorldY() - getWorldY());
+        double ratio = (double)deltaX/(deltaY + deltaX); // Manhattan metric (straight line)
 
         Random rand = new Random();
         double p = rand.nextDouble();
         if(p < ratio) {
             // Move in the x direction
-            if(gp.player.worldX < this.worldX){
-                direction = "left";
+            if(gp.player.getWorldX() < getWorldX()){
+                setDirection("left");
             } else {
-                direction = "right";
+                setDirection("right");
             }
         } else {
             // Move in the y direction
-            if(gp.player.worldY < this.worldY){
-                direction = "up";
+            if(gp.player.getWorldY() < getWorldY()){
+                setDirection("up");
             } else {
-                direction = "down";
+                setDirection("down");
             }
         }
 

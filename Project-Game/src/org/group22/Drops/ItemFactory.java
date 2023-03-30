@@ -78,8 +78,8 @@ public class ItemFactory {
             int xComponent = rand.nextInt(21) - 10; // Random int between -10 and 10
             int yComponent = rand.nextInt(21) - 10; // Random int between -10 and 10
             // Calculate (x, y) on map
-            x = gp.player.worldX/gp.tileSize + xComponent;
-            y = gp.player.worldY/gp.tileSize + yComponent;
+            x = gp.player.getWorldX()/gp.tileSize + xComponent;
+            y = gp.player.getScreenY()/gp.tileSize + yComponent;
 //            System.out.print("(" + xComponent + ", " + yComponent + ") -> (" + x + ", " + y + ")   ");
             // Check if valid location:
             // Omit (0, 0). Potion should not spawn on top of the player

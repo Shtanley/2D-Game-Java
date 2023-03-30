@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
  * @author Sameer
  */
 public class Player extends Entity {
-    KeyInputs keyInputs;
-    public final int screenX, screenY;
-    public int keyCount = 0;
+    private final KeyInputs keyInputs;
+    private final int screenX, screenY;
+    private int keyCount = 0;
     private final static int maxHealth = 200;
     private int health;
     private int points;
@@ -34,15 +34,12 @@ public class Player extends Entity {
         // Screen position of player
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
-        // Hitbox position
-        hitBox = new Rectangle();
-        hitBox.x = 8;
-        hitBox.y = 16;
-        hitBoxDefaultX = hitBox.x;
-        hitBoxDefaultY = hitBox.y;
-        // Hitbox size
-        hitBox.width = 22;
-        hitBox.height = 25;
+        // Hit box position + size
+        setHitBox(new Rectangle(8, 16, 22, 25));
+
+        setHitBoxDefaultX(getHitBox().x);
+        setHitBoxDefaultY(getHitBox().y);
+
         getPlayerImage();
         resetPlayer();
     }
@@ -56,10 +53,11 @@ public class Player extends Entity {
      * @param direction Direction the player is facing
      */
     public void setPlayerValues(int x, int y, int speed, String direction) {
-        worldX = gp.tileSize * x;
-        worldY = gp.tileSize * y;
-        this.speed = speed;
-        this.direction = direction;
+        setWorldX(gp.tileSize * x);
+        setWorldY(gp.tileSize * y);
+
+        setDirection(direction);
+        setSpeed(speed);
     }
 
     /**
@@ -76,22 +74,22 @@ public class Player extends Entity {
      * Set up player sprites
      */
     public void getPlayerImage() {
-        left1 = setupSprite("/Player/priest_left1");
-        left2 = setupSprite("/Player/priest_left2");
-        left3 = setupSprite("/Player/priest_left3");
-        left4 = setupSprite("/Player/priest_left4");
-        right1 = setupSprite("/Player/priest_right1");
-        right2 = setupSprite("/Player/priest_right2");
-        right3 = setupSprite("/Player/priest_right3");
-        right4 = setupSprite("/Player/priest_right4");
-        up1 = right1;
-        up2 = right2;
-        up3 = right3;
-        up4 = right4;
-        down1 = left1;
-        down2 = left2;
-        down3 = left3;
-        down4 = left4;
+        setLeft1(setupSprite("/Player/priest_left1"));
+        setLeft2(setupSprite("/Player/priest_left2"));
+        setLeft3(setupSprite("/Player/priest_left3"));
+        setLeft4(setupSprite("/Player/priest_left4"));
+        setRight1(setupSprite("/Player/priest_right1"));
+        setRight2(setupSprite("/Player/priest_right2"));
+        setRight3(setupSprite("/Player/priest_right3"));
+        setRight4(setupSprite("/Player/priest_right4"));
+        setUp1(getRight1());
+        setUp2(getRight2());
+        setUp3(getRight3());
+        setUp4(getRight4());
+        setDown1(getLeft1());
+        setDown2(getLeft2());
+        setDown3(getLeft3());
+        setDown4(getLeft4());
     }
 
     /**
@@ -102,21 +100,21 @@ public class Player extends Entity {
         // Player movement
         if(keyInputs.upPressed || keyInputs.downPressed || keyInputs.leftPressed || keyInputs.rightPressed) {
             if (keyInputs.upPressed) {
-                direction = "up";
+                setDirection("up");
             }
             if (keyInputs.downPressed) {
-                direction = "down";
+                setDirection("down");
             }
             if (keyInputs.leftPressed) {
-                direction = "left";
+                setDirection("left");
             }
             if (keyInputs.rightPressed) {
-                direction = "right";
+                setDirection("right");
             }
 
             // Collision detection
             // Tile collision
-            collisionOn = false;
+            turnOffCollision();
             gp.cCheck.checkComponent(this);
             // Object collision
             Item obj = gp.cCheck.checkItem(this, true);
@@ -128,22 +126,22 @@ public class Player extends Entity {
             if(enemyIndex != -1) {
                 encounter();
             }
-            if(!collisionOn) {
-                switch (direction) {
-                    case "up" -> worldY -= speed;
-                    case "down" -> worldY += speed;
-                    case "left" -> worldX -= speed;
-                    case "right" -> worldX += speed;
+            if(!isCollisionOn()) {
+                switch (getDirection()) {
+                    case "up" -> setWorldY(getWorldY() - getSpeed());
+                    case "down" -> setWorldY(getWorldY() + getSpeed());
+                    case "left" -> setWorldX(getWorldX() - getSpeed());
+                    case "right" -> setWorldX(getWorldX() + getSpeed());
                 }
             }
 
-            spriteCount++;
-            if(spriteCount > 10) {
-                spriteCount = 0;
-                if(spriteNum == 1)
-                    spriteNum = 2;
+            setSpriteCount(getSpriteCount() + 1);
+            if(getSpriteCount() > 10) {
+                setSpriteCount(0);
+                if(getSpriteNum() == 1)
+                    setSpriteNum(2);
                 else
-                    spriteNum = 1;
+                    setSpriteNum(1);
             }
         }
     }
@@ -215,30 +213,30 @@ public class Player extends Entity {
      */
     public void draw(Graphics2D g2d) {
         BufferedImage image = null;
-        switch (direction) {
+        switch (getDirection()) {
             case "up" -> {
-                if (spriteNum == 1)
-                    image = up1;
+                if (getSpriteNum() == 1)
+                    image = getUp1();
                 else
-                    image = up2;
+                    image = getUp2();
             }
             case "down" -> {
-                if (spriteNum == 1)
-                    image = down1;
+                if (getSpriteNum() == 1)
+                    image = getDown1();
                 else
-                    image = down2;
+                    image = getDown2();
             }
             case "left" -> {
-                if (spriteNum == 1)
-                    image = left1;
+                if (getSpriteNum() == 1)
+                    image = getLeft1();
                 else
-                    image = left2;
+                    image = getLeft2();
             }
             case "right" -> {
-                if (spriteNum == 1)
-                    image = right1;
+                if (getSpriteNum() == 1)
+                    image = getRight1();
                 else
-                    image = right2;
+                    image = getRight2();
             }
         }
         g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
@@ -301,5 +299,17 @@ public class Player extends Entity {
         if(health > maxHealth){
             health = maxHealth;
         }
+    }
+
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
+    }
+
+    public int getKeyCount() {
+        return keyCount;
     }
 }

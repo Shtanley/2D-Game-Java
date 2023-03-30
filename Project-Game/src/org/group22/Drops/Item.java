@@ -25,24 +25,28 @@ public abstract class Item {
     public int hitBoxDefaultX, hitBoxDefaultY;
 
     public abstract int getHealthAdjustment();
+
     public abstract int getPointAdjustment();
 
     /**
      * Draw this item if it is on the screen
      *
      * @param g2d 2d graphics handler
-     * @param gp the game's game panel
+     * @param gp  the game's game panel
      */
     public void draw(Graphics2D g2d, GamePanel gp) {
         // Calculate x and y position of item on screen
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        int playerScreenX = gp.player.getScreenX();
+        int playerScreenY = gp.player.getScreenY();
+
+        int screenX = worldX - gp.player.getWorldX() + playerScreenX;
+        int screenY = worldY - gp.player.getWorldY() + playerScreenY;
 
         // Draw item if it is on screen to save resources
-        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
-                && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
-                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.tileSize > gp.player.getWorldX() - playerScreenX
+                && worldX - gp.tileSize < gp.player.getWorldX() + playerScreenX
+                && worldY + gp.tileSize > gp.player.getWorldY() - playerScreenY
+                && worldY - gp.tileSize < gp.player.getWorldY() + playerScreenY) {
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
@@ -60,19 +64,9 @@ public abstract class Item {
 
         try {
             image = ImageIO.read(Objects.requireNonNull(Item.class.getResourceAsStream(imgPath + ".png")));
-//            image = scaleImg(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return image;
     }
-
-//    @java.lang.Override
-//    public java.lang.String toString() {
-//        return name + " {" +
-//                "loc=" + loc +
-//                ", healthAdjustment=" + getHealthAdjustment() +
-//                ", pointAdjustment=" + getPointAdjustment() +
-//                '}';
-//    }
 }

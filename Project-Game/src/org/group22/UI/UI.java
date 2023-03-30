@@ -44,6 +44,7 @@ public class UI {
             assert is != null;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
             is = getClass().getResourceAsStream("/font/Purisa Bold.ttf");
+            assert is != null;
             purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -104,7 +105,7 @@ public class UI {
         // Add image
         x = gp.screenWidth/2 - (gp.tileSize);
         y += gp.tileSize * 2;
-        g2d.drawImage(Objects.requireNonNull(gp.player.right1), x, y, gp.tileSize*2, gp.tileSize*2, null);
+        g2d.drawImage(Objects.requireNonNull(gp.player.getRight1()), x, y, gp.tileSize*2, gp.tileSize*2, null);
 
         // Menu
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
@@ -311,7 +312,7 @@ public class UI {
         g2d.setFont(g2d.getFont().deriveFont(48F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString(": " + gp.player.keyCount + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
+        g2d.drawString(": " + gp.player.getKeyCount() + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
         drawHealth(gp.tileSize/2, gp.tileSize*11/4);
     }
@@ -326,10 +327,7 @@ public class UI {
         // Set x & y coordinates for heart images
         BufferedImage heart1;
         BufferedImage heart2;
-        int heart1_x = x;
-        int heart1_y = y;
         int heart2_x = x + gp.tileSize*3/4;
-        int heart2_y = y;
         int text_x = x + 90;
         int text_y = y + 40;
         // Draw first heart
@@ -384,8 +382,8 @@ public class UI {
         } else { //health <= 100
             heart2 = gp.player.getHeartSprite(-1);
         }
-        g2d.drawImage(heart1, heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
-        g2d.drawImage(heart2, heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(heart1, x, y, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(heart2, heart2_x, y, gp.tileSize, gp.tileSize, null);
         g2d.drawString(": " + gp.player.getHealth() + "/" + gp.player.getMaxHealth(), text_x, text_y);
     }
 }
