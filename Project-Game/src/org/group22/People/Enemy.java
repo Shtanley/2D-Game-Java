@@ -2,6 +2,13 @@ package org.group22.People;
 
 import org.group22.app.GamePanel;
 
+/**
+ * Enemy class
+ * Manage Enemy image and Enemy movement
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
 public abstract class Enemy extends Entity {
 
     /**

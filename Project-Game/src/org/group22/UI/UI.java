@@ -3,7 +3,6 @@ package org.group22.UI;
 import org.group22.Drops.Key;
 import org.group22.app.GamePanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,18 +16,18 @@ import java.util.Objects;
  * @author Sameer
  */
 public class UI {
-    GamePanel gp;
-    Graphics2D g2d;
-    Font maruMonica, purisaB;
-    Font trebuchet_40, trebuchet_80B;
-    BufferedImage keyImg, healthImg, healthFull, healthEmpty, healthHalf;
-    public boolean msgOn = false;
-    public String msg = "";
-    int msgTimer = 0;
-    public double playTime;
-    DecimalFormat dFormat = new DecimalFormat("#0.00");
-    public int titleCmdNum = 0;
-    public int diffCmdNum = 0;
+    private GamePanel gp;
+    private Graphics2D g2d;
+    private Font maruMonica, purisaB;
+    private Font trebuchet_40, trebuchet_80B;
+    private BufferedImage keyImg;
+    private boolean msgOn = false;
+    private String msg = "";
+    private int msgTimer = 0;
+    private double playTime;
+    private DecimalFormat dFormat = new DecimalFormat("#0.00");
+    private int titleCmdNum = 0;
+    private int diffCmdNum = 0;
 
     /**
      * UI constructor
@@ -385,5 +384,21 @@ public class UI {
         g2d.drawImage(heart1, x, y, gp.tileSize, gp.tileSize, null);
         g2d.drawImage(heart2, heart2_x, y, gp.tileSize, gp.tileSize, null);
         g2d.drawString(": " + gp.player.getHealth() + "/" + gp.player.getMaxHealth(), text_x, text_y);
+    }
+
+    public int getTitleCmdNum() {
+        return titleCmdNum;
+    }
+
+    public void setTitleCmdNum(int titleCmdNum) {
+        this.titleCmdNum = titleCmdNum;
+    }
+
+    public int getDiffCmdNum() {
+        return diffCmdNum;
+    }
+
+    public void setDiffCmdNum(int diffCmdNum) {
+        this.diffCmdNum = diffCmdNum;
     }
 }

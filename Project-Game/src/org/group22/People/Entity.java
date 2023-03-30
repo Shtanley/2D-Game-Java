@@ -8,6 +8,11 @@ import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
+/**
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
 public abstract class Entity {
     GamePanel gp;
     private int worldX, worldY;

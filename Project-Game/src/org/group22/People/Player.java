@@ -10,7 +10,10 @@ import java.awt.image.BufferedImage;
 /**
  * Player class
  * Manage player image and player movement
- * @author Sameer
+ *  @author Dina
+ *  @author Michael
+ *  @author Sameer
+ *
  */
 public class Player extends Entity {
     private final KeyInputs keyInputs;

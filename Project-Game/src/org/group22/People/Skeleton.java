@@ -6,6 +6,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Skeleton class
+ * Manage skeleton image and skeleton movement
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
 public class Skeleton extends Enemy{
 
     ArrayList<String> path;

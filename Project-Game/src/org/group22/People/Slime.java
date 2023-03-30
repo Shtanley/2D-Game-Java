@@ -11,6 +11,7 @@ import java.util.Random;
  * Slimes have a tracking movement pattern
  *
  * @author Michael
+ * @author Dina
  */
 
 public class Slime extends Enemy {
