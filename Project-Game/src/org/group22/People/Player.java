@@ -99,18 +99,7 @@ public class Player extends Entity {
     public void update() {
         // Player movement
         if(keyInputs.upPressed || keyInputs.downPressed || keyInputs.leftPressed || keyInputs.rightPressed) {
-            if (keyInputs.upPressed) {
-                direction = "up";
-            }
-            if (keyInputs.downPressed) {
-                direction = "down";
-            }
-            if (keyInputs.leftPressed) {
-                direction = "left";
-            }
-            if (keyInputs.rightPressed) {
-                direction = "right";
-            }
+            updateDirection();
 
             // Collision detection
             // Tile collision
@@ -122,23 +111,54 @@ public class Player extends Entity {
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
             encounter(enemyIndex != -1);
-            if(!collisionOn) {
-                switch (direction) {
-                    case "up" -> worldY -= speed;
-                    case "down" -> worldY += speed;
-                    case "left" -> worldX -= speed;
-                    case "right" -> worldX += speed;
-                }
-            }
 
-            spriteCount++;
-            if(spriteCount > 10) {
-                spriteCount = 0;
-                if(spriteNum == 1)
-                    spriteNum = 2;
-                else
-                    spriteNum = 1;
+            updatePosition();
+
+            updateSprites();
+        }
+    }
+
+    /**
+     * Update player's direction based on keys pressed
+     */
+    private void updateDirection() {
+        if (keyInputs.upPressed) {
+            direction = "up";
+        }
+        if (keyInputs.downPressed) {
+            direction = "down";
+        }
+        if (keyInputs.leftPressed) {
+            direction = "left";
+        }
+        if (keyInputs.rightPressed) {
+            direction = "right";
+        }
+    }
+
+    /**
+     * Update player's x & y coordinates on the map. (i.e movement of player)
+     */
+    private void updatePosition() {
+        if(!collisionOn) {
+            switch (direction) {
+                case "up": worldY -= speed; break;
+                case "down": worldY += speed; break;
+                case "left": worldX -= speed; break;
+                case "right": worldX += speed; break;
             }
+        }
+
+    }
+
+    private void updateSprites() {
+        spriteCount++;
+        if(spriteCount > 10) {
+            spriteCount = 0;
+            if(spriteNum == 1)
+                spriteNum = 2;
+            else
+                spriteNum = 1;
         }
     }
 
