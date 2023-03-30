@@ -1,9 +1,5 @@
 package org.group22.Drops;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.util.Objects;
-
 /**
  * Create spike punishment item
  *

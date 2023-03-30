@@ -14,7 +14,10 @@ import java.util.Objects;
  * UI class
  * Manage UI elements
  * @author Sameer
+ * @author Michael
+ * @author Dina
  */
+
 public class UI {
     private final GamePanel gp;
     private Graphics2D g2d;

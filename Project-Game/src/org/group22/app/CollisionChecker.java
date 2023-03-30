@@ -42,7 +42,7 @@ public class CollisionChecker {
                 entityTopRow = (entityTopY - entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
-                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
                     entity.turnOnCollision();
                 }
             }
@@ -50,7 +50,7 @@ public class CollisionChecker {
                 entityBottomRow = (entityBottomY + entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
-                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
                     entity.turnOnCollision();
                 }
             }
@@ -58,7 +58,7 @@ public class CollisionChecker {
                 entityLeftCol = (entityLeftX - entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
-                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
                     entity.turnOnCollision();
                 }
             }
@@ -66,7 +66,7 @@ public class CollisionChecker {
                 entityRightCol = (entityRightX + entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
-                if (gp.cFactory.mc[tileNum1].collision || gp.cFactory.mc[tileNum2].collision) {
+                if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
                     entity.turnOnCollision();
                 }
             }

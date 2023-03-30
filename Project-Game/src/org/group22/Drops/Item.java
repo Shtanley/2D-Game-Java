@@ -16,7 +16,6 @@ import java.util.Objects;
  * @author Sameer
  */
 public abstract class Item {
-    GamePanel gp;
     public BufferedImage image;
     public String name;
     public boolean collision = false;
@@ -49,14 +48,6 @@ public abstract class Item {
                 && worldY - gp.tileSize < gp.player.getWorldY() + playerScreenY) {
             g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
-    }
-
-    public BufferedImage scaleImg(BufferedImage original, int width, int height) {
-        BufferedImage newImg = new BufferedImage(width, height, original.getType());
-        Graphics2D g2d = newImg.createGraphics();
-        g2d.drawImage(original, 0, 0, width, height, null);
-        g2d.dispose();
-        return newImg;
     }
 
     public static BufferedImage setupSprite(String imgPath) {

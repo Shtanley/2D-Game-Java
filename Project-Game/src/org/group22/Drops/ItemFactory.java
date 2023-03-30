@@ -1,6 +1,5 @@
 package org.group22.Drops;
 
-import org.group22.People.Bat;
 import org.group22.app.GamePanel;
 
 import java.io.BufferedReader;
@@ -17,14 +16,14 @@ import java.util.Random;
  * @author Michael
  */
 public class ItemFactory {
-    private GamePanel gp;
+    private final GamePanel gp;
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;
     }
 
     /**
-     * Fills the game panel's array of objects based on a csv text file containing data: (type, xCoord, yCoord)
+     * Fills the game panel's array of objects based on a csv text file containing data: (type, xCoordinate, yCoordinate)
      * There is a different text file for each level
      *
      * @param filePath the location of the text file containing all items to be created
@@ -64,14 +63,14 @@ public class ItemFactory {
 
     /**
      * Spawns a potion at a valid random location within 10 squares of the player in either direction
-     * A location is valid if its collision is off and it does not already contain an item
+     * A location is valid if its collision is off, and it does not already contain an item
      *
      * @return the potion created
      */
     public Potion spawnPotion(){
         Random rand = new Random();
         int x, y;
-        boolean validLoc = true;
+        boolean validLoc;
         do {
             validLoc = true;
             // Attempt to spawn potion at random location within 10 tiles of the player in each direction
@@ -80,7 +79,6 @@ public class ItemFactory {
             // Calculate (x, y) on map
             x = gp.player.getWorldX()/gp.tileSize + xComponent;
             y = gp.player.getScreenY()/gp.tileSize + yComponent;
-//            System.out.print("(" + xComponent + ", " + yComponent + ") -> (" + x + ", " + y + ")   ");
             // Check if valid location:
             // Omit (0, 0). Potion should not spawn on top of the player
             if(xComponent == 0 && yComponent == 0) {
@@ -90,33 +88,28 @@ public class ItemFactory {
             // Location must be on the map
             if(x < 1 || x >= gp.cFactory.mapWidth-1 || y < 1 || y >= gp.cFactory.mapHeight-1) {
                 validLoc = false;
-//                System.out.println("Not on map");
                 continue;
             }
             // Location must have collision off
-            if (gp.cFactory.mc[gp.cFactory.mapTileNum[x][y]].collision) {
+            if (gp.cFactory.mc[gp.cFactory.mapTileNum[x][y]].isCollisionOn()) {
                 validLoc = false;
-//                System.out.println("collision");
                 continue;
             }
             // Location cannot already have an item
             for (Item item : gp.obj) {
                 if (item != null && item.worldX/gp.tileSize == x && item.worldY/gp.tileSize == y) {
                     validLoc = false;
-//                    System.out.println("Has item");
                     break;
                 }
             }
             for (BonusReward bonus : gp.tempItems) {
                 if (bonus.worldX/gp.tileSize == x && bonus.worldY/gp.tileSize == y) {
                     validLoc = false;
-//                    System.out.println("Has item");
                     break;
                 }
             }
         } while(!validLoc);
         System.out.println("Potion spawned");
-//        System.out.println("Potion spawned at (" + x + ", " + y + ")");
         return new Potion(x*gp.tileSize, y*gp.tileSize, gp.timer);
     }
 
