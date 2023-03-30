@@ -16,16 +16,15 @@ import java.util.Objects;
  * @author Sameer
  */
 public class UI {
-    private GamePanel gp;
+    private final GamePanel gp;
     private Graphics2D g2d;
-    private Font maruMonica, purisaB;
-    private Font trebuchet_40, trebuchet_80B;
-    private BufferedImage keyImg;
+    private Font maruMonica;
+    private final BufferedImage keyImg;
     private boolean msgOn = false;
     private String msg = "";
     private int msgTimer = 0;
     private double playTime;
-    private DecimalFormat dFormat = new DecimalFormat("#0.00");
+    private final DecimalFormat dFormat = new DecimalFormat("#0.00");
     private int titleCmdNum = 0;
     private int diffCmdNum = 0;
 
@@ -35,8 +34,8 @@ public class UI {
      */
     public UI(GamePanel gp) {
         this.gp = gp;
-        trebuchet_40 = new Font("Trebuchet", Font.PLAIN, 40);
-        trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
+        //Font trebuchet_40 = new Font("Trebuchet", Font.PLAIN, 40);
+        //Font trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
 
         try {
             InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
@@ -44,7 +43,7 @@ public class UI {
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
             is = getClass().getResourceAsStream("/font/Purisa Bold.ttf");
             assert is != null;
-            purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
+            //Font purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
