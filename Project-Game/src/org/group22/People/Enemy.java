@@ -25,7 +25,7 @@ public abstract class Enemy extends Entity {
         gp.cCheck.checkComponent(this);
         gp.cCheck.checkEntity(this, gp.enemies);
 
-        if(!isCollisionOn()) {
+        if(isCollisionOff()) {
             switch (getDirection()) {
                 case "up" -> setWorldY(getWorldY() - getSpeed());
                 case "down" -> setWorldY(getWorldY() + getSpeed());
@@ -42,7 +42,7 @@ public abstract class Enemy extends Entity {
             else
                 setSpriteNum(1);
         }
-    };
+    }
 
 
 }

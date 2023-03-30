@@ -126,7 +126,7 @@ public class Player extends Entity {
             if(enemyIndex != -1) {
                 encounter();
             }
-            if(!isCollisionOn()) {
+            if(isCollisionOff()) {
                 switch (getDirection()) {
                     case "up" -> setWorldY(getWorldY() - getSpeed());
                     case "down" -> setWorldY(getWorldY() + getSpeed());

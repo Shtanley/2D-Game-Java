@@ -30,19 +30,10 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public BufferedImage scaleImg(BufferedImage original, int width, int height) {
-        BufferedImage newImg = new BufferedImage(width, height, original.getType());
-        Graphics2D g2d = newImg.createGraphics();
-        g2d.drawImage(original, 0, 0, width, height, null);
-        g2d.dispose();
-        return newImg;
-    }
-
     public static BufferedImage setupSprite(String imgPath) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(Objects.requireNonNull(Entity.class.getResourceAsStream(imgPath + ".png")));
-//            image = scaleImg(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,8 +123,8 @@ public abstract class Entity {
         return spriteNum;
     }
 
-    public boolean isCollisionOn() {
-        return collisionOn;
+    public boolean isCollisionOff() {
+        return !collisionOn;
     }
 
     public void turnOffCollision() {
@@ -199,14 +190,6 @@ public abstract class Entity {
         this.hitBoxDefaultY = hitBoxDefaultY;
     }
 
-    public void setCollisionOn(boolean collisionOn) {
-        this.collisionOn = collisionOn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -235,16 +218,8 @@ public abstract class Entity {
         this.up2 = up2;
     }
 
-    public BufferedImage getUp3() {
-        return up3;
-    }
-
     public void setUp3(BufferedImage up3) {
         this.up3 = up3;
-    }
-
-    public BufferedImage getUp4() {
-        return up4;
     }
 
     public void setUp4(BufferedImage up4) {
@@ -299,16 +274,8 @@ public abstract class Entity {
         this.down2 = down2;
     }
 
-    public BufferedImage getDown3() {
-        return down3;
-    }
-
     public void setDown3(BufferedImage down3) {
         this.down3 = down3;
-    }
-
-    public BufferedImage getDown4() {
-        return down4;
     }
 
     public void setDown4(BufferedImage down4) {
