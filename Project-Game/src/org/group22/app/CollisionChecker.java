@@ -91,12 +91,7 @@ public class CollisionChecker {
                 // Get item hitbox coordinates
                 gp.obj[i].hitBox.x += gp.obj[i].worldX;
                 gp.obj[i].hitBox.y += gp.obj[i].worldY;
-                switch (entity.direction) {
-                    case "up" -> entity.hitBox.y -= entity.speed;
-                    case "down" -> entity.hitBox.y += entity.speed;
-                    case "left" -> entity.hitBox.x -= entity.speed;
-                    case "right" -> entity.hitBox.x += entity.speed;
-                }
+                moveHitbox(entity);
                 if(entity.hitBox.intersects(gp.obj[i].hitBox)) {
                     if(gp.obj[i].collision) {
                         entity.collisionOn = true;
@@ -137,12 +132,7 @@ public class CollisionChecker {
                 target[i].hitBox.x += target[i].worldX;
                 target[i].hitBox.y += target[i].worldY;
 
-                switch (entity.direction) {
-                    case "up" -> entity.hitBox.y -= entity.speed;
-                    case "down" -> entity.hitBox.y += entity.speed;
-                    case "left" -> entity.hitBox.x -= entity.speed;
-                    case "right" -> entity.hitBox.x += entity.speed;
-                }
+                moveHitbox(entity);
                 if(entity.hitBox.intersects(target[i].hitBox)) {
                     if(target[i] != entity) {
                         entity.collisionOn = true;
@@ -158,5 +148,19 @@ public class CollisionChecker {
 
         }
         return index;
+    }
+
+    /**
+     * Helper function to move the entity hitbox as the entity itself moves
+     *
+     * @param entity primary entity
+     */
+    private void moveHitbox(Entity entity) {
+        switch (entity.direction) {
+            case "up" -> entity.hitBox.y -= entity.speed;
+            case "down" -> entity.hitBox.y += entity.speed;
+            case "left" -> entity.hitBox.x -= entity.speed;
+            case "right" -> entity.hitBox.x += entity.speed;
+        }
     }
 }

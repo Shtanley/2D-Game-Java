@@ -107,7 +107,7 @@ public class Player extends Entity {
             gp.cCheck.checkComponent(this);
             // Object collision
             int objIndex = gp.cCheck.checkItem(this, true);
-            pickupItem(objIndex);
+            playerInteraction(objIndex);
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
             encounter(enemyIndex != -1);
@@ -151,6 +151,9 @@ public class Player extends Entity {
 
     }
 
+    /**
+     * Update player's sprites for movement
+     */
     private void updateSprites() {
         spriteCount++;
         if(spriteCount > 10) {
@@ -166,7 +169,7 @@ public class Player extends Entity {
      * Check if player is colliding with an object to pick up
      * @param i index of object in object array
      */
-    public void pickupItem(int i) {
+    public void playerInteraction(int i) {
         if(i != 999) {
             Item item = gp.obj[i];
             String objName = item.name;
