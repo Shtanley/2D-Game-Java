@@ -14,14 +14,14 @@ import java.util.Objects;
  * @author Michael
  */
 public class EnemyFactory {
-    private GamePanel gp;
+    private final GamePanel gp;
 
     public EnemyFactory(GamePanel gp) {
         this.gp = gp;
     }
 
     /**
-     *
+     * Create all enemies in the game as specified by a csv text file
      *
      * @param filePath the location of the text file containing all items to be created
      */
@@ -58,6 +58,11 @@ public class EnemyFactory {
                     }
                     assert(newSkeleton.verifyPath());
                     gp.enemies[lineNum] = newSkeleton;
+                } else if (Objects.equals(type, "Slime")){
+                    Slime newSlime = new Slime(gp);
+                    newSlime.setWorldX(x * gp.tileSize);
+                    newSlime.setWorldY(y * gp.tileSize);
+                    gp.enemies[lineNum] = newSlime;
                 }
                 // Read next line
                 line = br.readLine();

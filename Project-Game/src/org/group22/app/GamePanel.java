@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JPanel;
 
+import org.group22.Drops.BonusReward;
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
+import org.group22.Drops.Potion;
 import org.group22.People.EnemyFactory;
 import org.group22.People.Enemy;
 import org.group22.People.Player;
@@ -34,8 +38,6 @@ public class GamePanel extends JPanel implements Runnable{
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = maxWorldCol * tileSize;
-    public final int worldHeight = maxWorldRow * tileSize;
 
     // Entity settings
     public final int maxItems = 50;
@@ -46,6 +48,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     // System
     public Thread gameThread;
+    public final Object lock1 = new Object();
+    public final Object lock2 = new Object();
+    public final Object lock3 = new Object();
+    public long timer;
     public KeyInputs keyInputs;
     public CollisionChecker cCheck;
     public ItemFactory iFactory;
@@ -58,17 +64,23 @@ public class GamePanel extends JPanel implements Runnable{
     // Game objects
     public Player player;
     public Item[] obj;   // Array of objects
+    public ArrayList<BonusReward> tempItems; // Array of temporary items
     public Enemy[] enemies; // Array of enemies
     public int keysNeeded;
+    public int healthDrainRate;
 
     // Game state
     public int gameState;
     public final int titleState = 0;
-    public final int playState1 = 1;
-    public final int playState2 = 2;
-    public final int playState3 = 3;
-    public final int endState = 4;
+    public final int settingsState = 1;
+    public final int playState1 = 2;
+    public final int playState2 = 3;
+    public final int playState3 = 4;
+    public final int endState = 5;
     public boolean paused = false;
+    public int difficulty;
+    public int healthTickCounter = 0;
+    public int spawnTickCounter = 0;
 
     /**
      * Game panel constructor
@@ -84,7 +96,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs
         this.setFocusable(true);    // Focus on JPanel to receive key inputs
-
     }
     
     /**
@@ -96,12 +107,12 @@ public class GamePanel extends JPanel implements Runnable{
         player = new Player(this, keyInputs);
         cCheck = new CollisionChecker(this);
 
+        cFactory = new ComponentFactory(this);
         iFactory  = new ItemFactory(this);
         eFactory = new EnemyFactory(this);
-        obj = new Item[maxItems];
-        enemies = new Enemy[maxEnemies];
 
         gameState = titleState;
+        changeDifficulty(1);
     }
     
     /**
@@ -122,36 +133,35 @@ public class GamePanel extends JPanel implements Runnable{
      */
     @Override
     public void run() { // Delta time method
-        double timePerTick = 1000000000 / fps;   // 1000000000 nanoseconds = 1 second
+        double timePerTick = 1000000000.0 / fps;   // 1000000000 nanoseconds = 1 second
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        long timer = 0;
-        int drawCount = 0;
+        //timer = 0;
 
         while(gameThread != null) {
-            // System.out.println("Game is running");
-            // long currentTime = System.nanoTime();   // Get current time in nanoseconds
-            // System.out.println("Current time: " + currentTime);
-
             currentTime = System.nanoTime();
+            timer = currentTime / 1000000000;
             delta += (currentTime - lastTime) / timePerTick; // Get delta time
-            timer += (currentTime - lastTime);    // Get time passed
             lastTime = currentTime;
 
             if(delta >= 1) {
                 // Update game logic
-                update();
+                synchronized (lock1) {
+                    update();
+                }
                 // Draw game graphics
-                repaint();
+                synchronized (lock2) {
+                    repaint();
+                }
                 delta--;
-                drawCount++;
             }
 
-            if(timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                timer = 0;
-                drawCount = 0;
+            // Handle de-spawning potions
+            synchronized (lock3) {
+                if (gameState >= playState1) {
+                    tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
+                }
             }
         }
     }
@@ -161,16 +171,32 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState == titleState) {
-
-        }
-        if(gameState >= playState1 && gameState <= playState3) {
-            if (paused) {
-                // Pause game, do nothing
-            } else if (player.dead()) {
+        if(gameState >= playState1 && gameState <= playState3 && !paused) {
+            if (player.dead()) {
                 changeGameState(endState);
             } else {
+                healthTickCounter++;
+                spawnTickCounter++;
+                // Drain health
+                if(difficulty > 0) {
+                    if (healthTickCounter >= healthDrainRate) {
+                        player.setHealth(-1);
+                        healthTickCounter = 0;
+                    }
+                }
+                // Attempt to spawn bonus reward
+                if(spawnTickCounter >= Potion.getSpawnTimer()) {
+                    System.out.println("Attempting to spawn potion");
+                    Random rand = new Random();
+                    if(rand.nextDouble() < Potion.getSpawnChance()) {
+                        tempItems.add(iFactory.spawnPotion());
+                    }
+                    spawnTickCounter = 0;
+                }
+
+                // Update player
                 player.update();
+                // Update enemies
                 for (Enemy enemy : enemies) {
                     if (enemy != null) {
                         enemy.update();
@@ -198,7 +224,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         // Title Screen
-        if (gameState == titleState) {
+        if (gameState == titleState || gameState == settingsState) {
             ui.draw(g2d);
         } else {
             // Tiles
@@ -207,6 +233,12 @@ public class GamePanel extends JPanel implements Runnable{
             for (Item item : obj) {
                 if (item != null) {
                     item.draw(g2d, this);
+                }
+            }
+            // Bonus Rewards
+            synchronized (lock2) {
+                for (BonusReward bonus : tempItems) {
+                    bonus.draw(g2d, this);
                 }
             }
             // Enemy
@@ -242,29 +274,49 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("Changing game state to " + state);
         if(state == titleState) {
             gameState = titleState;
+        } else if (state == settingsState){
+            gameState = settingsState;
         } else if (state == playState1) {
-            cFactory = new ComponentFactory(this, "/Map/world01.txt");
-            iFactory.createItem("/Map/items01.txt");
+            player.resetPlayer();
+            cFactory.loadMap("/Map/world01.txt");
+            iFactory.createItems("/Map/items01.txt");
             eFactory.createEnemies("/Map/enemies01.txt");
-            keysNeeded = 3;
+            tempItems = new ArrayList<>();
+
             player.setPlayerValues(35, 10, 8, "down");
+            keysNeeded = 3;
             gameState = playState1;
         } else if (state == playState2) {
-            cFactory = new ComponentFactory(this, "/Map/world02.txt");
-            iFactory.createItem("/Map/items02.txt");
+            cFactory.loadMap("/Map/world02.txt");
+            iFactory.createItems("/Map/items02.txt");
             eFactory.createEnemies("/Map/enemies02.txt");
-            keysNeeded = 3;
+            tempItems = new ArrayList<>();
+
             player.setPlayerValues(3, 16, 8, "down");
+            keysNeeded = 3;
             gameState = playState2;
         } else if (state == playState3) {
-            cFactory = new ComponentFactory(this, "/Map/world03.txt");
-            iFactory.createItem("/Map/items03.txt");
+            cFactory.loadMap("/Map/world03.txt");
+            iFactory.createItems("/Map/items03.txt");
             eFactory.createEnemies("/Map/enemies03.txt");
-            keysNeeded = 6;
+            tempItems = new ArrayList<>();
+
             player.setPlayerValues(1, 23, 8, "down");
+            keysNeeded = 6;
             gameState = playState3;
         } else if (state == endState) {
             gameState = endState;
         }
+    }
+
+    public void changeDifficulty(int newDifficulty){
+        difficulty = newDifficulty;
+        switch (difficulty) {
+            case(0) -> healthDrainRate = -1;
+            case(1) -> healthDrainRate = 30;
+            case(2) -> healthDrainRate = 20;
+            case(3) -> healthDrainRate = 10;
+        }
+        System.out.println("New difficulty: " + difficulty);
     }
 }

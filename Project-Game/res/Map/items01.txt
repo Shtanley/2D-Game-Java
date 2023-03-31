@@ -1,6 +1,11 @@
 Type, xCoord, yCoord
-Key, 40, 10
-Key, 42, 10
 Key, 44, 10
-Potion, 46, 10
+Key, 45, 10
+Key, 46, 10
+Spikes, 36, 7
+Spikes, 38, 7
+Spikes, 40, 7
+Spikes, 42, 7
+Spikes, 44, 7
+Spikes, 46, 7
 Door, 48, 10

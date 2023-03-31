@@ -3,7 +3,6 @@ package org.group22.GameMap;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
@@ -24,65 +23,67 @@ public class ComponentFactory {
     public MapComponent[] mc;
     public int[][] mapTileNum;
 
+    public int mapWidth;
+    public int mapHeight;
+
     /**
      * Constructor
      *
      * @param gp the game panel
-     * @param filePath path to world text file
      */
-    public ComponentFactory(GamePanel gp, String filePath) {
+    public ComponentFactory(GamePanel gp) {
         this.gp = gp;
         mc = new MapComponent[10];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
-
-        getTileImage();
-        loadMap(filePath);
+        getTileImages();
     }
 
 
     /**
      * Set sprite and collision for each type of map component
      */
-    public void getTileImage() {
+    public void getTileImages() {
         // ground normal
         mc[0] = new MapComponent();
-        mc[0].image = setup("/Tilesv2/ground01");
+        mc[0].setImage(setup("/Tilesv2/ground01"));
         // ground dark
         mc[1] = new MapComponent();
-        mc[1].image = setup("/Tilesv2/ground02");
-        mc[1].collision = true;
+        mc[1].setImage(setup("/Tilesv2/ground02"));
+        mc[1].setCollisionOn();
         // barrier horizontal or wall up
         mc[2] = new MapComponent();
-        mc[2].image = setup("/Tilesv2/barrier01");
-        mc[2].collision = true;
+        mc[2].setImage(setup("/Tilesv2/barrier01"));
+        mc[2].setCollisionOn();
         // barrier vertical
         mc[3] = new MapComponent();
-        mc[3].image = setup("/Tilesv2/barrier02");
-        mc[3].collision = true;
+        mc[3].setImage(setup("/Tilesv2/barrier02"));
+        mc[3].setCollisionOn();
         // wall left
         mc[4] = new MapComponent();
-        mc[4].image = setup("/Tilesv2/barrier03");
-        mc[4].collision = true;
+        mc[4].setImage(setup("/Tilesv2/barrier03"));
+        mc[4].setCollisionOn();
         // wall corner
         mc[5] = new MapComponent();
-        mc[5].image = setup("/Tilesv2/barrier04");
-        mc[5].collision = true;
+        mc[5].setImage( setup("/Tilesv2/barrier04"));
+        mc[5].setCollisionOn();
         // wall down
         mc[6] = new MapComponent();
-        mc[6].image = setup("/Tilesv2/barrier05");
-        mc[6].collision = true;
+        mc[6].setImage(setup("/Tilesv2/barrier05"));
+        mc[6].setCollisionOn();
         // barrier corner left down
         mc[7] = new MapComponent();
-        mc[7].image = setup("/Tilesv2/barriercorner01");
-        mc[7].collision = true;
+        mc[7].setImage(setup("/Tilesv2/barriercorner01"));
+        mc[7].setCollisionOn();
         // barrier corner right up
         mc[8] = new MapComponent();
-        mc[8].image = setup("/Tilesv2/barriercorner02");
-        mc[8].collision = true;
+        mc[8].setImage(setup("/Tilesv2/barriercorner02"));
+        mc[8].setCollisionOn();
 
     }
 
     public void loadMap(String filePath) {
+        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapWidth = 0;
+        mapHeight = 0;
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             assert is != null;
@@ -97,17 +98,21 @@ public class ComponentFactory {
                 while (col < numbers.length && col < gp.maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]); // Convert string to int
                     mapTileNum[col][row] = num; // Store number in mapTileNum array
+                    if(mapWidth < col){mapWidth = col;}
                     col++;
                 }
                 col = 0;
+                if(mapHeight < row){mapHeight = row;}
                 row++;
                 line = br.readLine();
             }
             br.close();
-
+            mapWidth++;
+            mapHeight++;
         } catch (Exception ignored) {
 
         }
+        System.out.println("Map loaded: (" + mapWidth + ", " + mapHeight + ")");
     }
 
     /**
@@ -126,13 +131,16 @@ public class ComponentFactory {
             int worldX = worldcol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             // Calculate x and y position of tile on screen
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int playerScreenX = gp.player.getScreenX();
+            int playerScreenY = gp.player.getScreenY();
+
+            int screenX = worldX - gp.player.getWorldX() + playerScreenX;
+            int screenY = worldY - gp.player.getWorldY() + playerScreenY;
 
             // Draw tile if it is on screen to save resources
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-                    && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-                g2d.drawImage(mc[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - gp.tileSize < gp.player.getWorldX() + gp.player.getScreenX()
+                    && worldY + gp.tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - gp.tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
+                g2d.drawImage(mc[tileNum].getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
             worldcol++;
 
@@ -141,14 +149,6 @@ public class ComponentFactory {
                 worldRow++;
             }
         }
-    }
-
-    public BufferedImage scaleImg(BufferedImage original, int width, int height) {
-        BufferedImage newImg = new BufferedImage(width, height, original.getType());
-        Graphics2D g2d = newImg.createGraphics();
-        g2d.drawImage(original, 0, 0, width, height, null);
-        g2d.dispose();
-        return newImg;
     }
 
     public BufferedImage setup(String imgPath) {

@@ -6,6 +6,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Skeleton class
+ * Manage skeleton image and skeleton movement
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
 public class Skeleton extends Enemy{
 
     ArrayList<String> path;
@@ -14,59 +21,62 @@ public class Skeleton extends Enemy{
     int nextY;
 
     /**
-     * Constructs skeleton with null location
+     * Constructs skeleton
+     * Sets skeleton's hit box, speed, and sprite
      */
     public Skeleton(GamePanel gp) {
         super(gp);
         path = new ArrayList<>();
         pathIndex = 0;
 
-
-        hitBox = new Rectangle();
-        name = "Skeleton";
-        speed = 1;
-
         // Tile size = 48
         // Given buffer of 4
-        hitBox.x = 4;
-        hitBox.y = 4;
-        hitBox.width = 40;
-        hitBox.height = 40;
-        hitBoxDefaultX = hitBox.x;
-        hitBoxDefaultY = hitBox.y;
+        setHitBox(new Rectangle(4, 4, 40, 40));
+        setName("Skeleton");
+        setSpeed(1);
 
-        direction = "down";
+        setHitBoxDefaultX(getHitBox().x);
+        setHitBoxDefaultY(getHitBox().y);
+
+        setDirection("down");
 
         getImage();
     }
 
-
+    /**
+     * Set skeleton sprite
+     */
     public void getImage() {
-        up1 = setup("/Enemy/skeletonlord_up_1");
-        up2 = setup("/Enemy/skeletonlord_up_2");
-        down1 = setup("/Enemy/skeletonlord_down_1");
-        down2 = setup("/Enemy/skeletonlord_down_2");
-        left1 = setup("/Enemy/skeletonlord_left_1");
-        left2 = setup("/Enemy/skeletonlord_left_2");
-        right1 = setup("/Enemy/skeletonlord_right_1");
-        right1 = setup("/Enemy/skeletonlord_right_2");
+        setUp1(Entity.setupSprite("/Enemy/skeletonlord_up_1"));
+        setUp2(Entity.setupSprite("/Enemy/skeletonlord_up_2"));
+        setDown1(Entity.setupSprite("/Enemy/skeletonlord_down_1"));
+        setDown2(Entity.setupSprite("/Enemy/skeletonlord_down_2"));
+        setLeft1(Entity.setupSprite("/Enemy/skeletonlord_left_1"));
+        setLeft2(Entity.setupSprite("/Enemy/skeletonlord_left_2"));
+        setRight1(Entity.setupSprite("/Enemy/skeletonlord_right_1"));
+        setRight2(Entity.setupSprite("/Enemy/skeletonlord_right_2"));
     }
 
+    /**
+     * Determines the skeletons next direction of movement
+     * Skeletons follow a patrolling movement pattern
+     * i.e. they follow a set path which is specified in the enemies.txt files
+     */
     public void setAction(){
         boolean condition = false;
-        switch (direction){
-            case "up" -> condition = worldY <= nextY;
-            case "down" -> condition = worldY >= nextY;
-            case "left" -> condition = worldX <= nextX;
-            case "right" -> condition = worldX >= nextX;
+        switch (getDirection()){
+            case "up" -> condition = getWorldY() <= nextY;
+            case "down" -> condition = getWorldY() >= nextY;
+            case "left" -> condition = getWorldX() <= nextX;
+            case "right" -> condition = getWorldX() >= nextX;
         }
         if(condition) {
-            this.direction = path.get(pathIndex);
-            switch (direction){
-                case "up" -> nextY = worldY - gp.tileSize;
-                case "down" -> nextY = worldY + gp.tileSize;
-                case "left" -> nextX = worldX - gp.tileSize;
-                case "right" -> nextX = worldX + gp.tileSize;
+            setDirection(path.get(pathIndex));
+            switch (getDirection()){
+                case "up" -> nextY = getWorldY() - gp.tileSize;
+                case "down" -> nextY = getWorldY() + gp.tileSize;
+                case "left" -> nextX = getWorldX() - gp.tileSize;
+                case "right" -> nextX = getWorldX() + gp.tileSize;
             }
             pathIndex++;
             if(pathIndex == path.size()) {

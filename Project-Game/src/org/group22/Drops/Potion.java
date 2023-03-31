@@ -1,9 +1,5 @@
 package org.group22.Drops;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.util.Objects;
-
 /**
  * Potion class
  * Create potion item
@@ -13,8 +9,12 @@ import java.util.Objects;
  * @author Sameer
  */
 public class Potion extends BonusReward {
-    public Potion() {
+    public Potion(int x, int y, long time) {
         name = "Potion";
-        image = setup("/Object/newpotion");
+        image = Item.setupSprite("/Object/newpotion");
+        worldX = x;
+        worldY = y;
+        birthTime = time;
+        lifetime = 5;
     }
 }

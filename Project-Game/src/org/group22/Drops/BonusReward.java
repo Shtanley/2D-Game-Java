@@ -7,27 +7,14 @@ package org.group22.Drops;
  * @author Michael
  */
 public abstract class BonusReward extends Item{
-    private final int healthAdjustment = 50;
-    private final int pointAdjustment = 50;
-    private int ticksTillDeath;
+    public long birthTime;
+    public long lifetime;
 
-    public int getHealthAdjustment() { return healthAdjustment;}
+    public int getHealthAdjustment() { return 50;}
     public int getPointAdjustment() {
-        return pointAdjustment;
+        return 50;
     }
 
-    public int getTicksTillDeath() {
-        return ticksTillDeath;
-    }
-
-    public void setTicksTillDeath(int ticksTillDeath) {
-        this.ticksTillDeath = ticksTillDeath;
-    }
-
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "BonusReward{" +
-                "ticksTillDeath=" + ticksTillDeath +
-                '}';
-    }
+    public static int getSpawnTimer() { return 100; }
+    public static double getSpawnChance() {return 0.3;}
 }

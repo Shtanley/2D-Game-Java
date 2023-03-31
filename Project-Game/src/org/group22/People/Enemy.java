@@ -2,6 +2,13 @@ package org.group22.People;
 
 import org.group22.app.GamePanel;
 
+/**
+ * Enemy class
+ * Manage Enemy image and Enemy movement
+ * @author Dina
+ * @author Michael
+ * @author Sameer
+ */
 public abstract class Enemy extends Entity {
 
     /**
@@ -17,32 +24,32 @@ public abstract class Enemy extends Entity {
     public void update() {
         setAction();
 
-        collisionOn = false;
+        turnOffCollision();
         gp.cCheck.checkComponent(this);
 
         // Collision detection
-        collisionOn = false;
+        turnOffCollision();
         gp.cCheck.checkComponent(this);
         gp.cCheck.checkEntity(this, gp.enemies);
 
-        if(!collisionOn) {
-            switch (direction) {
-                case "up" -> worldY -= speed;
-                case "down" -> worldY += speed;
-                case "left" -> worldX -= speed;
-                case "right" -> worldX += speed;
+        if(isCollisionOff()) {
+            switch (getDirection()) {
+                case "up" -> setWorldY(getWorldY() - getSpeed());
+                case "down" -> setWorldY(getWorldY() + getSpeed());
+                case "left" -> setWorldX(getWorldX() - getSpeed());
+                case "right" -> setWorldX(getWorldX() + getSpeed());
             }
         }
 
-        spriteCount++;
-        if(spriteCount > 10) {
-            spriteCount = 0;
-            if(spriteNum == 1)
-                spriteNum = 2;
+        setSpriteCount(getSpriteCount() + 1);
+        if(getSpriteCount() > 10) {
+            setSpriteCount(0);
+            if(getSpriteNum() == 1)
+                setSpriteNum(2);
             else
-                spriteNum = 1;
+                setSpriteNum(1);
         }
-    };
+    }
 
 
 }
