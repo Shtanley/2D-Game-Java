@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Entity settings
     public final int maxItems = 50;
+    private final int maxTempItems = 100;
     public final int maxEnemies = 50;
 
     // FPS settings
@@ -137,7 +138,6 @@ public class GamePanel extends JPanel implements Runnable{
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        //timer = 0;
 
         while(gameThread != null) {
             currentTime = System.nanoTime();
@@ -147,22 +147,24 @@ public class GamePanel extends JPanel implements Runnable{
 
             if(delta >= 1) {
                 // Update game logic
-                synchronized (lock1) {
-                    update();
-                }
+//                synchronized (lock1) {
+//                    update();
+//                }
+                update();
                 // Draw game graphics
-                synchronized (lock2) {
-                    repaint();
-                }
+//                synchronized (lock2) {
+//                    repaint();
+//                }
+                repaint();
                 delta--;
             }
 
             // Handle de-spawning potions
-            synchronized (lock3) {
-                if (gameState >= playState1) {
-                    tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
-                }
-            }
+//            synchronized (lock3) {
+//                if (gameState >= playState1) {
+//                    tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
+//                }
+//            }
         }
     }
 
@@ -185,7 +187,7 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
                 // Attempt to spawn bonus reward
-                if(spawnTickCounter >= Potion.getSpawnTimer()) {
+                if(spawnTickCounter >= Potion.getSpawnTimer() && tempItems.size() < maxTempItems) {
                     System.out.println("Attempting to spawn potion");
                     Random rand = new Random();
                     if(rand.nextDouble() < Potion.getSpawnChance()) {
@@ -193,6 +195,8 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                     spawnTickCounter = 0;
                 }
+                // Despawn temporary items
+                tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
 
                 // Update player
                 player.update();
@@ -236,11 +240,11 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             // Bonus Rewards
-            synchronized (lock2) {
+            //synchronized (lock2) {
                 for (BonusReward bonus : tempItems) {
                     bonus.draw(g2d, this);
                 }
-            }
+            // }
             // Enemy
             for (Enemy enemy : enemies) {
                 if (enemy != null) {
