@@ -8,10 +8,10 @@ import java.util.Objects;
 
 public class Skeleton extends Enemy{
 
-    ArrayList<String> path;
-    int pathIndex;
-    int nextX;
-    int nextY;
+    private ArrayList<String> path;
+    private int pathIndex;
+    private int nextX;
+    private int nextY;
 
     /**
      * Constructs skeleton
