@@ -108,9 +108,6 @@ public class CollisionChecker {
 
         // Bonus rewards ArrayList
         for(BonusReward bonus : gp.tempItems) {
-            // Get entity hit box coordinates
-            entity.getHitBox().x += entity.getWorldX();
-            entity.getHitBox().y += entity.getWorldY();
             // Get item hit box coordinates
             bonus.hitBox.x += bonus.worldX;
             bonus.hitBox.y += bonus.worldY;
