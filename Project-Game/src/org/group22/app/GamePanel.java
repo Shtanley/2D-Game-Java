@@ -219,7 +219,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         // Debug
         long drawStart = 0;
-        if(keyInputs.checkDrawTime) {
+        if(keyInputs.isCheckDrawTime()) {
             drawStart = System.nanoTime();
         }
 
@@ -254,7 +254,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         // Debug
-        if(keyInputs.checkDrawTime) {
+        if(keyInputs.isCheckDrawTime()) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
             g2d.setColor(Color.YELLOW);

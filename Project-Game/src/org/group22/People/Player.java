@@ -101,17 +101,17 @@ public class Player extends Entity {
      */
     public void update() {
         // Player movement
-        if(keyInputs.upPressed || keyInputs.downPressed || keyInputs.leftPressed || keyInputs.rightPressed) {
-            if (keyInputs.upPressed) {
+        if(keyInputs.isUpPressed() || keyInputs.isDownPressed() || keyInputs.isLeftPressed() || keyInputs.isRightPressed()) {
+            if (keyInputs.isUpPressed()) {
                 setDirection("up");
             }
-            if (keyInputs.downPressed) {
+            if (keyInputs.isDownPressed()) {
                 setDirection("down");
             }
-            if (keyInputs.leftPressed) {
+            if (keyInputs.isLeftPressed()) {
                 setDirection("left");
             }
-            if (keyInputs.rightPressed) {
+            if (keyInputs.isRightPressed()) {
                 setDirection("right");
             }
 

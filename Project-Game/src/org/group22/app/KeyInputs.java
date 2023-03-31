@@ -10,9 +10,12 @@ import java.awt.event.KeyListener;
  */
 public class KeyInputs implements KeyListener {
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    private boolean upPressed;
+    private boolean downPressed;
+    private boolean leftPressed;
+    private boolean rightPressed;
     // Debug
-    boolean checkDrawTime = false;
+    private boolean checkDrawTime = false;
 
     public KeyInputs(GamePanel gp) {
         this.gp = gp;
@@ -106,7 +109,7 @@ public class KeyInputs implements KeyListener {
                 gp.paused = !gp.paused;
             }
             if (key == KeyEvent.VK_T) { // Draw time button for debugging
-                checkDrawTime = !checkDrawTime;
+                checkDrawTime = !isCheckDrawTime();
             }
 
             // Paused
@@ -138,5 +141,25 @@ public class KeyInputs implements KeyListener {
         if (key == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
+    }
+
+    public boolean isUpPressed() {
+        return upPressed;
+    }
+
+    public boolean isDownPressed() {
+        return downPressed;
+    }
+
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+
+    public boolean isRightPressed() {
+        return rightPressed;
+    }
+
+    public boolean isCheckDrawTime() {
+        return checkDrawTime;
     }
 }
