@@ -99,8 +99,7 @@ public class CollisionChecker {
                     break;
                 }
                 // Reset hit box coordinates
-                entity.getHitBox().x = entity.getHitBoxDefaultX();
-                entity.getHitBox().y = entity.getHitBoxDefaultY();
+                resetEntityHitbox(entity);
                 obj.hitBox.x = obj.hitBoxDefaultX;
                 obj.hitBox.y = obj.hitBoxDefaultY;
             }
@@ -119,8 +118,7 @@ public class CollisionChecker {
                 break;
             }
             // Reset hit box coordinates
-            entity.getHitBox().x = entity.getHitBoxDefaultX();
-            entity.getHitBox().y = entity.getHitBoxDefaultY();
+            resetEntityHitbox(entity);
             bonus.hitBox.x = bonus.hitBoxDefaultX;
             bonus.hitBox.y = bonus.hitBoxDefaultY;
 
@@ -155,14 +153,22 @@ public class CollisionChecker {
                     }
                 }
                 // Reset hit box coordinates
-                entity.getHitBox().x = entity.getHitBoxDefaultX();
-                entity.getHitBox().y = entity.getHitBoxDefaultY();
-                target[i].getHitBox().x = target[i].getHitBoxDefaultX();
-                target[i].getHitBox().y = target[i].getHitBoxDefaultY();
+                resetEntityHitbox(entity);
+                resetEntityHitbox(target[i]);
             }
 
         }
         return index;
+    }
+
+    /**
+     * Helper function to reset entity hitbox to default position
+     *
+     * @param entity primary entity
+     */
+    private static void resetEntityHitbox(Entity entity) {
+        entity.getHitBox().x = entity.getHitBoxDefaultX();
+        entity.getHitBox().y = entity.getHitBoxDefaultY();
     }
 
     /**
