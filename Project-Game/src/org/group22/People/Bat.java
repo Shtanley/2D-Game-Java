@@ -13,8 +13,6 @@ import java.util.Random;
  * @author Sameer
  */
 public class Bat extends Enemy {
-    private final int changeDirRate = 50;
-
     /**
      * Bat constructor
      * Set bat image and bat movement
@@ -22,18 +20,14 @@ public class Bat extends Enemy {
      */
     public Bat(GamePanel gp) {
         super(gp);
-        hitBox = new Rectangle();
-        name = "Bat";
-        speed = 1;
+        setHitBox(new Rectangle(3, 18, 42, 30));
+        setName("Bat");
+        setSpeed(1);
 
-        hitBox.x = 3;
-        hitBox.y = 18;
-        hitBox.width = 42;
-        hitBox.height = 30;
-        hitBoxDefaultX = hitBox.x;
-        hitBoxDefaultY = hitBox.y;
+        setHitBoxDefaultX(getHitBox().x);
+        setHitBoxDefaultY(getHitBox().y);
 
-        direction = "down";
+        setDirection("down");
 
         getImage();
     }
@@ -42,14 +36,14 @@ public class Bat extends Enemy {
      * Set bat sprite
      */
     public void getImage() {
-        up1 = Entity.setupSprite("/Enemy/bat_down_1");
-        up2 = Entity.setupSprite("/Enemy/bat_down_2");
-        down1 = Entity.setupSprite("/Enemy/bat_down_1");
-        down2 = Entity.setupSprite("/Enemy/bat_down_2");
-        left1 = Entity.setupSprite("/Enemy/bat_down_1");
-        left2 = Entity.setupSprite("/Enemy/bat_down_2");
-        right1 = Entity.setupSprite("/Enemy/bat_down_1");
-        right2 = Entity.setupSprite("/Enemy/bat_down_2");
+        setUp1(Entity.setupSprite("/Enemy/bat_down_1"));
+        setUp2(Entity.setupSprite("/Enemy/bat_down_2"));
+        setDown1(Entity.setupSprite("/Enemy/bat_down_1"));
+        setDown2(Entity.setupSprite("/Enemy/bat_down_2"));
+        setLeft1(Entity.setupSprite("/Enemy/bat_down_1"));
+        setLeft2(Entity.setupSprite("/Enemy/bat_down_2"));
+        setRight1(Entity.setupSprite("/Enemy/bat_down_1"));
+        setRight2(Entity.setupSprite("/Enemy/bat_down_2"));
     }
 
     /**
@@ -57,21 +51,22 @@ public class Bat extends Enemy {
      * Bat move uniformly randomly in all directions
      */
     public void setAction() {
-        lockActionCount++;
-        if(lockActionCount >= changeDirRate) {
+        setLockActionCount(getLockActionCount() + 1);
+        int changeDirRate = 50;
+        if(getLockActionCount() >= changeDirRate) {
             Random rand = new Random();
             int n = rand.nextInt(100) + 1;
 
             if(n <= 25) {
-                direction = "up";
+                setDirection("up");
             } else if(n <= 50) {
-                direction = "down";
+                setDirection("down");
             } else if(n <= 75) {
-                direction = "left";
+                setDirection("left");
             } else {
-                direction = "right";
+                setDirection("right");
             }
-            lockActionCount = 0;
+            setLockActionCount(0);
         }
     }
 }

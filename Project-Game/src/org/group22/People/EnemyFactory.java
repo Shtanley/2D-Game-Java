@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author Michael
  */
 public class EnemyFactory {
-    private GamePanel gp;
+    private final GamePanel gp;
 
     public EnemyFactory(GamePanel gp) {
         this.gp = gp;

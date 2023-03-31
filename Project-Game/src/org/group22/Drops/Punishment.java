@@ -1,16 +1,15 @@
 package org.group22.Drops;
 
-
 /**
  * Abstract punishment class
  *
  * @author Michael
+ * @author Dina
+ *
  */
 public abstract class Punishment extends Item{
-    private final int healthAdjustment = -50;
-    private final int pointAdjustment = -25;
-    public int getHealthAdjustment() { return healthAdjustment;}
+    public int getHealthAdjustment() { return -50;}
     public int getPointAdjustment() {
-        return pointAdjustment;
+        return -25;
     }
 }

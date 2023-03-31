@@ -1,10 +1,5 @@
 package org.group22.Drops;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
-
 /**
  * Door class
  * Create door item
@@ -14,8 +9,6 @@ import java.util.Objects;
  * @author Sameer
  */
 public class Door extends Item {
-    private final int healthAdjustment = 0;
-    private final int pointAdjustment = 50;
 
     public Door(int x, int y) {
         name = "Door";
@@ -25,9 +18,11 @@ public class Door extends Item {
         collision = true;
     }
 
-    public int getHealthAdjustment() { return healthAdjustment;}
+    public int getHealthAdjustment() {
+        return 0;
+    }
     public int getPointAdjustment() {
-        return pointAdjustment;
+        return 50;
     }
 
 }

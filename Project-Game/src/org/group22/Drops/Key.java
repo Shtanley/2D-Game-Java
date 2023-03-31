@@ -1,9 +1,6 @@
 package org.group22.Drops;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Key class

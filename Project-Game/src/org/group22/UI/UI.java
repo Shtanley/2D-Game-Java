@@ -3,7 +3,6 @@ package org.group22.UI;
 import org.group22.Drops.Key;
 import org.group22.app.GamePanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -15,20 +14,22 @@ import java.util.Objects;
  * UI class
  * Manage UI elements
  * @author Sameer
+ * @author Michael
+ * @author Dina
  */
+
 public class UI {
-    GamePanel gp;
-    Graphics2D g2d;
-    Font maruMonica, purisaB;
-    Font trebuchet_40, trebuchet_80B;
-    BufferedImage keyImg, healthImg, healthFull, healthEmpty, healthHalf;
-    public boolean msgOn = false;
-    public String msg = "";
-    int msgTimer = 0;
-    public double playTime;
-    DecimalFormat dFormat = new DecimalFormat("#0.00");
-    public int titleCmdNum = 0;
-    public int diffCmdNum = 0;
+    private final GamePanel gp;
+    private Graphics2D g2d;
+    private Font maruMonica;
+    private final BufferedImage keyImg;
+    private boolean msgOn = false;
+    private String msg = "";
+    private int msgTimer = 0;
+    private double playTime;
+    private final DecimalFormat dFormat = new DecimalFormat("#0.00");
+    private int titleCmdNum = 0;
+    private int diffCmdNum = 0;
 
     /**
      * UI constructor
@@ -36,15 +37,16 @@ public class UI {
      */
     public UI(GamePanel gp) {
         this.gp = gp;
-        trebuchet_40 = new Font("Trebuchet", Font.PLAIN, 40);
-        trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
+        //Font trebuchet_40 = new Font("Trebuchet", Font.PLAIN, 40);
+        //Font trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
 
         try {
             InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
             assert is != null;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
             is = getClass().getResourceAsStream("/font/Purisa Bold.ttf");
-            purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
+            assert is != null;
+            //Font purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -104,7 +106,7 @@ public class UI {
         // Add image
         x = gp.screenWidth/2 - (gp.tileSize);
         y += gp.tileSize * 2;
-        g2d.drawImage(Objects.requireNonNull(gp.player.right1), x, y, gp.tileSize*2, gp.tileSize*2, null);
+        g2d.drawImage(Objects.requireNonNull(gp.player.getRight1()), x, y, gp.tileSize*2, gp.tileSize*2, null);
 
         // Menu
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
@@ -311,7 +313,7 @@ public class UI {
         g2d.setFont(g2d.getFont().deriveFont(48F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2d.drawString(": " + gp.player.keyCount + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
+        g2d.drawString(": " + gp.player.getKeyCount() + "/" + gp.keysNeeded, 74, gp.tileSize*3/2);
         g2d.drawString("Points: " + gp.player.getPoints(), gp.tileSize/2, gp.tileSize*5/2);
         drawHealth(gp.tileSize/2, gp.tileSize*11/4);
     }
@@ -326,10 +328,7 @@ public class UI {
         // Set x & y coordinates for heart images
         BufferedImage heart1;
         BufferedImage heart2;
-        int heart1_x = x;
-        int heart1_y = y;
         int heart2_x = x + gp.tileSize*3/4;
-        int heart2_y = y;
         int text_x = x + 90;
         int text_y = y + 40;
         // Draw first heart
@@ -384,8 +383,24 @@ public class UI {
         } else { //health <= 100
             heart2 = gp.player.getHeartSprite(-1);
         }
-        g2d.drawImage(heart1, heart1_x, heart1_y, gp.tileSize, gp.tileSize, null);
-        g2d.drawImage(heart2, heart2_x, heart2_y, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(heart1, x, y, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(heart2, heart2_x, y, gp.tileSize, gp.tileSize, null);
         g2d.drawString(": " + gp.player.getHealth() + "/" + gp.player.getMaxHealth(), text_x, text_y);
+    }
+
+    public int getTitleCmdNum() {
+        return titleCmdNum;
+    }
+
+    public void setTitleCmdNum(int titleCmdNum) {
+        this.titleCmdNum = titleCmdNum;
+    }
+
+    public int getDiffCmdNum() {
+        return diffCmdNum;
+    }
+
+    public void setDiffCmdNum(int diffCmdNum) {
+        this.diffCmdNum = diffCmdNum;
     }
 }

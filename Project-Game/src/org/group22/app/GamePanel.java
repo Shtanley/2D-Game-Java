@@ -6,14 +6,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.locks.Lock;
 import javax.swing.JPanel;
 
 import org.group22.Drops.BonusReward;
 import org.group22.Drops.Item;
 import org.group22.Drops.ItemFactory;
 import org.group22.Drops.Potion;
-import org.group22.GameMap.MapComponent;
 import org.group22.People.EnemyFactory;
 import org.group22.People.Enemy;
 import org.group22.People.Player;
@@ -40,8 +38,6 @@ public class GamePanel extends JPanel implements Runnable{
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = maxWorldCol * tileSize;
-    public final int worldHeight = maxWorldRow * tileSize;
 
     // Entity settings
     public final int maxItems = 50;
@@ -147,7 +143,6 @@ public class GamePanel extends JPanel implements Runnable{
             currentTime = System.nanoTime();
             timer = currentTime / 1000000000;
             delta += (currentTime - lastTime) / timePerTick; // Get delta time
-            //timer += (currentTime - lastTime) / 1000000000;  // Get time passed in seconds
             lastTime = currentTime;
 
             if(delta >= 1) {
@@ -162,7 +157,7 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
             }
 
-            // Handle despawning potions
+            // Handle de-spawning potions
             synchronized (lock3) {
                 if (gameState >= playState1) {
                     tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
@@ -195,20 +190,10 @@ public class GamePanel extends JPanel implements Runnable{
                     Random rand = new Random();
                     if(rand.nextDouble() < Potion.getSpawnChance()) {
                         tempItems.add(iFactory.spawnPotion());
-//                        System.out.println(tempItems);
                     }
                     spawnTickCounter = 0;
                 }
-                // Update temporary items
-//                synchronized (lock1) {
-//                    for (BonusReward bonus : tempItems) {
-//                        bonus.decrementTicksTillDeath();
-//                        if (bonus.getTicksTillDeath() <= 0) {
-//                            System.out.println("Despawning potion");
-//                            tempItems.remove(bonus);
-//                        }
-//                    }
-//                }
+
                 // Update player
                 player.update();
                 // Update enemies
@@ -327,18 +312,10 @@ public class GamePanel extends JPanel implements Runnable{
     public void changeDifficulty(int newDifficulty){
         difficulty = newDifficulty;
         switch (difficulty) {
-            case(0) -> {
-                healthDrainRate = -1;
-            }
-            case(1) -> {
-                healthDrainRate = 30;
-            }
-            case(2) -> {
-                healthDrainRate = 20;
-            }
-            case(3) -> {
-                healthDrainRate = 10;
-            }
+            case(0) -> healthDrainRate = -1;
+            case(1) -> healthDrainRate = 30;
+            case(2) -> healthDrainRate = 20;
+            case(3) -> healthDrainRate = 10;
         }
         System.out.println("New difficulty: " + difficulty);
     }

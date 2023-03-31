@@ -7,11 +7,9 @@ package org.group22.Drops;
  * @author Michael
  */
 public abstract class Reward extends Item{
-    private final int healthAdjustment = 0;
-    private final int pointAdjustment = 25;
-    public int getHealthAdjustment() { return healthAdjustment;}
+    public int getHealthAdjustment() { return 0;}
     public int getPointAdjustment() {
-        return pointAdjustment;
+        return 25;
     }
 
 }

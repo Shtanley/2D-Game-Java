@@ -1,28 +1,21 @@
 package org.group22.GameMap;
 
 import org.group22.Drops.Item;
-import org.group22.People.Entity;
-import org.group22.app.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 /**
  * MapComponent class
  * Manage component image and component movement
- *
- * abstract class for different types of map compoenents
+ * abstract class for different types of map components
  * @author Sameer
  * @author Michael
  * @author Dina
  */
 public class MapComponent {
-//    protected Location loc;
     protected Item item;
-    public BufferedImage image;
-    public boolean collision = false;
+    private BufferedImage image;
+    private boolean collision = false;
 
     // Getters
     public Item getItem() {
@@ -34,4 +27,23 @@ public class MapComponent {
         this.item = item;
     }
 
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    public boolean isCollisionOn() {
+        return collision;
+    }
+
+    public void setCollisionOn() {
+        collision = true;
+    }
+
+    public void setCollisionOff() {
+        collision = false;
+    }
 }
