@@ -156,7 +156,7 @@ public class Player extends Entity {
      */
     public void pickupItem(Item item) {
         boolean pickedUp = true;
-        String objName = item.name;
+        String objName = item.getName();
         switch (objName) {
             case "Key" -> {
                 keyCount++;

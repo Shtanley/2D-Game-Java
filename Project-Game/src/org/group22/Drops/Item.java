@@ -1,6 +1,7 @@
 package org.group22.Drops;
 
 import org.group22.app.GamePanel;
+import org.w3c.dom.css.Rect;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,11 +17,11 @@ import java.util.Objects;
  * @author Sameer
  */
 public abstract class Item {
-    public BufferedImage image;
-    public String name;
-    public boolean collision = false;
-    public int worldX, worldY;
-    public Rectangle hitBox = new Rectangle(0, 0, 48, 48);
+    private BufferedImage image;
+    private String name;
+    private boolean collision = false;
+    private int worldX, worldY;
+    private Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
 
     public abstract int getHealthAdjustment();
@@ -52,7 +53,6 @@ public abstract class Item {
 
     public static BufferedImage setupSprite(String imgPath) {
         BufferedImage image = null;
-
         try {
             image = ImageIO.read(Objects.requireNonNull(Item.class.getResourceAsStream(imgPath + ".png")));
         } catch (Exception e) {
@@ -60,4 +60,53 @@ public abstract class Item {
         }
         return image;
     }
+
+    public BufferedImage getImage(){
+        return image;
+    }
+
+    public void setImage(BufferedImage newImage){
+        image = newImage;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String newName){
+        name = newName;
+    }
+
+    public boolean getCollision(){
+        return collision;
+    }
+
+    public void setCollision(boolean newCollision) {
+        collision = newCollision;
+    }
+
+    public int getWorldX(){
+        return worldX;
+    }
+
+    public void setWorldX(int newWorldX) {
+        worldX = newWorldX;
+    }
+
+    public int getWorldY(){
+        return worldY;
+    }
+
+    public void setWorldY(int newWorldY) {
+        worldY = newWorldY;
+    }
+
+    public Rectangle getHitBox() {
+        return hitBox;
+    }
+
+    public void setHitBox(Rectangle newHitBox) {
+        hitBox = newHitBox;
+    }
+
 }

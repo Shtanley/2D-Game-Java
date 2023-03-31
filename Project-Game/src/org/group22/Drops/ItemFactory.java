@@ -97,13 +97,13 @@ public class ItemFactory {
             }
             // Location cannot already have an item
             for (Item item : gp.obj) {
-                if (item != null && item.worldX/gp.tileSize == x && item.worldY/gp.tileSize == y) {
+                if (item != null && item.getWorldX()/gp.tileSize == x && item.getWorldY()/gp.tileSize == y) {
                     validLoc = false;
                     break;
                 }
             }
             for (BonusReward bonus : gp.tempItems) {
-                if (bonus.worldX/gp.tileSize == x && bonus.worldY/gp.tileSize == y) {
+                if (bonus.getWorldX()/gp.tileSize == x && bonus.getWorldY()/gp.tileSize == y) {
                     validLoc = false;
                     break;
                 }

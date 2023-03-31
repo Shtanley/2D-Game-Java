@@ -50,7 +50,7 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
-        keyImg = Key.getImage();
+        keyImg = Key.getSprite();
         assert(keyImg != null);
     }
     /**

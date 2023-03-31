@@ -12,10 +12,10 @@ import java.awt.image.BufferedImage;
  */
 public class Key extends Reward {
     public Key(int x, int y) {
-        name = "Key";
-        image = Item.setupSprite("/Object/newkey");
-        worldX = x;
-        worldY = y;
+        setName("Key");
+        setImage(Item.setupSprite("/Object/newkey"));
+        setWorldX(x);
+        setWorldY(y);
     }
 
     /**
@@ -23,7 +23,7 @@ public class Key extends Reward {
      *
      * @return a BufferedImage key sprite
      */
-    public static BufferedImage getImage(){
+    public static BufferedImage getSprite(){
         return Item.setupSprite("/Object/newkey");
     }
 

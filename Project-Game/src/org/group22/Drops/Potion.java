@@ -1,5 +1,7 @@
 package org.group22.Drops;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Potion class
  * Create potion item
@@ -10,11 +12,20 @@ package org.group22.Drops;
  */
 public class Potion extends BonusReward {
     public Potion(int x, int y, long time) {
-        name = "Potion";
-        image = Item.setupSprite("/Object/newpotion");
-        worldX = x;
-        worldY = y;
+        setName("Potion");
+        setImage(Item.setupSprite("/Object/newpotion"));
+        setWorldX(x);
+        setWorldY(y);
         birthTime = time;
         lifetime = 5;
+    }
+
+    /**
+     * Static method for getting potion sprite
+     *
+     * @return a BufferedImage potion sprite
+     */
+    public static BufferedImage getSprite(){
+        return Item.setupSprite("/Object/newpotion");
     }
 }

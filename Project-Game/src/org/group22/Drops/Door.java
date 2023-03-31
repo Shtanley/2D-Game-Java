@@ -1,5 +1,7 @@
 package org.group22.Drops;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Door class
  * Create door item
@@ -11,11 +13,20 @@ package org.group22.Drops;
 public class Door extends Item {
 
     public Door(int x, int y) {
-        name = "Door";
-        image = Item.setupSprite("/Object/newdoor");
-        worldX = x;
-        worldY = y;
-        collision = true;
+        setName("Door");
+        setImage(Item.setupSprite("/Object/newdoor"));
+        setWorldX(x);
+        setWorldY(y);
+        setCollision(true);
+    }
+
+    /**
+     * Static method for getting door sprite
+     *
+     * @return a BufferedImage door sprite
+     */
+    public static BufferedImage getSprite(){
+        return Item.setupSprite("/Object/newdoor");
     }
 
     public int getHealthAdjustment() {
