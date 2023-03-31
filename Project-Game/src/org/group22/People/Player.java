@@ -106,14 +106,19 @@ public class Player extends Entity {
 
             // Collision detection
             // Tile collision
-            collisionOn = false;
+            turnOffCollision();
             gp.cCheck.checkComponent(this);
             // Object collision
-            int objIndex = gp.cCheck.checkItem(this, true);
-            playerInteraction(objIndex);
+            Item obj = gp.cCheck.checkItem(this, true);
+            if(obj != null) {
+                playerInteraction(obj);
+            }
+
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
-            encounter(enemyIndex != -1);
+            if(enemyIndex != -1) {
+                encounter();
+            }
 
             updatePosition();
 
@@ -126,16 +131,16 @@ public class Player extends Entity {
      */
     private void updateDirection() {
         if (keyInputs.upPressed) {
-            direction = "up";
+            setDirection("up");
         }
         if (keyInputs.downPressed) {
-            direction = "down";
+            setDirection("down");
         }
         if (keyInputs.leftPressed) {
-            direction = "left";
+            setDirection("left");
         }
         if (keyInputs.rightPressed) {
-            direction = "right";
+            setDirection("right");
         }
     }
 
@@ -143,28 +148,27 @@ public class Player extends Entity {
      * Update player's x & y coordinates on the map. (i.e movement of player)
      */
     private void updatePosition() {
-        if(!collisionOn) {
-            switch (direction) {
-                case "up": worldY -= speed; break;
-                case "down": worldY += speed; break;
-                case "left": worldX -= speed; break;
-                case "right": worldX += speed; break;
+        if(isCollisionOff()) {
+            switch (getDirection()) {
+                case "up" -> setWorldY(getWorldY() - getSpeed());
+                case "down" -> setWorldY(getWorldY() + getSpeed());
+                case "left" -> setWorldX(getWorldX() - getSpeed());
+                case "right" -> setWorldX(getWorldX() + getSpeed());
             }
         }
-
     }
 
     /**
      * Update player's sprites for movement
      */
     private void updateSprites() {
-        spriteCount++;
-        if(spriteCount > 10) {
-            spriteCount = 0;
-            if(spriteNum == 1)
-                spriteNum = 2;
+        setSpriteCount(getSpriteCount() + 1);
+        if(getSpriteCount() > 10) {
+            setSpriteCount(0);
+            if(getSpriteNum() == 1)
+                setSpriteNum(2);
             else
-                spriteNum = 1;
+                setSpriteNum(1);
         }
     }
 
@@ -173,44 +177,51 @@ public class Player extends Entity {
      *
      * @param item the item being checked for
      */
-    public void playerInteraction(int i) {
-        if(i != 999) {
-            Item item = gp.obj[i];
-            String objName = item.name;
-            switch (objName) {
-                case "Key" -> {
-                    keyCount++;
-                    gp.obj[i] = null;
-                    gp.ui.showMsg("Key acquired");
-                    setPoints(item);
-                }
-                case "Potion" -> {
-                    gp.obj[i] = null;
-                    gp.ui.showMsg("Potion acquired");
-                    setPoints(item);
-                    if(this.health < maxHealth) {
-                        setHealth(item);
-                    }
-                }
-                case "Spikes" -> {
-                    gp.obj[i] = null;
-                    gp.ui.showMsg("Ouch!");
-                    setPoints(item);
+    public void playerInteraction(Item item) {
+        boolean pickedUp = true;
+        String objName = item.name;
+        switch (objName) {
+            case "Key" -> {
+                keyCount++;
+                gp.ui.showMsg("Key acquired");
+                setPoints(item);
+            }
+            case "Potion" -> {
+                gp.ui.showMsg("Potion acquired");
+                setPoints(item);
+                if(this.health < maxHealth) {
                     setHealth(item);
                 }
-                case "Door" -> {
-                    if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+            }
+            case "Spikes" -> {
+                gp.ui.showMsg("Ouch!");
+                setPoints(item);
+                setHealth(item);
+            }
+            case "Door" -> {
+                if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+                    keyCount = 0;
+                    setPoints(item);
+                    gp.changeGameState(gp.gameState+1);
+                } else {
+                    gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
+                    pickedUp = false;
+                }
+            }
+        }
+        // If successful, delete the item from the game, wherever it is
+        synchronized (gp.lock1) {
+            if (pickedUp) {
+                // Traverse obj
+                for (int i = 0; i < gp.obj.length; i++) {
+                    if (item.equals(gp.obj[i])) {
                         gp.obj[i] = null;
-                        keyCount = 0;
-                        setPoints(item);
-                        gp.changeGameState(gp.gameState+1);
-                    } else {
-                        gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
                     }
                 }
                 gp.tempItems.remove(item);
             }
         }
+
     }
 
     /**
