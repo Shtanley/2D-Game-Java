@@ -89,8 +89,7 @@ public class CollisionChecker {
         for(Item obj : gp.obj) {
             if(obj != null) {
                 // Get item hit box coordinates
-                obj.hitBox.x += obj.worldX;
-                obj.hitBox.y += obj.worldY;
+                getItemHitboxCoord(obj);
                 moveHitbox(entity);
                 if(entity.getHitBox().intersects(obj.hitBox)) {
                     if(isPlayer) {
@@ -108,8 +107,7 @@ public class CollisionChecker {
         // Bonus rewards ArrayList
         for(BonusReward bonus : gp.tempItems) {
             // Get item hit box coordinates
-            bonus.hitBox.x += bonus.worldX;
-            bonus.hitBox.y += bonus.worldY;
+            getItemHitboxCoord(bonus);
             moveHitbox(entity);
             if(entity.getHitBox().intersects(bonus.hitBox)) {
                 if(isPlayer) {
@@ -125,6 +123,16 @@ public class CollisionChecker {
         }
 
         return result;
+    }
+
+    /**
+     * Helper function to get item hitbox coordinates
+     *
+     * @param obj primary object
+     */
+    private static void getItemHitboxCoord(Item obj) {
+        obj.hitBox.x += obj.worldX;
+        obj.hitBox.y += obj.worldY;
     }
 
 
