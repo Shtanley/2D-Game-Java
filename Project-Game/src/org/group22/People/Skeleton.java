@@ -52,7 +52,7 @@ public class Skeleton extends Enemy{
         left1 = Entity.setupSprite("/Enemy/skeletonlord_left_1");
         left2 = Entity.setupSprite("/Enemy/skeletonlord_left_2");
         right1 = Entity.setupSprite("/Enemy/skeletonlord_right_1");
-        right1 = Entity.setupSprite("/Enemy/skeletonlord_right_2");
+        right2 = Entity.setupSprite("/Enemy/skeletonlord_right_2");
     }
 
     /**
