@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class Bat extends Enemy {
     private final int changeDirRate = 50;
+
     /**
      * Bat constructor
      * Set bat image and bat movement
@@ -48,7 +49,7 @@ public class Bat extends Enemy {
         left1 = Entity.setupSprite("/Enemy/bat_down_1");
         left2 = Entity.setupSprite("/Enemy/bat_down_2");
         right1 = Entity.setupSprite("/Enemy/bat_down_1");
-        right1 = Entity.setupSprite("/Enemy/bat_down_2");
+        right2 = Entity.setupSprite("/Enemy/bat_down_2");
     }
 
     /**
