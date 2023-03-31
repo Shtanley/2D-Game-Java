@@ -47,7 +47,6 @@ public class Slime extends Enemy {
     public void getImage() {
         Random rand = new Random();
         double p = rand.nextDouble();
-        int n = rand.nextInt(2);
         if(p < 0.5) {
             up1 = Entity.setupSprite("/Enemy/greenslime_down_1");
             up2 = Entity.setupSprite("/Enemy/greenslime_down_2");
@@ -56,7 +55,7 @@ public class Slime extends Enemy {
             left1 = Entity.setupSprite("/Enemy/greenslime_down_1");
             left2 = Entity.setupSprite("/Enemy/greenslime_down_2");
             right1 = Entity.setupSprite("/Enemy/greenslime_down_1");
-            right1 = Entity.setupSprite("/Enemy/greenslime_down_2");
+            right2 = Entity.setupSprite("/Enemy/greenslime_down_2");
         } else {
             up1 = Entity.setupSprite("/Enemy/redslime_down_1");
             up2 = Entity.setupSprite("/Enemy/redslime_down_2");
@@ -65,7 +64,7 @@ public class Slime extends Enemy {
             left1 = Entity.setupSprite("/Enemy/redslime_down_1");
             left2 = Entity.setupSprite("/Enemy/redslime_down_2");
             right1 = Entity.setupSprite("/Enemy/redslime_down_1");
-            right1 = Entity.setupSprite("/Enemy/redslime_down_2");
+            right2 = Entity.setupSprite("/Enemy/redslime_down_2");
         }
     }
 

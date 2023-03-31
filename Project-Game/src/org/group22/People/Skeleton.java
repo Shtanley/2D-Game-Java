@@ -22,13 +22,11 @@ public class Skeleton extends Enemy{
         path = new ArrayList<>();
         pathIndex = 0;
 
-
         hitBox = new Rectangle();
         name = "Skeleton";
         speed = 1;
 
-        // Tile size = 48
-        // Given buffer of 4
+        // Tile size = 48, give hitbox buffer of 4 pixels
         hitBox.x = 4;
         hitBox.y = 4;
         hitBox.width = 40;
