@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
     public EnemyFactory eFactory;
 
     // UI
-     public UI ui;
+    public UI ui;
 
     // Game objects
     public Player player;
