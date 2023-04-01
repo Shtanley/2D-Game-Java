@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 import javax.swing.JPanel;
 
 import org.group22.Drops.BonusReward;
@@ -49,9 +50,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     // System
     public Thread gameThread;
-    public final Object lock1 = new Object();
-    public final Object lock2 = new Object();
-    public final Object lock3 = new Object();
     public long timer;
     public KeyInputs keyInputs;
     public CollisionChecker cCheck;
@@ -65,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game objects
     public Player player;
     public Item[] obj;   // Array of objects
-    public ArrayList<BonusReward> tempItems; // Array of temporary items
+    public Vector<BonusReward> tempItems; // Vector of temporary items
     public Enemy[] enemies; // Array of enemies
     public int keysNeeded;
     public int healthDrainRate;
@@ -146,30 +144,18 @@ public class GamePanel extends JPanel implements Runnable{
             lastTime = currentTime;
 
             if(delta >= 1) {
-                // Update game logic
-//                synchronized (lock1) {
-//                    update();
-//                }
                 update();
-                // Draw game graphics
-//                synchronized (lock2) {
-//                    repaint();
-//                }
                 repaint();
                 delta--;
             }
 
-            // Handle de-spawning potions
-//            synchronized (lock3) {
-//                if (gameState >= playState1) {
-//                    tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
-//                }
-//            }
         }
     }
 
     /**
      * Update game logic
+     * Drain player's health
+     * Handle spawning/despawning of temporary items
      * Move player
      */
     public void update() {  // Update game logic
@@ -191,12 +177,13 @@ public class GamePanel extends JPanel implements Runnable{
                     System.out.println("Attempting to spawn potion");
                     Random rand = new Random();
                     if(rand.nextDouble() < Potion.getSpawnChance()) {
+                        // Successfully spawns potion
                         tempItems.add(iFactory.spawnPotion());
                     }
                     spawnTickCounter = 0;
                 }
                 // Despawn temporary items
-                tempItems.removeIf(bonus -> timer > bonus.birthTime + bonus.lifetime);
+                tempItems.removeIf(bonus -> (timer > bonus.birthTime + bonus.lifetime));
 
                 // Update player
                 player.update();
@@ -240,11 +227,11 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             // Bonus Rewards
-            //synchronized (lock2) {
+            synchronized (tempItems) {
                 for (BonusReward bonus : tempItems) {
                     bonus.draw(g2d, this);
                 }
-            // }
+            }
             // Enemy
             for (Enemy enemy : enemies) {
                 if (enemy != null) {
@@ -285,7 +272,7 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory.loadMap("/Map/world01.txt");
             iFactory.createItems("/Map/items01.txt");
             eFactory.createEnemies("/Map/enemies01.txt");
-            tempItems = new ArrayList<>();
+            tempItems = new Vector<>();
 
             player.setPlayerValues(35, 10, 8, "down");
             keysNeeded = 3;
@@ -294,7 +281,7 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory.loadMap("/Map/world02.txt");
             iFactory.createItems("/Map/items02.txt");
             eFactory.createEnemies("/Map/enemies02.txt");
-            tempItems = new ArrayList<>();
+            tempItems = new Vector<>();
 
             player.setPlayerValues(3, 16, 8, "down");
             keysNeeded = 3;
@@ -303,7 +290,7 @@ public class GamePanel extends JPanel implements Runnable{
             cFactory.loadMap("/Map/world03.txt");
             iFactory.createItems("/Map/items03.txt");
             eFactory.createEnemies("/Map/enemies03.txt");
-            tempItems = new ArrayList<>();
+            tempItems = new Vector<>();
 
             player.setPlayerValues(1, 23, 8, "down");
             keysNeeded = 6;

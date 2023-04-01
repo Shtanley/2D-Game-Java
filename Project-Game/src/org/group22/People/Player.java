@@ -187,16 +187,14 @@ public class Player extends Entity {
             }
         }
         // If successful, delete the item from the game, wherever it is
-        synchronized (gp.lock1) {
-            if (pickedUp) {
-                // Traverse obj
-                for (int i = 0; i < gp.obj.length; i++) {
-                    if (item.equals(gp.obj[i])) {
-                        gp.obj[i] = null;
-                    }
+        if (pickedUp) {
+            // Traverse obj
+            for (int i = 0; i < gp.obj.length; i++) {
+                if (item.equals(gp.obj[i])) {
+                    gp.obj[i] = null;
                 }
-                gp.tempItems.remove(item);
             }
+            gp.tempItems.remove(item);
         }
     }
 
