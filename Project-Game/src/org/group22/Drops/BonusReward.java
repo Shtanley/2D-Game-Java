@@ -30,6 +30,6 @@ public abstract class BonusReward extends Item{
         return 50;
     }
 
-    public static int getSpawnTimer() { return 1; } // default 100
-    public static double getSpawnChance() {return 1;} // default 0.3
+    public static int getSpawnTimer() { return 100; } // default 100
+    public static double getSpawnChance() {return 0.5;} // default 0.5
 }
