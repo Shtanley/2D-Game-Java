@@ -143,7 +143,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void update() {  // Update game logic
         if(inPlayState() && !isPaused()) {
-            if (player.dead()) {
+            if (player.isDead()) {
                 changeGameState(endState);
                 return;
             }
@@ -175,7 +175,7 @@ public class GamePanel extends JPanel implements Runnable{
     private void drainHealth(){
         if(difficulty > 0) {
             if (healthTickCounter >= GameSettings.getHealthDrainRate()) {
-                player.setHealth(-1);
+                player.adjustHealth(-1);
                 healthTickCounter = 0;
             }
         }

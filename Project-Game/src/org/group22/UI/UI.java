@@ -40,6 +40,7 @@ public class UI {
 
     /**
      * UI constructor
+     *
      * @param gp    GamePanel object
      */
     public UI(GamePanel gp) {
@@ -62,6 +63,7 @@ public class UI {
     }
     /**
      * Display message on screen
+     *
      * @param text  Message to display
      */
     public void showMsg(String text) {
@@ -69,7 +71,8 @@ public class UI {
         msgOn = true;
     }
     /**
-     * Draw different game states to screen
+     * Draws the UI to the screen according to the current gameState
+     *
      * @param g2d   Graphics2D object
      */
     public void draw(Graphics2D g2d) {
@@ -93,7 +96,7 @@ public class UI {
 
     }
 
-    public void drawTitleScreen() {
+    private void drawTitleScreen() {
         // Set background
         g2d.setColor(new Color(0, 0, 0));
         g2d.fillRect(0, 0, screenWidth, screenHeight);
@@ -144,7 +147,7 @@ public class UI {
         }
     }
 
-    public void drawDifficultyScreen() {
+    private void drawDifficultyScreen() {
         // Set background
         g2d.setColor(new Color(0, 0, 0));
         g2d.fillRect(0, 0, screenWidth, screenHeight);
@@ -203,7 +206,7 @@ public class UI {
         }
     }
     
-    public void drawPlayScreen() {
+    private void drawPlayScreen() {
         String text;
         int x, y;
 
@@ -241,7 +244,7 @@ public class UI {
 
     }
 
-    public void drawPauseScreen() {
+    private void drawPauseScreen() {
         String text;
         int x, y;
 
@@ -273,11 +276,11 @@ public class UI {
         g2d.drawString(text, x, y);
     }
 
-    public void drawGameOverScreen() {
+    private void drawGameOverScreen() {
         String text;
         int x, y;
 
-        if(gp.player.dead()) {
+        if(gp.player.isDead()) {
             g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
             // Draw Youch!
             text = "Youch!";
@@ -322,7 +325,10 @@ public class UI {
         return screenWidth/2 - txtLength/2;
     }
 
-    public void drawStats(){
+    /**
+     * Draws the player's keys, points, and health to the screen
+     */
+    private void drawStats(){
         g2d.setFont(g2d.getFont().deriveFont(48F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, tileSize/2, tileSize/2, tileSize, tileSize, null);
