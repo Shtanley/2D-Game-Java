@@ -52,14 +52,14 @@ public class GamePanel extends JPanel implements Runnable{
     public int healthDrainRate;
 
     // Game state
-    public int gameState;
+    private int gameState;
     public static final int titleState = 0;
     public static final int settingsState = 1;
     public static final int playState1 = 2;
     public static final int playState2 = 3;
     public static final int playState3 = 4;
     public static final int endState = 5;
-    public boolean paused = false;
+    private boolean paused = false;
     public int difficulty;
     public int healthTickCounter = 0;
     public int potionSpawnTickCounter = 0;
@@ -142,7 +142,7 @@ public class GamePanel extends JPanel implements Runnable{
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState >= playState1 && gameState <= playState3 && !paused) {
+        if(inPlayState() && !isPaused()) {
             if (player.dead()) {
                 changeGameState(endState);
                 return;
@@ -308,5 +308,21 @@ public class GamePanel extends JPanel implements Runnable{
             case(3) -> healthDrainRate = 10;
         }
         System.out.println("New difficulty: " + difficulty);
+    }
+
+    public boolean inPlayState(){
+        return gameState >= playState1 && gameState <= playState3;
+    }
+
+    public boolean isPaused(){
+        return paused;
+    }
+
+    public void setPaused(boolean pauseStatus) {
+        paused = pauseStatus;
+    }
+
+    public int getGameState(){
+        return gameState;
     }
 }

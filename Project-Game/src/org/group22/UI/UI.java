@@ -75,18 +75,18 @@ public class UI {
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.setFont(maruMonica);
 
-        if(gp.gameState == GamePanel.titleState) {
-            drawTitleScreen();
-        } else if (gp.gameState == GamePanel.settingsState){
-            drawDifficultyScreen();
-        } else if(gp.gameState >= GamePanel.playState1 && gp.gameState <= GamePanel.playState3) {
-            if(gp.paused) {
+        switch (gp.getGameState()) {
+            case GamePanel.titleState -> drawTitleScreen();
+            case GamePanel.settingsState -> drawDifficultyScreen();
+            case GamePanel.endState -> drawGameOverScreen();
+        }
+
+        if(gp.inPlayState()) {
+            if (gp.isPaused()) {
                 drawPauseScreen();
             } else {
                 drawPlayScreen();
             }
-        } else if(gp.gameState == GamePanel.endState) {
-            drawGameOverScreen();
         }
 
     }
