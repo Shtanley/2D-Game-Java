@@ -50,23 +50,35 @@ public class Bat extends Enemy {
      * Determines the bat's next direction of movement
      * Bat move uniformly randomly in all directions
      */
+
+
     public void setAction() {
         setLockActionCount(getLockActionCount() + 1);
         int changeDirRate = 50;
-        if(getLockActionCount() >= changeDirRate) {
+        //if(getLockActionCount() >= changeDirRate) {
+        if(!isCollisionOff() || getLockActionCount() >= changeDirRate) {
             Random rand = new Random();
             int n = rand.nextInt(100) + 1;
 
-            if(n <= 25) {
-                setDirection("up");
-            } else if(n <= 50) {
-                setDirection("down");
-            } else if(n <= 75) {
-                setDirection("left");
-            } else {
-                setDirection("right");
+            do {
+                n += 25;
+                n = n % 100;
+
+                if (n <= 25) {
+                    setDirection("up");
+                } else if (n <= 50) {
+                    setDirection("down");
+                } else if (n <= 75) {
+                    setDirection("left");
+                } else {
+                    setDirection("right");
+                }
+                turnOffCollision();
+                gp.cCheck.checkComponent(this);
             }
-            setLockActionCount(0);
+            while ( !isCollisionOff() );
+                setLockActionCount(0);
+
         }
     }
 }
