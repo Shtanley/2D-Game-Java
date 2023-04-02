@@ -48,37 +48,27 @@ public class Bat extends Enemy {
 
     /**
      * Determines the bat's next direction of movement
-     * Bat move uniformly randomly in all directions
+     * Bats move randomly in all directions, with an equal probability of moving in each direction
+     * Bats attempt to change directions every 50 ticks, or immediately if they collide with an object
      */
-
-
     public void setAction() {
         setLockActionCount(getLockActionCount() + 1);
         int changeDirRate = 50;
-        //if(getLockActionCount() >= changeDirRate) {
+        // Attempts to change direction if collision is on, or every 50 ticks
         if(!isCollisionOff() || getLockActionCount() >= changeDirRate) {
+            // Picks a random direction to move in
             Random rand = new Random();
             int n = rand.nextInt(100) + 1;
-
-            do {
-                n += 25;
-                n = n % 100;
-
-                if (n <= 25) {
-                    setDirection("up");
-                } else if (n <= 50) {
-                    setDirection("down");
-                } else if (n <= 75) {
-                    setDirection("left");
-                } else {
-                    setDirection("right");
-                }
-                turnOffCollision();
-                gp.cCheck.checkComponent(this);
+            if (n <= 25) {
+                setDirection("up");
+            } else if (n <= 50) {
+                setDirection("down");
+            } else if (n <= 75) {
+                setDirection("left");
+            } else {
+                setDirection("right");
             }
-            while ( !isCollisionOff() );
-                setLockActionCount(0);
-
+            setLockActionCount(0);
         }
     }
 }
