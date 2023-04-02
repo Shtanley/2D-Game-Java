@@ -63,6 +63,9 @@ public class EnemyFactory {
                     newSlime.setWorldX(x * gp.tileSize);
                     newSlime.setWorldY(y * gp.tileSize);
                     gp.enemies[lineNum] = newSlime;
+                } else {
+                    // Invalid enemy
+                    System.out.println("Invalid enemy type: \"" + type + "\" on line " + lineNum + " of " + filePath);
                 }
                 // Read next line
                 line = br.readLine();
