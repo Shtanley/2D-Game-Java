@@ -264,40 +264,38 @@ public class GamePanel extends JPanel implements Runnable{
     public void changeGameState(int state) {
         System.out.println("Changing game state to " + state);
         if(state == titleState) {
-            gameState = titleState;
+            // Nothing
         } else if (state == settingsState){
-            gameState = settingsState;
+            // Nothing
         } else if (state == playState1) {
             player.resetPlayer();
-            cFactory.loadMap("/Map/world01.txt");
-            iFactory.createItems("/Map/items01.txt");
-            eFactory.createEnemies("/Map/enemies01.txt");
-            tempItems = new Vector<>();
-
+            setupLevel(1);
             player.setPlayerValues(35, 10, 8, "down");
-            keysNeeded = 3;
-            gameState = playState1;
+
         } else if (state == playState2) {
-            cFactory.loadMap("/Map/world02.txt");
-            iFactory.createItems("/Map/items02.txt");
-            eFactory.createEnemies("/Map/enemies02.txt");
-            tempItems = new Vector<>();
+            setupLevel(2);
+            player.setPlayerValues(3, 16, 8, "right");
 
-            player.setPlayerValues(3, 16, 8, "down");
-            keysNeeded = 3;
-            gameState = playState2;
         } else if (state == playState3) {
-            cFactory.loadMap("/Map/world03.txt");
-            iFactory.createItems("/Map/items03.txt");
-            eFactory.createEnemies("/Map/enemies03.txt");
-            tempItems = new Vector<>();
-
+            setupLevel(3);
             player.setPlayerValues(1, 23, 8, "down");
-            keysNeeded = 6;
-            gameState = playState3;
+
         } else if (state == endState) {
-            gameState = endState;
+            // Nothing
         }
+        gameState = state;
+    }
+
+    public void setupLevel(int levelNum) {
+        String number = Integer.toString(levelNum);
+        if(number.length() == 1) {
+            number = "0" + number;
+        }
+        cFactory.loadMap("/Map/world" + number + ".txt");
+        iFactory.createItems("/Map/items" + number + ".txt");
+        eFactory.createEnemies("/Map/enemies" + number + ".txt");
+        tempItems = new Vector<>();
+        keysNeeded = iFactory.getNumKeys();
     }
 
     public void changeDifficulty(int newDifficulty){

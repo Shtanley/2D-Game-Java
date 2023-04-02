@@ -17,6 +17,7 @@ import java.util.Random;
  */
 public class ItemFactory {
     private final GamePanel gp;
+    private int numKeys;
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;
@@ -30,6 +31,7 @@ public class ItemFactory {
      */
     public void createItems(String filePath) {
         gp.obj = new Item[gp.maxItems];
+        numKeys = 0;
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             assert is != null;
@@ -47,6 +49,7 @@ public class ItemFactory {
                 int y = Integer.parseInt(words[2]) * gp.tileSize;
                 if(Objects.equals(type, "Key")) {
                     gp.obj[lineNum] = new Key(x, y);
+                    numKeys++;
                 } else if(Objects.equals(type, "Door")) {
                     gp.obj[lineNum] = new Door(x, y);
                 } else if(Objects.equals(type, "Spikes")) {
@@ -113,4 +116,7 @@ public class ItemFactory {
         return new Potion(x*gp.tileSize, y*gp.tileSize, gp.timer);
     }
 
+    public int getNumKeys(){
+        return numKeys;
+    }
 }
