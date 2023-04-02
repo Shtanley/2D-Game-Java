@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
     public boolean paused = false;
     public int difficulty;
     public int healthTickCounter = 0;
-    public int spawnTickCounter = 0;
+    public int potionSpawnTickCounter = 0;
 
     /**
      * Game panel constructor
@@ -145,41 +145,63 @@ public class GamePanel extends JPanel implements Runnable{
         if(gameState >= playState1 && gameState <= playState3 && !paused) {
             if (player.dead()) {
                 changeGameState(endState);
-            } else {
-                healthTickCounter++;
-                spawnTickCounter++;
-                // Drain health
-                if(difficulty > 0) {
-                    if (healthTickCounter >= healthDrainRate) {
-                        player.setHealth(-1);
-                        healthTickCounter = 0;
-                    }
-                }
-                // Attempt to spawn bonus reward
-                int maxTempItems = 100;
-                if(spawnTickCounter >= Potion.getSpawnTimer() && tempItems.size() < maxTempItems) {
-                    //System.out.println("Attempting to spawn potion");
-                    Random rand = new Random();
-                    if(rand.nextDouble() < Potion.getSpawnChance()) {
-                        // Successfully spawns potion
-                        tempItems.add(iFactory.spawnPotion());
-                    }
-                    spawnTickCounter = 0;
-                }
-                // De-spawn temporary items
-                tempItems.removeIf(bonus -> (timer > bonus.getBirthTime() + bonus.getLifetime()));
-
-                // Update player
-                player.update();
-                // Update enemies
-                for (Enemy enemy : enemies) {
-                    if (enemy != null) {
-                        enemy.update();
-                    }
+                return;
+            }
+            healthTickCounter++;
+            potionSpawnTickCounter++;
+            // Drain health
+            drainHealth();
+            // Attempt to spawn bonus reward
+            attemptSpawnPotion();
+            // De-spawn expired temporary items
+            tempItems.removeIf(bonus -> (timer > bonus.getBirthTime() + bonus.getLifetime()));
+            // Update player
+            player.update();
+            // Update enemies
+            for (Enemy enemy : enemies) {
+                if (enemy != null) {
+                    enemy.update();
                 }
             }
+
         }
             
+    }
+
+    /**
+     * If the difficult is greater than 0 (not on peaceful mode),
+     * decreases the player's health by 1 every healthDrainRate ticks
+     */
+    private void drainHealth(){
+        if(difficulty > 0) {
+            if (healthTickCounter >= healthDrainRate) {
+                player.setHealth(-1);
+                healthTickCounter = 0;
+            }
+        }
+    }
+
+    /**
+     * Every time a fixed amount of ticks passes, given by the Potion classes spawnTimer variable,
+     * attempts to spawn a potion.
+     * If there is less than maxTempItems (given by GameSettings) in the game then there is a
+     * random chance of successfully spawning the potion.
+     * The probability is given by the Potion class's spawnChance variable.
+     * In this case, a potion is spawned at a random location within 10 tiles of the player.
+     * This is handled by the ItemFactory::spawnPotion method.
+     */
+    private void attemptSpawnPotion(){
+        if(potionSpawnTickCounter >= Potion.getSpawnTimer()) {
+            if(tempItems.size() < GameSettings.getMaxTempItems()) {
+                //System.out.println("Attempting to spawn potion");
+                Random rand = new Random();
+                if (rand.nextDouble() < Potion.getSpawnChance()) {
+                    // Successfully spawns potion
+                    tempItems.add(iFactory.spawnPotion());
+                }
+            }
+            potionSpawnTickCounter = 0;
+        }
     }
 
     /**

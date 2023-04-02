@@ -24,6 +24,7 @@ public class GameSettings {
 
     // Entity settings
     private static final int maxItems = 50;
+    private static final int maxTempItems = 100;
 
 
     public static int getTileSize(){
@@ -40,6 +41,10 @@ public class GameSettings {
 
     public static int getMaxItems(){
         return maxItems;
+    }
+
+    public static int getMaxTempItems() {
+        return maxTempItems;
     }
 
     public static int getMaxWorldCol() {
