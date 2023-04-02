@@ -174,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 // Attempt to spawn bonus reward
                 if(spawnTickCounter >= Potion.getSpawnTimer() && tempItems.size() < maxTempItems) {
-                    System.out.println("Attempting to spawn potion");
+                    //System.out.println("Attempting to spawn potion");
                     Random rand = new Random();
                     if(rand.nextDouble() < Potion.getSpawnChance()) {
                         // Successfully spawns potion

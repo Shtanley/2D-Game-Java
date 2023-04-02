@@ -17,7 +17,7 @@ public class Potion extends BonusReward {
         setWorldX(x);
         setWorldY(y);
         birthTime = time;
-        lifetime = 10; // default 5
+        lifetime = 1; // default 5
     }
 
     /**

@@ -78,7 +78,7 @@ public class ItemFactory {
             int yComponent = rand.nextInt(21) - 10; // Random int between -10 and 10
             // Calculate (x, y) on map
             x = gp.player.getWorldX()/gp.tileSize + xComponent;
-            y = gp.player.getScreenY()/gp.tileSize + yComponent;
+            y = gp.player.getWorldY()/gp.tileSize + yComponent;
             // Check if valid location:
             // Omit (0, 0). Potion should not spawn on top of the player
             if(xComponent == 0 && yComponent == 0) {
@@ -109,7 +109,7 @@ public class ItemFactory {
                 }
             }
         } while(!validLoc);
-        System.out.println("Potion spawned");
+        //System.out.println("Potion spawned");
         return new Potion(x*gp.tileSize, y*gp.tileSize, gp.timer);
     }
 
