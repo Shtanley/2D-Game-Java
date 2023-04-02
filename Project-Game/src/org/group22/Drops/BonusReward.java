@@ -1,6 +1,8 @@
 package org.group22.Drops;
 
 
+import org.group22.app.GameSettings;
+
 /**
  * Abstract bonus reward class
  *
@@ -25,11 +27,6 @@ public abstract class BonusReward extends Item{
         this.lifetime = lifetime;
     }
 
-    public int getHealthAdjustment() { return 50;}
-    public int getPointAdjustment() {
-        return 50;
-    }
-
-    public static int getSpawnTimer() { return 100; } // default 100
-    public static double getSpawnChance() {return 0.5;} // default 0.5
+    public abstract int getHealthAdjustment();
+    public abstract int getPointAdjustment();
 }
