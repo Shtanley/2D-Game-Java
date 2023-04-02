@@ -7,8 +7,23 @@ package org.group22.Drops;
  * @author Michael
  */
 public abstract class BonusReward extends Item{
-    public long birthTime;
-    public long lifetime;
+
+    private long birthTime;
+    private long lifetime;
+
+    public long getBirthTime() {
+        return birthTime;
+    }
+    public long getLifetime() {
+        return lifetime;
+    }
+
+    protected void setBirthTime(long birthTime) {
+        this.birthTime = birthTime;
+    }
+    protected void setLifetime(long lifetime) {
+        this.lifetime = lifetime;
+    }
 
     public int getHealthAdjustment() { return 50;}
     public int getPointAdjustment() {

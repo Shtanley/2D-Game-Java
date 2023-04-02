@@ -183,7 +183,7 @@ public class GamePanel extends JPanel implements Runnable{
                     spawnTickCounter = 0;
                 }
                 // Despawn temporary items
-                tempItems.removeIf(bonus -> (timer > bonus.birthTime + bonus.lifetime));
+                tempItems.removeIf(bonus -> (timer > bonus.getBirthTime() + bonus.getLifetime()));
 
                 // Update player
                 player.update();

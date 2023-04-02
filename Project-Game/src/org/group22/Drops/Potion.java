@@ -16,8 +16,8 @@ public class Potion extends BonusReward {
         setImage(Item.setupSprite("/Object/newpotion"));
         setWorldX(x);
         setWorldY(y);
-        birthTime = time;
-        lifetime = 10; // default 5
+        setBirthTime(time);
+        setLifetime(10); // default 5
     }
 
     /**
