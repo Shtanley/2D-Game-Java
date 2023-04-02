@@ -317,7 +317,7 @@ public class UI {
         g2d.setFont(g2d.getFont().deriveFont(48F));
         g2d.setColor(Color.WHITE);
         g2d.drawImage(keyImg, tileSize/2, tileSize/2, tileSize, tileSize, null);
-        g2d.drawString(": " + gp.player.getKeyCount() + "/" + gp.keysNeeded, 74, tileSize*3/2);
+        g2d.drawString(": " + gp.player.getKeyCount() + "/" + GameSettings.getKeysNeeded(), 74, tileSize*3/2);
         g2d.drawString("Points: " + gp.player.getPoints(), tileSize/2, tileSize*5/2);
         drawHealth(tileSize/2, tileSize*11/4);
     }

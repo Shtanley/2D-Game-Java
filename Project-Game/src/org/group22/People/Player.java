@@ -198,12 +198,12 @@ public class Player extends Entity {
                 setHealth(item);
             }
             case "Door" -> {
-                if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+                if (keyCount >= GameSettings.getKeysNeeded()) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
                     keyCount = 0;
                     setPoints(item);
                     gp.changeGameState(gp.getGameState()+1);
                 } else {
-                    gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
+                    gp.ui.showMsg((GameSettings.getKeysNeeded() - keyCount) + " more keys required");
                     pickedUp = false;
                 }
             }

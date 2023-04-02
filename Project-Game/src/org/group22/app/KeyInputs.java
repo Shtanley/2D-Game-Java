@@ -69,7 +69,7 @@ public class KeyInputs implements KeyListener {
         }
 
         // Setting State, 4 buttons
-        if(gp.getGameState() == GamePanel.settingsState) {
+        else if(gp.getGameState() == GamePanel.settingsState) {
             if(key == KeyEvent.VK_UP) {
                 gp.ui.setDiffCmdNum(gp.ui.getDiffCmdNum() - 1);
                 if(gp.ui.getDiffCmdNum() < 0) {
@@ -92,7 +92,7 @@ public class KeyInputs implements KeyListener {
         }
 
         // Play State
-        if(gp.inPlayState()) {
+        else if(gp.inPlayState()) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;
             }

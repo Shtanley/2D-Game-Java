@@ -48,8 +48,6 @@ public class GamePanel extends JPanel implements Runnable{
     public Item[] obj;   // Array of objects
     public Vector<BonusReward> tempItems; // Vector of temporary items
     public Enemy[] enemies; // Array of enemies
-    public int keysNeeded;
-    public int healthDrainRate;
 
     // Game state
     private int gameState;
@@ -60,9 +58,11 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int playState3 = 4;
     public static final int endState = 5;
     private boolean paused = false;
-    public int difficulty;
-    public int healthTickCounter = 0;
-    public int potionSpawnTickCounter = 0;
+    private int difficulty;
+
+    // Tick counters
+    private int healthTickCounter = 0;
+    private int potionSpawnTickCounter = 0;
 
     /**
      * Game panel constructor
@@ -174,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     private void drainHealth(){
         if(difficulty > 0) {
-            if (healthTickCounter >= healthDrainRate) {
+            if (healthTickCounter >= GameSettings.getHealthDrainRate()) {
                 player.setHealth(-1);
                 healthTickCounter = 0;
             }
@@ -296,17 +296,18 @@ public class GamePanel extends JPanel implements Runnable{
         iFactory.createItems("/Map/items" + number + ".txt");
         eFactory.createEnemies("/Map/enemies" + number + ".txt");
         tempItems = new Vector<>();
-        keysNeeded = iFactory.getNumKeys();
+        GameSettings.setKeysNeeded(iFactory.getNumKeys());
     }
 
     public void changeDifficulty(int newDifficulty){
         difficulty = newDifficulty;
         switch (difficulty) {
-            case(0) -> healthDrainRate = -1;
-            case(1) -> healthDrainRate = 30;
-            case(2) -> healthDrainRate = 20;
-            case(3) -> healthDrainRate = 10;
+            case(0) -> GameSettings.setHealthDrainRate(-1);
+            case(1) -> GameSettings.setHealthDrainRate(30);
+            case(2) -> GameSettings.setHealthDrainRate(20);
+            case(3) -> GameSettings.setHealthDrainRate(10);
         }
+        ui.setDiffCmdNum(difficulty);
         System.out.println("New difficulty: " + difficulty);
     }
 
@@ -324,5 +325,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public int getGameState(){
         return gameState;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
     }
 }

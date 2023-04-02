@@ -21,10 +21,13 @@ public class GameSettings {
     private static final int maxWorldCol = 50;
     private static final int maxWorldRow = 50;
 
-
     // Entity settings
     private static final int maxItems = 50;
     private static final int maxTempItems = 100;
+
+    // Level settings
+    private static int keysNeeded;
+    private static int healthDrainRate;
 
 
     public static int getTileSize(){
@@ -53,5 +56,21 @@ public class GameSettings {
 
     public static int getMaxWorldRow() {
         return maxWorldRow;
+    }
+
+    public static int getKeysNeeded() {
+        return keysNeeded;
+    }
+
+    public static void setKeysNeeded(int keysNeeded) {
+        GameSettings.keysNeeded = keysNeeded;
+    }
+
+    public static int getHealthDrainRate() {
+        return healthDrainRate;
+    }
+
+    public static void setHealthDrainRate(int healthDrainRate) {
+        GameSettings.healthDrainRate = healthDrainRate;
     }
 }
