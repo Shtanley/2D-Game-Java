@@ -88,18 +88,9 @@ public class CollisionChecker {
         // Objects array
         for(Item obj : gp.obj) {
             if(obj != null) {
-                // Get entity hit box coordinates
-                entity.getHitBox().x += entity.getWorldX();
-                entity.getHitBox().y += entity.getWorldY();
                 // Get item hit box coordinates
-                obj.getHitBox().x += obj.getWorldX();
-                obj.getHitBox().y += obj.getWorldY();
-                switch (entity.getDirection()) {
-                    case "up" -> entity.getHitBox().y -= entity.getSpeed();
-                    case "down" -> entity.getHitBox().y += entity.getSpeed();
-                    case "left" -> entity.getHitBox().x -= entity.getSpeed();
-                    case "right" -> entity.getHitBox().x += entity.getSpeed();
-                }
+                getItemHitboxCoord(obj);
+                moveHitbox(entity);
                 if(entity.getHitBox().intersects(obj.getHitBox())) {
                     if(isPlayer) {
                         result = obj;
@@ -107,8 +98,7 @@ public class CollisionChecker {
                     break;
                 }
                 // Reset hit box coordinates
-                entity.getHitBox().x = entity.getHitBoxDefaultX();
-                entity.getHitBox().y = entity.getHitBoxDefaultY();
+                resetEntityHitbox(entity);
                 obj.getHitBox().x = obj.hitBoxDefaultX;
                 obj.getHitBox().y = obj.hitBoxDefaultY;
             }
@@ -116,18 +106,9 @@ public class CollisionChecker {
 
         // Bonus rewards ArrayList
         for(BonusReward bonus : gp.tempItems) {
-            // Get entity hit box coordinates
-            entity.getHitBox().x += entity.getWorldX();
-            entity.getHitBox().y += entity.getWorldY();
             // Get item hit box coordinates
-            bonus.getHitBox().x += bonus.getWorldX();
-            bonus.getHitBox().y += bonus.getWorldY();
-            switch (entity.getDirection()) {
-                case "up" -> entity.getHitBox().y -= entity.getSpeed();
-                case "down" -> entity.getHitBox().y += entity.getSpeed();
-                case "left" -> entity.getHitBox().x -= entity.getSpeed();
-                case "right" -> entity.getHitBox().x += entity.getSpeed();
-            }
+            getItemHitboxCoord(bonus);
+            moveHitbox(entity);
             if(entity.getHitBox().intersects(bonus.getHitBox())) {
                 if(isPlayer) {
                     result = bonus;
@@ -135,8 +116,7 @@ public class CollisionChecker {
                 break;
             }
             // Reset hit box coordinates
-            entity.getHitBox().x = entity.getHitBoxDefaultX();
-            entity.getHitBox().y = entity.getHitBoxDefaultY();
+            resetEntityHitbox(entity);
             bonus.getHitBox().x = bonus.hitBoxDefaultX;
             bonus.getHitBox().y = bonus.hitBoxDefaultY;
 
@@ -144,6 +124,17 @@ public class CollisionChecker {
 
         return result;
     }
+
+    /**
+     * Helper function to get item hitbox coordinates
+     *
+     * @param obj primary object
+     */
+    private static void getItemHitboxCoord(Item obj) {
+        obj.getHitBox().x += obj.getWorldX();
+        obj.getHitBox().y += obj.getWorldY();
+    }
+
 
     /**
      * Check collision between entity and every element of target
@@ -158,19 +149,11 @@ public class CollisionChecker {
 
         for(int i = 0; i < target.length; i++) {
             if(target[i] != null) {
-                // Get entity hit box coordinates
-                entity.getHitBox().x += entity.getWorldX();
-                entity.getHitBox().y += entity.getWorldY();
                 // Get item hit box coordinates
                 target[i].getHitBox().x += target[i].getWorldX();
                 target[i].getHitBox().y += target[i].getWorldY();
 
-                switch (entity.getDirection()) {
-                    case "up" -> entity.getHitBox().y -= entity.getSpeed();
-                    case "down" -> entity.getHitBox().y += entity.getSpeed();
-                    case "left" -> entity.getHitBox().x -= entity.getSpeed();
-                    case "right" -> entity.getHitBox().x += entity.getSpeed();
-                }
+                moveHitbox(entity);
                 if(entity.getHitBox().intersects(target[i].getHitBox())) {
                     if(target[i] != entity) {
                         entity.turnOnCollision();
@@ -178,12 +161,38 @@ public class CollisionChecker {
                     }
                 }
                 // Reset hit box coordinates
-                entity.getHitBox().x = entity.getHitBoxDefaultX();
-                entity.getHitBox().y = entity.getHitBoxDefaultY();
-                target[i].getHitBox().x = target[i].getHitBoxDefaultX();
-                target[i].getHitBox().y = target[i].getHitBoxDefaultY();
+                resetEntityHitbox(entity);
+                resetEntityHitbox(target[i]);
             }
         }
         return index;
+    }
+
+    /**
+     * Helper function to reset entity hitbox to default position
+     *
+     * @param entity primary entity
+     */
+    private static void resetEntityHitbox(Entity entity) {
+        entity.getHitBox().x = entity.getHitBoxDefaultX();
+        entity.getHitBox().y = entity.getHitBoxDefaultY();
+    }
+
+    /**
+     * Helper function to move the entity hitbox as the entity itself moves
+     *
+     * @param entity primary entity
+     */
+    private void moveHitbox(Entity entity) {
+        // Get entity hit box coordinates
+        entity.getHitBox().x += entity.getWorldX();
+        entity.getHitBox().y += entity.getWorldY();
+
+        switch (entity.getDirection()) {
+            case "up" -> entity.getHitBox().y -= entity.getSpeed();
+            case "down" -> entity.getHitBox().y += entity.getSpeed();
+            case "left" -> entity.getHitBox().x -= entity.getSpeed();
+            case "right" -> entity.getHitBox().x += entity.getSpeed();
+        }
     }
 }

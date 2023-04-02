@@ -102,18 +102,7 @@ public class Player extends Entity {
     public void update() {
         // Player movement
         if(keyInputs.isUpPressed() || keyInputs.isDownPressed() || keyInputs.isLeftPressed() || keyInputs.isRightPressed()) {
-            if (keyInputs.isUpPressed()) {
-                setDirection("up");
-            }
-            if (keyInputs.isDownPressed()) {
-                setDirection("down");
-            }
-            if (keyInputs.isLeftPressed()) {
-                setDirection("left");
-            }
-            if (keyInputs.isRightPressed()) {
-                setDirection("right");
-            }
+            updateDirection();
 
             // Collision detection
             // Tile collision
@@ -122,30 +111,63 @@ public class Player extends Entity {
             // Object collision
             Item obj = gp.cCheck.checkItem(this, true);
             if(obj != null) {
-                pickupItem(obj);
+                playerInteraction(obj);
             }
+
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
             if(enemyIndex != -1) {
                 encounter();
             }
-            if(isCollisionOff()) {
-                switch (getDirection()) {
-                    case "up" -> setWorldY(getWorldY() - getSpeed());
-                    case "down" -> setWorldY(getWorldY() + getSpeed());
-                    case "left" -> setWorldX(getWorldX() - getSpeed());
-                    case "right" -> setWorldX(getWorldX() + getSpeed());
-                }
-            }
 
-            setSpriteCount(getSpriteCount() + 1);
-            if(getSpriteCount() > 10) {
-                setSpriteCount(0);
-                if(getSpriteNum() == 1)
-                    setSpriteNum(2);
-                else
-                    setSpriteNum(1);
+            updatePosition();
+            updateSprites();
+        }
+    }
+
+    /**
+     * Update player's direction based on keys pressed
+     */
+    private void updateDirection() {
+        if (keyInputs.isUpPressed()) {
+            setDirection("up");
+        }
+        if (keyInputs.isDownPressed()) {
+            setDirection("down");
+        }
+        if (keyInputs.isLeftPressed()) {
+            setDirection("left");
+        }
+        if (keyInputs.isRightPressed()) {
+            setDirection("right");
+        }
+    }
+
+    /**
+     * Update player's x & y coordinates on the map. (i.e movement of player)
+     */
+    private void updatePosition() {
+        if(isCollisionOff()) {
+            switch (getDirection()) {
+                case "up" -> setWorldY(getWorldY() - getSpeed());
+                case "down" -> setWorldY(getWorldY() + getSpeed());
+                case "left" -> setWorldX(getWorldX() - getSpeed());
+                case "right" -> setWorldX(getWorldX() + getSpeed());
             }
+        }
+    }
+
+    /**
+     * Update player's sprites for movement
+     */
+    private void updateSprites() {
+        setSpriteCount(getSpriteCount() + 1);
+        if(getSpriteCount() > 10) {
+            setSpriteCount(0);
+            if(getSpriteNum() == 1)
+                setSpriteNum(2);
+            else
+                setSpriteNum(1);
         }
     }
 
@@ -154,7 +176,7 @@ public class Player extends Entity {
      *
      * @param item the item being checked for
      */
-    public void pickupItem(Item item) {
+    public void playerInteraction(Item item) {
         boolean pickedUp = true;
         String objName = item.getName();
         switch (objName) {
@@ -196,6 +218,7 @@ public class Player extends Entity {
             }
             gp.tempItems.remove(item);
         }
+
     }
 
     /**
