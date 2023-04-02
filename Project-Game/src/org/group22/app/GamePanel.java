@@ -307,6 +307,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     /**
      * Changes the difficulty of the game, setting the healthDrainRate accordingly
+     * For hard mode, also adjusts potionSpawnTimer, potionSpawnChance, and potionLifetime
      *
      * @param newDifficulty the difficulty to change to
      */
@@ -316,7 +317,14 @@ public class GamePanel extends JPanel implements Runnable{
             case(0) -> GameSettings.setHealthDrainRate(-1);
             case(1) -> GameSettings.setHealthDrainRate(30);
             case(2) -> GameSettings.setHealthDrainRate(20);
-            case(3) -> GameSettings.setHealthDrainRate(10);
+            case(3) -> {
+                GameSettings.setHealthDrainRate(10);
+                // Increase the amount of potions to compensate for difficult health drain,
+                // but also decreases their lifetime
+                GameSettings.setPotionSpawnTimer(50);
+                GameSettings.setPotionSpawnChance(0.3);
+                GameSettings.setPotionLifetime(3);
+            }
         }
         ui.setDiffCmdNum(difficulty);
         System.out.println("New difficulty: " + difficulty);
