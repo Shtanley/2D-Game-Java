@@ -287,6 +287,12 @@ public class GamePanel extends JPanel implements Runnable{
         gameState = state;
     }
 
+    /**
+     * Sets up a given level
+     * Loads the map, spawns items and enemies, resets temporary items, and sets the number of keys needed
+     *
+     * @param levelNum the number of the level to set up
+     */
     public void setupLevel(int levelNum) {
         String number = Integer.toString(levelNum);
         if(number.length() == 1) {
@@ -299,6 +305,11 @@ public class GamePanel extends JPanel implements Runnable{
         GameSettings.setKeysNeeded(iFactory.getNumKeys());
     }
 
+    /**
+     * Changes the difficulty of the game, setting the healthDrainRate accordingly
+     *
+     * @param newDifficulty the difficulty to change to
+     */
     public void changeDifficulty(int newDifficulty){
         difficulty = newDifficulty;
         switch (difficulty) {
@@ -325,9 +336,5 @@ public class GamePanel extends JPanel implements Runnable{
 
     public int getGameState(){
         return gameState;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
     }
 }

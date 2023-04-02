@@ -293,6 +293,16 @@ public class Player extends Entity {
         return result;
     }
 
+
+    /**
+     * Static method for getting Player sprite
+     *
+     * @return a BufferedImage Player sprite
+     */
+    public static BufferedImage getSprite(){
+        return setupSprite("/Player/priest_right1");
+    }
+
     /**
      * @return whether the player is dead or not
      */

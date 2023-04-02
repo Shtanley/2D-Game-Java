@@ -1,6 +1,8 @@
 package org.group22.UI;
 
 import org.group22.Drops.Key;
+import org.group22.Drops.Potion;
+import org.group22.People.Player;
 import org.group22.app.GamePanel;
 import org.group22.app.GameSettings;
 
@@ -107,10 +109,11 @@ public class UI {
         g2d.setColor(Color.WHITE);
         g2d.drawString(text, x, y);
 
-        // Add image
+        // Add Player Sprite
         x = screenWidth/2 - (tileSize);
         y += tileSize * 2;
-        g2d.drawImage(Objects.requireNonNull(gp.player.getRight1()), x, y, tileSize*2, tileSize*2, null);
+        //g2d.drawImage(Objects.requireNonNull(gp.player.getRight1()), x, y, tileSize*2, tileSize*2, null);
+        g2d.drawImage(Objects.requireNonNull(Player.getSprite()), x, y, tileSize*2, tileSize*2, null);
 
         // Menu
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
@@ -156,6 +159,12 @@ public class UI {
         // Draw text
         g2d.setColor(Color.WHITE);
         g2d.drawString(text, x, y);
+
+        // Draw Potion Sprite
+        x = screenWidth/2 - (tileSize * 3/2);
+        y += tileSize;
+        g2d.drawImage(Potion.getSprite(), x, y, tileSize*3, tileSize*3, null);
+
 
         // Menu
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 48F));
