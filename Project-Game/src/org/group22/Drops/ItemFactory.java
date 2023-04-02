@@ -1,6 +1,7 @@
 package org.group22.Drops;
 
 import org.group22.app.GamePanel;
+import org.group22.app.GameSettings;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -18,6 +19,7 @@ import java.util.Random;
 public class ItemFactory {
     private final GamePanel gp;
     private int numKeys;
+    private final int tileSize = GameSettings.getTileSize();
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;
@@ -30,7 +32,7 @@ public class ItemFactory {
      * @param filePath the location of the text file containing all items to be created
      */
     public void createItems(String filePath) {
-        gp.obj = new Item[gp.maxItems];
+        gp.obj = new Item[GameSettings.getMaxItems()];
         numKeys = 0;
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
@@ -42,11 +44,11 @@ public class ItemFactory {
             // Read lines
             int lineNum = 0;
             String line = br.readLine();
-            while(line != null && lineNum < gp.maxItems) {
+            while(line != null && lineNum < GameSettings.getMaxItems()) {
                 String[] words = line.split(", "); // Read "type, x, y" comma separated values
                 String type = words[0];
-                int x = Integer.parseInt(words[1]) * gp.tileSize;
-                int y = Integer.parseInt(words[2]) * gp.tileSize;
+                int x = Integer.parseInt(words[1]) * tileSize;
+                int y = Integer.parseInt(words[2]) * tileSize;
                 if(Objects.equals(type, "Key")) {
                     gp.obj[lineNum] = new Key(x, y);
                     numKeys++;
@@ -80,8 +82,8 @@ public class ItemFactory {
             int xComponent = rand.nextInt(21) - 10; // Random int between -10 and 10
             int yComponent = rand.nextInt(21) - 10; // Random int between -10 and 10
             // Calculate (x, y) on map
-            x = gp.player.getWorldX()/gp.tileSize + xComponent;
-            y = gp.player.getWorldY()/gp.tileSize + yComponent;
+            x = gp.player.getWorldX()/tileSize + xComponent;
+            y = gp.player.getWorldY()/tileSize + yComponent;
             // Check if valid location:
             // Omit (0, 0). Potion should not spawn on top of the player
             if(xComponent == 0 && yComponent == 0) {
@@ -100,20 +102,20 @@ public class ItemFactory {
             }
             // Location cannot already have an item
             for (Item item : gp.obj) {
-                if (item != null && item.getWorldX()/gp.tileSize == x && item.getWorldY()/gp.tileSize == y) {
+                if (item != null && item.getWorldX()/tileSize == x && item.getWorldY()/tileSize == y) {
                     validLoc = false;
                     break;
                 }
             }
             for (BonusReward bonus : gp.tempItems) {
-                if (bonus.getWorldX()/gp.tileSize == x && bonus.getWorldY()/gp.tileSize == y) {
+                if (bonus.getWorldX()/tileSize == x && bonus.getWorldY()/tileSize == y) {
                     validLoc = false;
                     break;
                 }
             }
         } while(!validLoc);
         //System.out.println("Potion spawned");
-        return new Potion(x*gp.tileSize, y*gp.tileSize, gp.timer);
+        return new Potion(x*tileSize, y*tileSize, gp.timer);
     }
 
     public int getNumKeys(){

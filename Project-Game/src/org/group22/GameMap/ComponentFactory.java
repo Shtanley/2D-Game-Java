@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 import org.group22.app.GamePanel;
+import org.group22.app.GameSettings;
 
 import javax.imageio.ImageIO;
 
@@ -25,6 +26,7 @@ public class ComponentFactory {
 
     public int mapWidth;
     public int mapHeight;
+
 
     /**
      * Constructor
@@ -81,7 +83,10 @@ public class ComponentFactory {
     }
 
     public void loadMap(String filePath) {
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        int maxWorldCol = GameSettings.getMaxWorldCol();
+        int maxWorldRow = GameSettings.getMaxWorldRow();
+
+        mapTileNum = new int[maxWorldCol][maxWorldRow];
         mapWidth = 0;
         mapHeight = 0;
         try {
@@ -93,9 +98,9 @@ public class ComponentFactory {
             int row = 0;
 
             String line = br.readLine();
-            while(line != null && row < gp.maxWorldRow) {
+            while(line != null && row < maxWorldRow) {
                 String[] numbers = line.split(" "); // Split line into numbers
-                while (col < numbers.length && col < gp.maxWorldCol) {
+                while (col < numbers.length && col < maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]); // Convert string to int
                     mapTileNum[col][row] = num; // Store number in mapTileNum array
                     col++;
@@ -120,14 +125,15 @@ public class ComponentFactory {
      * @param g2d   2D graphics handler
      */
     public void draw(Graphics2D g2d) {
-        int worldcol = 0;
+        int worldCol = 0;
         int worldRow = 0;
+        int tileSize = GameSettings.getTileSize();
 
-        while (worldcol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNum[worldcol][worldRow];   // Get tile number from mapTileNum array
+        while (worldCol < GameSettings.getMaxWorldCol() && worldRow < GameSettings.getMaxWorldRow()) {
+            int tileNum = mapTileNum[worldCol][worldRow];   // Get tile number from mapTileNum array
             // Calculate x and y position of tile
-            int worldX = worldcol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
+            int worldX = worldCol * tileSize;
+            int worldY = worldRow * tileSize;
             // Calculate x and y position of tile on screen
             int playerScreenX = gp.player.getScreenX();
             int playerScreenY = gp.player.getScreenY();
@@ -136,14 +142,14 @@ public class ComponentFactory {
             int screenY = worldY - gp.player.getWorldY() + playerScreenY;
 
             // Draw tile if it is on screen to save resources
-            if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - gp.tileSize < gp.player.getWorldX() + gp.player.getScreenX()
-                    && worldY + gp.tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - gp.tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
-                g2d.drawImage(mc[tileNum].getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);
+            if (worldX + tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - tileSize < gp.player.getWorldX() + gp.player.getScreenX()
+                    && worldY + tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
+                g2d.drawImage(mc[tileNum].getImage(), screenX, screenY, tileSize, tileSize, null);
             }
-            worldcol++;
+            worldCol++;
 
-            if (worldcol == gp.maxWorldCol) {
-                worldcol = 0;
+            if (worldCol == GameSettings.getMaxWorldCol()) {
+                worldCol = 0;
                 worldRow++;
             }
         }
@@ -154,7 +160,6 @@ public class ComponentFactory {
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imgPath + ".png")));
-//            image = scaleImg(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();
         }

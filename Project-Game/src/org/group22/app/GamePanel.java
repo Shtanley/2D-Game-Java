@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 import javax.swing.JPanel;
@@ -25,37 +24,21 @@ import org.group22.UI.UI;
  *
  * @author Sameer
  * @author Michael
+ * @author Dina
  */
 public class GamePanel extends JPanel implements Runnable{
     // Screen settings
-    public final int orgTileSize = 16; // 16x16 pixels
-    public final int scale = 3;
-    public final int tileSize = orgTileSize * scale;
-    public final int maxScreenCol = 21;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = maxScreenCol * tileSize;
-    public final int screenHeight = maxScreenRow * tileSize;
-
-    // World settings
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-
-    // Entity settings
-    public final int maxItems = 50;
-    private final int maxTempItems = 100;
-    public final int maxEnemies = 50;
-
     // FPS settings
     int fps = 60;
 
     // System
     public Thread gameThread;
     public long timer;
-    public KeyInputs keyInputs;
+    private KeyInputs keyInputs;
     public CollisionChecker cCheck;
-    public ItemFactory iFactory;
+    private ItemFactory iFactory;
     public ComponentFactory cFactory;
-    public EnemyFactory eFactory;
+    private EnemyFactory eFactory;
 
     // UI
     public UI ui;
@@ -65,21 +48,21 @@ public class GamePanel extends JPanel implements Runnable{
     public Item[] obj;   // Array of objects
     public Vector<BonusReward> tempItems; // Vector of temporary items
     public Enemy[] enemies; // Array of enemies
-    public int keysNeeded;
-    public int healthDrainRate;
 
     // Game state
-    public int gameState;
-    public final int titleState = 0;
-    public final int settingsState = 1;
-    public final int playState1 = 2;
-    public final int playState2 = 3;
-    public final int playState3 = 4;
-    public final int endState = 5;
-    public boolean paused = false;
-    public int difficulty;
-    public int healthTickCounter = 0;
-    public int spawnTickCounter = 0;
+    private int gameState;
+    public static final int titleState = 0;
+    public static final int settingsState = 1;
+    public static final int playState1 = 2;
+    public static final int playState2 = 3;
+    public static final int playState3 = 4;
+    public static final int endState = 5;
+    private boolean paused = false;
+    private int difficulty;
+
+    // Tick counters
+    private int healthTickCounter = 0;
+    private int potionSpawnTickCounter = 0;
 
     /**
      * Game panel constructor
@@ -90,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         ui = new UI(this);
         keyInputs = new KeyInputs(this);
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));    // 768x576 pixels
+        this.setPreferredSize(new Dimension(GameSettings.getScreenWidth(), GameSettings.getScreenHeight()));    // 768x576 pixels
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs
@@ -155,47 +138,70 @@ public class GamePanel extends JPanel implements Runnable{
     /**
      * Update game logic
      * Drain player's health
-     * Handle spawning/despawning of temporary items
+     * Handle spawning/de-spawning of temporary items
      * Move player
      */
     public void update() {  // Update game logic
-        if(gameState >= playState1 && gameState <= playState3 && !paused) {
-            if (player.dead()) {
+        if(inPlayState() && !isPaused()) {
+            if (player.isDead()) {
                 changeGameState(endState);
-            } else {
-                healthTickCounter++;
-                spawnTickCounter++;
-                // Drain health
-                if(difficulty > 0) {
-                    if (healthTickCounter >= healthDrainRate) {
-                        player.setHealth(-1);
-                        healthTickCounter = 0;
-                    }
-                }
-                // Attempt to spawn bonus reward
-                if(spawnTickCounter >= Potion.getSpawnTimer() && tempItems.size() < maxTempItems) {
-                    //System.out.println("Attempting to spawn potion");
-                    Random rand = new Random();
-                    if(rand.nextDouble() < Potion.getSpawnChance()) {
-                        // Successfully spawns potion
-                        tempItems.add(iFactory.spawnPotion());
-                    }
-                    spawnTickCounter = 0;
-                }
-                // Despawn temporary items
-                tempItems.removeIf(bonus -> (timer > bonus.getBirthTime() + bonus.getLifetime()));
-
-                // Update player
-                player.update();
-                // Update enemies
-                for (Enemy enemy : enemies) {
-                    if (enemy != null) {
-                        enemy.update();
-                    }
+                return;
+            }
+            healthTickCounter++;
+            potionSpawnTickCounter++;
+            // Drain health
+            drainHealth();
+            // Attempt to spawn bonus reward
+            attemptSpawnPotion();
+            // De-spawn expired temporary items
+            tempItems.removeIf(bonus -> (timer > bonus.getBirthTime() + bonus.getLifetime()));
+            // Update player
+            player.update();
+            // Update enemies
+            for (Enemy enemy : enemies) {
+                if (enemy != null) {
+                    enemy.update();
                 }
             }
+
         }
             
+    }
+
+    /**
+     * If the difficult is greater than 0 (not on peaceful mode),
+     * decreases the player's health by 1 every healthDrainRate ticks
+     */
+    private void drainHealth(){
+        if(difficulty > 0) {
+            if (healthTickCounter >= GameSettings.getHealthDrainRate()) {
+                player.adjustHealth(-1);
+                healthTickCounter = 0;
+            }
+        }
+    }
+
+    /**
+     * Every time a fixed amount of ticks passes, given by the Potion classes spawnTimer variable,
+     * attempts to spawn a potion.
+     * If there is less than maxTempItems (given by GameSettings) in the game then there is a
+     * random chance of successfully spawning the potion.
+     * The probability is given by the Potion class's spawnChance variable.
+     * In this case, a potion is spawned at a random location within 10 tiles of the player.
+     * This is handled by the ItemFactory::spawnPotion method.
+     */
+    private void attemptSpawnPotion(){
+        if(potionSpawnTickCounter >= Potion.getSpawnTimer()) {
+            if(tempItems.size() < GameSettings.getMaxTempItems()) {
+                //System.out.println("Attempting to spawn potion");
+                Random rand = new Random();
+                if (rand.nextDouble() < Potion.getSpawnChance()) {
+                    // Successfully spawns potion
+                    tempItems.add(iFactory.spawnPotion());
+                }
+            }
+            potionSpawnTickCounter = 0;
+        }
     }
 
     /**
@@ -263,29 +269,30 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void changeGameState(int state) {
         System.out.println("Changing game state to " + state);
-        if(state == titleState) {
-            // Nothing
-        } else if (state == settingsState){
-            // Nothing
-        } else if (state == playState1) {
-            player.resetPlayer();
-            setupLevel(1);
-            player.setPlayerValues(35, 10, 8, "down");
-
-        } else if (state == playState2) {
-            setupLevel(2);
-            player.setPlayerValues(3, 16, 8, "right");
-
-        } else if (state == playState3) {
-            setupLevel(3);
-            player.setPlayerValues(1, 23, 8, "down");
-
-        } else if (state == endState) {
-            // Nothing
+        switch (state) {
+            case playState1 -> {
+                player.resetPlayer();
+                setupLevel(1);
+                player.setPlayerValues(35, 10, 8, "down");
+            }
+            case playState2 -> {
+                setupLevel(2);
+                player.setPlayerValues(3, 16, 8, "right");
+            }
+            case playState3 -> {
+                setupLevel(3);
+                player.setPlayerValues(1, 23, 8, "down");
+            }
         }
         gameState = state;
     }
 
+    /**
+     * Sets up a given level
+     * Loads the map, spawns items and enemies, resets temporary items, and sets the number of keys needed
+     *
+     * @param levelNum the number of the level to set up
+     */
     public void setupLevel(int levelNum) {
         String number = Integer.toString(levelNum);
         if(number.length() == 1) {
@@ -295,17 +302,39 @@ public class GamePanel extends JPanel implements Runnable{
         iFactory.createItems("/Map/items" + number + ".txt");
         eFactory.createEnemies("/Map/enemies" + number + ".txt");
         tempItems = new Vector<>();
-        keysNeeded = iFactory.getNumKeys();
+        GameSettings.setKeysNeeded(iFactory.getNumKeys());
     }
 
+    /**
+     * Changes the difficulty of the game, setting the healthDrainRate accordingly
+     *
+     * @param newDifficulty the difficulty to change to
+     */
     public void changeDifficulty(int newDifficulty){
         difficulty = newDifficulty;
         switch (difficulty) {
-            case(0) -> healthDrainRate = -1;
-            case(1) -> healthDrainRate = 30;
-            case(2) -> healthDrainRate = 20;
-            case(3) -> healthDrainRate = 10;
+            case(0) -> GameSettings.setHealthDrainRate(-1);
+            case(1) -> GameSettings.setHealthDrainRate(30);
+            case(2) -> GameSettings.setHealthDrainRate(20);
+            case(3) -> GameSettings.setHealthDrainRate(10);
         }
+        ui.setDiffCmdNum(difficulty);
         System.out.println("New difficulty: " + difficulty);
+    }
+
+    public boolean inPlayState(){
+        return gameState >= playState1 && gameState <= playState3;
+    }
+
+    public boolean isPaused(){
+        return paused;
+    }
+
+    public void setPaused(boolean pauseStatus) {
+        paused = pauseStatus;
+    }
+
+    public int getGameState(){
+        return gameState;
     }
 }
