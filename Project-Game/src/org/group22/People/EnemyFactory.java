@@ -1,7 +1,7 @@
 package org.group22.People;
 
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class EnemyFactory {
     private final GamePanel gp;
     private static final int maxEnemies = 50;
-    private final int tileSize = GameStats.getTileSize();
+    private final int tileSize = GameSettings.getTileSize();
 
     public EnemyFactory(GamePanel gp) {
         this.gp = gp;
@@ -40,7 +40,7 @@ public class EnemyFactory {
             // Read lines
             int lineNum = 0;
             String line = br.readLine();
-            while(line != null && lineNum < GameStats.getMaxItems()) {
+            while(line != null && lineNum < GameSettings.getMaxItems()) {
                 String[] words = line.split(", "); // Read comma separated values
                 String type = words[0];
                 int x = Integer.parseInt(words[1]);

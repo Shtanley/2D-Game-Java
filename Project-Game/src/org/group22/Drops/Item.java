@@ -1,7 +1,7 @@
 package org.group22.Drops;
 
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -23,7 +23,7 @@ public abstract class Item {
     private final Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
 
-    private final int tileSize = GameStats.getTileSize();
+    private final int tileSize = GameSettings.getTileSize();
 
     public abstract int getHealthAdjustment();
 

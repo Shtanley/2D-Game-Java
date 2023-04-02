@@ -16,7 +16,7 @@ public class CollisionChecker {
 
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
-        tileSize = GameStats.getTileSize();
+        tileSize = GameSettings.getTileSize();
     }
 
     /**

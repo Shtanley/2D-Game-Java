@@ -1,7 +1,7 @@
 package org.group22.Drops;
 
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ import java.util.Random;
 public class ItemFactory {
     private final GamePanel gp;
     private int numKeys;
-    private final int tileSize = GameStats.getTileSize();
+    private final int tileSize = GameSettings.getTileSize();
 
     public ItemFactory(GamePanel gp) {
         this.gp = gp;
@@ -32,7 +32,7 @@ public class ItemFactory {
      * @param filePath the location of the text file containing all items to be created
      */
     public void createItems(String filePath) {
-        gp.obj = new Item[GameStats.getMaxItems()];
+        gp.obj = new Item[GameSettings.getMaxItems()];
         numKeys = 0;
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
@@ -44,7 +44,7 @@ public class ItemFactory {
             // Read lines
             int lineNum = 0;
             String line = br.readLine();
-            while(line != null && lineNum < GameStats.getMaxItems()) {
+            while(line != null && lineNum < GameSettings.getMaxItems()) {
                 String[] words = line.split(", "); // Read "type, x, y" comma separated values
                 String type = words[0];
                 int x = Integer.parseInt(words[1]) * tileSize;

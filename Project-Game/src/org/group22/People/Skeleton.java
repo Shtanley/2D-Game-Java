@@ -1,7 +1,7 @@
 package org.group22.People;
 
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class Skeleton extends Enemy{
         }
         if(condition) {
             setDirection(path.get(pathIndex));
-            int tileSize = GameStats.getTileSize();
+            int tileSize = GameSettings.getTileSize();
             switch (getDirection()){
                 case "up" -> nextY = getWorldY() - tileSize;
                 case "down" -> nextY = getWorldY() + tileSize;

@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         ui = new UI(this);
         keyInputs = new KeyInputs(this);
-        this.setPreferredSize(new Dimension(GameStats.getScreenWidth(), GameStats.getScreenHeight()));    // 768x576 pixels
+        this.setPreferredSize(new Dimension(GameSettings.getScreenWidth(), GameSettings.getScreenHeight()));    // 768x576 pixels
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs

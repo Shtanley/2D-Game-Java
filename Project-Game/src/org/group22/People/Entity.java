@@ -1,7 +1,7 @@
 package org.group22.People;
 
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -54,7 +54,7 @@ public abstract class Entity {
         int playerWorldY = gp.player.getWorldY();
         int screenX = worldX - playerWorldX + playerScreenX;
         int screenY = worldY - playerWorldY + playerScreenY;
-        int tileSize = GameStats.getTileSize();
+        int tileSize = GameSettings.getTileSize();
 
         // Draw tile if it is on screen to save resources
         if (worldX + tileSize > playerWorldX - playerScreenX && worldX - tileSize < playerWorldX + playerScreenX

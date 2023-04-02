@@ -35,8 +35,8 @@ public class Player extends Entity {
 
         this.keyInputs = keyIn;
         // Screen position of player
-        screenX = GameStats.getScreenWidth() / 2 - GameStats.getTileSize() / 2;
-        screenY = GameStats.getScreenHeight() / 2 - GameStats.getTileSize() / 2;
+        screenX = GameSettings.getScreenWidth() / 2 - GameSettings.getTileSize() / 2;
+        screenY = GameSettings.getScreenHeight() / 2 - GameSettings.getTileSize() / 2;
         // Hit box position + size
         setHitBox(new Rectangle(8, 16, 22, 25));
 
@@ -56,8 +56,8 @@ public class Player extends Entity {
      * @param direction Direction the player is facing
      */
     public void setPlayerValues(int x, int y, int speed, String direction) {
-        setWorldX(GameStats.getTileSize() * x);
-        setWorldY(GameStats.getTileSize() * y);
+        setWorldX(GameSettings.getTileSize() * x);
+        setWorldY(GameSettings.getTileSize() * y);
 
         setDirection(direction);
         setSpeed(speed);
@@ -263,7 +263,7 @@ public class Player extends Entity {
                     image = getRight2();
             }
         }
-        g2d.drawImage(image, screenX, screenY, GameStats.getTileSize(), GameStats.getTileSize(), null);
+        g2d.drawImage(image, screenX, screenY, GameSettings.getTileSize(), GameSettings.getTileSize(), null);
     }
 
     /**

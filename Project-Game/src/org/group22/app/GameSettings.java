@@ -5,7 +5,8 @@ package org.group22.app;
  *
  * @author Dina
  */
-public class GameStats {
+public class GameSettings {
+    // Tile Settings
     public static final int orgTileSize = 16; // 16x16 pixels
     public static final int scale = 3;
     private static final int tileSize = orgTileSize * scale;
@@ -13,9 +14,10 @@ public class GameStats {
     // Screen Settings
     private static final int maxScreenCol = 21;
     private static final int maxScreenRow = 12;
-    private static final int screenWidth = maxScreenCol * GameStats.getTileSize();
-    private static final int screenHeight = maxScreenRow * GameStats.getTileSize();
+    private static final int screenWidth = maxScreenCol * GameSettings.getTileSize();
+    private static final int screenHeight = maxScreenRow * GameSettings.getTileSize();
 
+    // World Settings
     private static final int maxWorldCol = 50;
     private static final int maxWorldRow = 50;
 

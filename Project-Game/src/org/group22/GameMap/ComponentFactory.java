@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import javax.imageio.ImageIO;
 
@@ -83,8 +83,8 @@ public class ComponentFactory {
     }
 
     public void loadMap(String filePath) {
-        int maxWorldCol = GameStats.getMaxWorldCol();
-        int maxWorldRow = GameStats.getMaxWorldRow();
+        int maxWorldCol = GameSettings.getMaxWorldCol();
+        int maxWorldRow = GameSettings.getMaxWorldRow();
 
         mapTileNum = new int[maxWorldCol][maxWorldRow];
         mapWidth = 0;
@@ -127,9 +127,9 @@ public class ComponentFactory {
     public void draw(Graphics2D g2d) {
         int worldCol = 0;
         int worldRow = 0;
-        int tileSize = GameStats.getTileSize();
+        int tileSize = GameSettings.getTileSize();
 
-        while (worldCol < GameStats.getMaxWorldCol() && worldRow < GameStats.getMaxWorldRow()) {
+        while (worldCol < GameSettings.getMaxWorldCol() && worldRow < GameSettings.getMaxWorldRow()) {
             int tileNum = mapTileNum[worldCol][worldRow];   // Get tile number from mapTileNum array
             // Calculate x and y position of tile
             int worldX = worldCol * tileSize;
@@ -148,7 +148,7 @@ public class ComponentFactory {
             }
             worldCol++;
 
-            if (worldCol == GameStats.getMaxWorldCol()) {
+            if (worldCol == GameSettings.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }

@@ -2,7 +2,7 @@ package org.group22.UI;
 
 import org.group22.Drops.Key;
 import org.group22.app.GamePanel;
-import org.group22.app.GameStats;
+import org.group22.app.GameSettings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,10 +31,10 @@ public class UI {
     private final DecimalFormat dFormat = new DecimalFormat("#0.00");
     private int titleCmdNum = 0;
     private int diffCmdNum = 0;
-    private final int screenWidth = GameStats.getScreenWidth();
-    private final int screenHeight = GameStats.getScreenHeight();
+    private final int screenWidth = GameSettings.getScreenWidth();
+    private final int screenHeight = GameSettings.getScreenHeight();
 
-    private final int tileSize = GameStats.getTileSize();
+    private final int tileSize = GameSettings.getTileSize();
 
     /**
      * UI constructor
