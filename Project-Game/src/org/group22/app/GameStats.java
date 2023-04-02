@@ -1,5 +1,10 @@
 package org.group22.app;
 
+/**
+ * Manages key game statistics
+ *
+ * @author Dina
+ */
 public class GameStats {
     public static final int orgTileSize = 16; // 16x16 pixels
     public static final int scale = 3;
