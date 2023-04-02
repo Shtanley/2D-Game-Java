@@ -21,7 +21,6 @@ public class Bat extends Enemy {
     public Bat(GamePanel gp) {
         super(gp);
         setHitBox(new Rectangle(3, 18, 42, 30));
-        setName("Bat");
         setSpeed(1);
 
         setHitBoxDefaultX(getHitBox().x);

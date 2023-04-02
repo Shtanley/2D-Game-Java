@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 import javax.swing.JPanel;
@@ -25,37 +24,21 @@ import org.group22.UI.UI;
  *
  * @author Sameer
  * @author Michael
+ * @author Dina
  */
 public class GamePanel extends JPanel implements Runnable{
     // Screen settings
-    public final int orgTileSize = 16; // 16x16 pixels
-    public final int scale = 3;
-    public final int tileSize = orgTileSize * scale;
-    public final int maxScreenCol = 21;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = maxScreenCol * tileSize;
-    public final int screenHeight = maxScreenRow * tileSize;
-
-    // World settings
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-
-    // Entity settings
-    public final int maxItems = 50;
-    private final int maxTempItems = 100;
-    public final int maxEnemies = 50;
-
     // FPS settings
     int fps = 60;
 
     // System
     public Thread gameThread;
     public long timer;
-    public KeyInputs keyInputs;
+    private KeyInputs keyInputs;
     public CollisionChecker cCheck;
-    public ItemFactory iFactory;
+    private ItemFactory iFactory;
     public ComponentFactory cFactory;
-    public EnemyFactory eFactory;
+    private EnemyFactory eFactory;
 
     // UI
     public UI ui;
@@ -70,12 +53,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Game state
     public int gameState;
-    public final int titleState = 0;
-    public final int settingsState = 1;
-    public final int playState1 = 2;
-    public final int playState2 = 3;
-    public final int playState3 = 4;
-    public final int endState = 5;
+    public static final int titleState = 0;
+    public static final int settingsState = 1;
+    public static final int playState1 = 2;
+    public static final int playState2 = 3;
+    public static final int playState3 = 4;
+    public static final int endState = 5;
     public boolean paused = false;
     public int difficulty;
     public int healthTickCounter = 0;
@@ -90,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         ui = new UI(this);
         keyInputs = new KeyInputs(this);
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));    // 768x576 pixels
+        this.setPreferredSize(new Dimension(GameStats.getScreenWidth(), GameStats.getScreenHeight()));    // 768x576 pixels
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);   // Double buffering
         this.addKeyListener(keyInputs); // Add key inputs
@@ -155,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable{
     /**
      * Update game logic
      * Drain player's health
-     * Handle spawning/despawning of temporary items
+     * Handle spawning/de-spawning of temporary items
      * Move player
      */
     public void update() {  // Update game logic
@@ -173,6 +156,7 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
                 // Attempt to spawn bonus reward
+                int maxTempItems = 100;
                 if(spawnTickCounter >= Potion.getSpawnTimer() && tempItems.size() < maxTempItems) {
                     //System.out.println("Attempting to spawn potion");
                     Random rand = new Random();
@@ -182,7 +166,7 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                     spawnTickCounter = 0;
                 }
-                // Despawn temporary items
+                // De-spawn temporary items
                 tempItems.removeIf(bonus -> (timer > bonus.getBirthTime() + bonus.getLifetime()));
 
                 // Update player
@@ -263,25 +247,20 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void changeGameState(int state) {
         System.out.println("Changing game state to " + state);
-        if(state == titleState) {
-            // Nothing
-        } else if (state == settingsState){
-            // Nothing
-        } else if (state == playState1) {
-            player.resetPlayer();
-            setupLevel(1);
-            player.setPlayerValues(35, 10, 8, "down");
-
-        } else if (state == playState2) {
-            setupLevel(2);
-            player.setPlayerValues(3, 16, 8, "right");
-
-        } else if (state == playState3) {
-            setupLevel(3);
-            player.setPlayerValues(1, 23, 8, "down");
-
-        } else if (state == endState) {
-            // Nothing
+        switch (state) {
+            case playState1 -> {
+                player.resetPlayer();
+                setupLevel(1);
+                player.setPlayerValues(35, 10, 8, "down");
+            }
+            case playState2 -> {
+                setupLevel(2);
+                player.setPlayerValues(3, 16, 8, "right");
+            }
+            case playState3 -> {
+                setupLevel(3);
+                player.setPlayerValues(1, 23, 8, "down");
+            }
         }
         gameState = state;
     }

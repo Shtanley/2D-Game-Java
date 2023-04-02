@@ -17,7 +17,6 @@ public class Door extends Item {
         setImage(Item.setupSprite("/Object/newdoor"));
         setWorldX(x);
         setWorldY(y);
-        setCollision(true);
     }
 
     /**

@@ -1,6 +1,7 @@
 package org.group22.People;
 
 import org.group22.app.GamePanel;
+import org.group22.app.GameStats;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -26,7 +27,6 @@ public abstract class Entity {
     private Rectangle hitBox;
     private int hitBoxDefaultX, hitBoxDefaultY;
     private boolean collisionOn = false;
-    private String name;
     private int lockActionCount;
 
     public Entity(GamePanel gp) {
@@ -54,10 +54,11 @@ public abstract class Entity {
         int playerWorldY = gp.player.getWorldY();
         int screenX = worldX - playerWorldX + playerScreenX;
         int screenY = worldY - playerWorldY + playerScreenY;
+        int tileSize = GameStats.getTileSize();
 
         // Draw tile if it is on screen to save resources
-        if (worldX + gp.tileSize > playerWorldX - playerScreenX && worldX - gp.tileSize < playerWorldX + playerScreenX
-            && worldY + gp.tileSize > playerWorldY - playerScreenY && worldY - gp.tileSize < playerWorldY + playerScreenY) {
+        if (worldX + tileSize > playerWorldX - playerScreenX && worldX - tileSize < playerWorldX + playerScreenX
+            && worldY + tileSize > playerWorldY - playerScreenY && worldY - tileSize < playerWorldY + playerScreenY) {
             switch (direction) {
                 case "up" -> {
                     if (spriteNum == 1)
@@ -100,7 +101,7 @@ public abstract class Entity {
                         image = right4;
                 }
             }
-            g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2d.drawImage(image, screenX, screenY, tileSize, tileSize, null);
         }
     }
 
@@ -193,10 +194,6 @@ public abstract class Entity {
 
     public void setHitBoxDefaultY(int hitBoxDefaultY) {
         this.hitBoxDefaultY = hitBoxDefaultY;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getLockActionCount() {

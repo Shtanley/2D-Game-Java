@@ -24,7 +24,6 @@ public class Slime extends Enemy {
     public Slime(GamePanel gp) {
         super(gp);
         setHitBox(new Rectangle(3, 18, 42, 30));
-        setName("Slime");
         setSpeed(1);
 
         setHitBoxDefaultX(getHitBox().x);

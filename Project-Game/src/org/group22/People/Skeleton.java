@@ -1,6 +1,7 @@
 package org.group22.People;
 
 import org.group22.app.GamePanel;
+import org.group22.app.GameStats;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Objects;
  */
 public class Skeleton extends Enemy{
 
-    private ArrayList<String> path;
+    private final ArrayList<String> path;
     private int pathIndex;
     private int nextX;
     private int nextY;
@@ -29,9 +30,8 @@ public class Skeleton extends Enemy{
         path = new ArrayList<>();
         pathIndex = 0;
 
-        // Tile size = 48, give hitbox buffer of 4
+        // Tile size = 48, give hit box buffer of 4
         setHitBox(new Rectangle(4, 4, 40, 40));
-        setName("Skeleton");
         setSpeed(1);
 
         setHitBoxDefaultX(getHitBox().x);
@@ -71,11 +71,12 @@ public class Skeleton extends Enemy{
         }
         if(condition) {
             setDirection(path.get(pathIndex));
+            int tileSize = GameStats.getTileSize();
             switch (getDirection()){
-                case "up" -> nextY = getWorldY() - gp.tileSize;
-                case "down" -> nextY = getWorldY() + gp.tileSize;
-                case "left" -> nextX = getWorldX() - gp.tileSize;
-                case "right" -> nextX = getWorldX() + gp.tileSize;
+                case "up" -> nextY = getWorldY() - tileSize;
+                case "down" -> nextY = getWorldY() + tileSize;
+                case "left" -> nextX = getWorldX() - tileSize;
+                case "right" -> nextX = getWorldX() + tileSize;
             }
             pathIndex++;
             if(pathIndex == path.size()) {

@@ -1,7 +1,7 @@
 package org.group22.Drops;
 
 import org.group22.app.GamePanel;
-import org.w3c.dom.css.Rect;
+import org.group22.app.GameStats;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,10 +19,11 @@ import java.util.Objects;
 public abstract class Item {
     private BufferedImage image;
     private String name;
-    private boolean collision = false;
     private int worldX, worldY;
-    private Rectangle hitBox = new Rectangle(0, 0, 48, 48);
+    private final Rectangle hitBox = new Rectangle(0, 0, 48, 48);
     public int hitBoxDefaultX, hitBoxDefaultY;
+
+    private final int tileSize = GameStats.getTileSize();
 
     public abstract int getHealthAdjustment();
 
@@ -43,11 +44,11 @@ public abstract class Item {
         int screenY = worldY - gp.player.getWorldY() + playerScreenY;
 
         // Draw item if it is on screen to save resources
-        if (worldX + gp.tileSize > gp.player.getWorldX() - playerScreenX
-                && worldX - gp.tileSize < gp.player.getWorldX() + playerScreenX
-                && worldY + gp.tileSize > gp.player.getWorldY() - playerScreenY
-                && worldY - gp.tileSize < gp.player.getWorldY() + playerScreenY) {
-            g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        if (worldX + tileSize > gp.player.getWorldX() - playerScreenX
+                && worldX - tileSize < gp.player.getWorldX() + playerScreenX
+                && worldY + tileSize > gp.player.getWorldY() - playerScreenY
+                && worldY - tileSize < gp.player.getWorldY() + playerScreenY) {
+            g2d.drawImage(image, screenX, screenY, tileSize, tileSize, null);
         }
     }
 
@@ -77,14 +78,6 @@ public abstract class Item {
         name = newName;
     }
 
-    public boolean getCollision(){
-        return collision;
-    }
-
-    public void setCollision(boolean newCollision) {
-        collision = newCollision;
-    }
-
     public int getWorldX(){
         return worldX;
     }
@@ -105,8 +98,5 @@ public abstract class Item {
         return hitBox;
     }
 
-    public void setHitBox(Rectangle newHitBox) {
-        hitBox = newHitBox;
-    }
 
 }

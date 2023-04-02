@@ -11,10 +11,12 @@ import org.group22.People.Entity;
  * @author Sameer
  */
 public class CollisionChecker {
-    GamePanel gp;
+    private final GamePanel gp;
+    private final int tileSize;
 
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
+        tileSize = GameStats.getTileSize();
     }
 
     /**
@@ -30,16 +32,16 @@ public class CollisionChecker {
         int entityTopY = entity.getWorldY() + entity.getHitBox().y;
         int entityBottomY = entity.getWorldY() + entity.getHitBox().y + entity.getHitBox().height;
 
-        int entityLeftCol = entityLeftX / gp.tileSize;
-        int entityRightCol = entityRightX / gp.tileSize;
-        int entityTopRow = entityTopY / gp.tileSize;
-        int entityBottomRow = entityBottomY / gp.tileSize;
+        int entityLeftCol = entityLeftX / tileSize;
+        int entityRightCol = entityRightX / tileSize;
+        int entityTopRow = entityTopY / tileSize;
+        int entityBottomRow = entityBottomY / tileSize;
 
         int tileNum1, tileNum2;
 
         switch (entity.getDirection()) {
             case "up" -> {
-                entityTopRow = (entityTopY - entity.getSpeed()) / gp.tileSize;
+                entityTopRow = (entityTopY - entity.getSpeed()) / tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
                 if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
@@ -47,7 +49,7 @@ public class CollisionChecker {
                 }
             }
             case "down" -> {
-                entityBottomRow = (entityBottomY + entity.getSpeed()) / gp.tileSize;
+                entityBottomRow = (entityBottomY + entity.getSpeed()) / tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
                 if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
@@ -55,7 +57,7 @@ public class CollisionChecker {
                 }
             }
             case "left" -> {
-                entityLeftCol = (entityLeftX - entity.getSpeed()) / gp.tileSize;
+                entityLeftCol = (entityLeftX - entity.getSpeed()) / tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityLeftCol][entityBottomRow];
                 if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
@@ -63,7 +65,7 @@ public class CollisionChecker {
                 }
             }
             case "right" -> {
-                entityRightCol = (entityRightX + entity.getSpeed()) / gp.tileSize;
+                entityRightCol = (entityRightX + entity.getSpeed()) / tileSize;
                 tileNum1 = gp.cFactory.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.cFactory.mapTileNum[entityRightCol][entityBottomRow];
                 if (gp.cFactory.mc[tileNum1].isCollisionOn() || gp.cFactory.mc[tileNum2].isCollisionOn()) {
@@ -126,7 +128,7 @@ public class CollisionChecker {
     }
 
     /**
-     * Helper function to get item hitbox coordinates
+     * Helper function to get item hit box coordinates
      *
      * @param obj primary object
      */
@@ -169,7 +171,7 @@ public class CollisionChecker {
     }
 
     /**
-     * Helper function to reset entity hitbox to default position
+     * Helper function to reset entity hit box to default position
      *
      * @param entity primary entity
      */
@@ -179,7 +181,7 @@ public class CollisionChecker {
     }
 
     /**
-     * Helper function to move the entity hitbox as the entity itself moves
+     * Helper function to move the entity hit box as the entity itself moves
      *
      * @param entity primary entity
      */
