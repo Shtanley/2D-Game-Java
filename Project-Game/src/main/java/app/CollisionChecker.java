@@ -101,8 +101,8 @@ public class CollisionChecker {
                 }
                 // Reset hit box coordinates
                 resetEntityHitbox(entity);
-                obj.getHitBox().x = obj.hitBoxDefaultX;
-                obj.getHitBox().y = obj.hitBoxDefaultY;
+                obj.getHitBox().x = obj.getHitBoxDefaultX();
+                obj.getHitBox().y = obj.getHitBoxDefaultY();
             }
         }
 
@@ -119,8 +119,8 @@ public class CollisionChecker {
             }
             // Reset hit box coordinates
             resetEntityHitbox(entity);
-            bonus.getHitBox().x = bonus.hitBoxDefaultX;
-            bonus.getHitBox().y = bonus.hitBoxDefaultY;
+            bonus.getHitBox().x = bonus.getHitBoxDefaultX();
+            bonus.getHitBox().y = bonus.getHitBoxDefaultY();
 
         }
 

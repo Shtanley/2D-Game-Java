@@ -21,7 +21,8 @@ public abstract class Item {
     private String name;
     private int worldX, worldY;
     private final Rectangle hitBox = new Rectangle(0, 0, 48, 48);
-    public int hitBoxDefaultX, hitBoxDefaultY;
+    private int hitBoxDefaultX;
+    private int hitBoxDefaultY;
 
     private final int tileSize = GameSettings.getTileSize();
 
@@ -99,4 +100,19 @@ public abstract class Item {
     }
 
 
+    public int getHitBoxDefaultX() {
+        return hitBoxDefaultX;
+    }
+
+    public void setHitBoxDefaultX(int hitBoxDefaultX) {
+        this.hitBoxDefaultX = hitBoxDefaultX;
+    }
+
+    public int getHitBoxDefaultY() {
+        return hitBoxDefaultY;
+    }
+
+    public void setHitBoxDefaultY(int hitBoxDefaultY) {
+        this.hitBoxDefaultY = hitBoxDefaultY;
+    }
 }

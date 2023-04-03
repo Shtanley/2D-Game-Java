@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     // System
     public Thread gameThread;
     public long timer;
-    private KeyInputs keyInputs;
+    private final KeyInputs keyInputs;
     public CollisionChecker cCheck;
     private ItemFactory iFactory;
     public ComponentFactory cFactory;
@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game objects
     public Player player;
     public Item[] obj;   // Array of objects
-    public Vector<BonusReward> tempItems; // Vector of temporary items
+    public final Vector<BonusReward> tempItems = new Vector<>(); // Vector of temporary items
     public Enemy[] enemies; // Array of enemies
 
     // Game state
@@ -301,7 +301,7 @@ public class GamePanel extends JPanel implements Runnable{
         cFactory.loadMap("/Map/world" + number + ".txt");
         iFactory.createItems("/Map/items" + number + ".txt");
         eFactory.createEnemies("/Map/enemies" + number + ".txt");
-        tempItems = new Vector<>();
+        tempItems.clear();
         GameSettings.setKeysNeeded(iFactory.getNumKeys());
     }
 
