@@ -1,4 +1,4 @@
-package test;
+package test.java;
 
 import main.java.People.Player;
 import main.java.app.GamePanel;

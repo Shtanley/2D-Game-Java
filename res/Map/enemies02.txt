@@ -1,3 +1,4 @@
+Type, xCoord, yCoord, pathDirections
 Bat, 15, 7
 Bat, 8, 10
 Bat, 14, 7
