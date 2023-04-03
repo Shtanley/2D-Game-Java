@@ -1,5 +1,7 @@
 package org.group22.Drops;
 
+import org.group22.app.GameSettings;
+
 import java.awt.image.BufferedImage;
 
 /**
@@ -16,8 +18,8 @@ public class Potion extends BonusReward {
         setImage(Item.setupSprite("/Object/newpotion"));
         setWorldX(x);
         setWorldY(y);
-        birthTime = time;
-        lifetime = 5;
+        setBirthTime(time);
+        setLifetime(GameSettings.getPotionLifetime());
     }
 
     /**
@@ -27,5 +29,17 @@ public class Potion extends BonusReward {
      */
     public static BufferedImage getSprite(){
         return Item.setupSprite("/Object/newpotion");
+    }
+    public int getHealthAdjustment() {
+        return GameSettings.getPotionHealth();
+    }
+    public int getPointAdjustment() {
+        return GameSettings.getPotionPoints();
+    }
+    public static int getSpawnTimer() {
+        return GameSettings.getPotionSpawnTimer();
+    }
+    public static double getSpawnChance() {
+        return GameSettings.getPotionSpawnChance();
     }
 }

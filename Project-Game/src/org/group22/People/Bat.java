@@ -21,7 +21,6 @@ public class Bat extends Enemy {
     public Bat(GamePanel gp) {
         super(gp);
         setHitBox(new Rectangle(3, 18, 42, 30));
-        setName("Bat");
         setSpeed(1);
 
         setHitBoxDefaultX(getHitBox().x);
@@ -48,20 +47,22 @@ public class Bat extends Enemy {
 
     /**
      * Determines the bat's next direction of movement
-     * Bat move uniformly randomly in all directions
+     * Bats move randomly in all directions, with an equal probability of moving in each direction
+     * Bats attempt to change directions every 50 ticks, or immediately if they collide with an object
      */
     public void setAction() {
         setLockActionCount(getLockActionCount() + 1);
         int changeDirRate = 50;
-        if(getLockActionCount() >= changeDirRate) {
+        // Attempts to change direction if collision is on, or every 50 ticks
+        if(!isCollisionOff() || getLockActionCount() >= changeDirRate) {
+            // Picks a random direction to move in
             Random rand = new Random();
             int n = rand.nextInt(100) + 1;
-
-            if(n <= 25) {
+            if (n <= 25) {
                 setDirection("up");
-            } else if(n <= 50) {
+            } else if (n <= 50) {
                 setDirection("down");
-            } else if(n <= 75) {
+            } else if (n <= 75) {
                 setDirection("left");
             } else {
                 setDirection("right");

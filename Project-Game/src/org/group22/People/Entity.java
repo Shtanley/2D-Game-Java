@@ -1,6 +1,7 @@
 package org.group22.People;
 
 import org.group22.app.GamePanel;
+import org.group22.app.GameSettings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -26,7 +27,6 @@ public abstract class Entity {
     private Rectangle hitBox;
     private int hitBoxDefaultX, hitBoxDefaultY;
     private boolean collisionOn = false;
-    private String name;
     private int lockActionCount;
 
     public Entity(GamePanel gp) {
@@ -35,6 +35,12 @@ public abstract class Entity {
 
     public abstract void update();
 
+    /**
+     * Sets up the sprite located at imgPath
+     *
+     * @param imgPath the path to the file containing the image to set up
+     * @return a BufferedImage of the image
+     */
     public static BufferedImage setupSprite(String imgPath) {
         BufferedImage image = null;
         try {
@@ -45,6 +51,11 @@ public abstract class Entity {
         return image;
     }
 
+    /**
+     * Draws this entity to the screen
+     *
+     * @param g2d the Graphics2D objects which handles graphics
+     */
     public void draw(Graphics2D g2d) {
         BufferedImage image = null;
         // Calculate x and y position of tile on screen
@@ -54,53 +65,38 @@ public abstract class Entity {
         int playerWorldY = gp.player.getWorldY();
         int screenX = worldX - playerWorldX + playerScreenX;
         int screenY = worldY - playerWorldY + playerScreenY;
+        int tileSize = GameSettings.getTileSize();
 
-        // Draw tile if it is on screen to save resources
-        if (worldX + gp.tileSize > playerWorldX - playerScreenX && worldX - gp.tileSize < playerWorldX + playerScreenX
-            && worldY + gp.tileSize > playerWorldY - playerScreenY && worldY - gp.tileSize < playerWorldY + playerScreenY) {
+        // Draw this entity if it is on the screen
+        if (worldX + tileSize > playerWorldX - playerScreenX && worldX - tileSize < playerWorldX + playerScreenX
+            && worldY + tileSize > playerWorldY - playerScreenY && worldY - tileSize < playerWorldY + playerScreenY) {
             switch (direction) {
-                case "up" -> {
-                    if (spriteNum == 1)
-                        image = up1;
-                    else if (spriteNum == 2)
-                        image = up2;
-                    else if (spriteNum == 3)
-                        image = up3;
-                    else
-                        image = up4;
-                }
-                case "down" -> {
-                    if (spriteNum == 1)
-                        image = down1;
-                    else if (spriteNum == 2)
-                        image = down2;
-                    else if (spriteNum == 3)
-                        image = down3;
-                    else
-                        image = down4;
-                }
-                case "left" -> {
-                    if (spriteNum == 1)
-                        image = left1;
-                    else if (spriteNum == 2)
-                        image = left2;
-                    else if (spriteNum == 3)
-                        image = left3;
-                    else
-                        image = left4;
-                }
-                case "right" -> {
-                    if (spriteNum == 1)
-                        image = right1;
-                    else if (spriteNum == 2)
-                        image = right2;
-                    else if (spriteNum == 3)
-                        image = right3;
-                    else
-                        image = right4;
-                }
+                case "up" -> image = switch (spriteNum) {
+                    case 1 -> up1;
+                    case 2 -> up2;
+                    case 3 -> up3;
+                    default -> up4;
+                };
+                case "down" -> image = switch (spriteNum) {
+                    case 1 -> down1;
+                    case 2 -> down2;
+                    case 3 -> down3;
+                    default -> down4;
+                };
+                case "left" -> image = switch (spriteNum) {
+                    case 1 -> left1;
+                    case 2 -> left2;
+                    case 3 -> left3;
+                    default -> left4;
+                };
+                case "right" -> image = switch (spriteNum) {
+                    case 1 -> right1;
+                    case 2 -> right2;
+                    case 3 -> right3;
+                    default -> right4;
+                };
             }
-            g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2d.drawImage(image, screenX, screenY, tileSize, tileSize, null);
         }
     }
 
@@ -195,10 +191,6 @@ public abstract class Entity {
         this.hitBoxDefaultY = hitBoxDefaultY;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getLockActionCount() {
         return lockActionCount;
     }
@@ -211,12 +203,20 @@ public abstract class Entity {
         return up1;
     }
 
-    public void setUp1(BufferedImage up1) {
-        this.up1 = up1;
-    }
-
     public BufferedImage getUp2() {
         return up2;
+    }
+
+    public BufferedImage getUp3() {
+        return up3;
+    }
+
+    public BufferedImage getUp4() {
+        return up4;
+    }
+
+    public void setUp1(BufferedImage up1) {
+        this.up1 = up1;
     }
 
     public void setUp2(BufferedImage up2) {
@@ -235,28 +235,28 @@ public abstract class Entity {
         return right1;
     }
 
-    public void setRight1(BufferedImage right1) {
-        this.right1 = right1;
-    }
-
     public BufferedImage getRight2() {
         return right2;
-    }
-
-    public void setRight2(BufferedImage right2) {
-        this.right2 = right2;
     }
 
     public BufferedImage getRight3() {
         return right3;
     }
 
-    public void setRight3(BufferedImage right3) {
-        this.right3 = right3;
-    }
-
     public BufferedImage getRight4() {
         return right4;
+    }
+
+    public void setRight1(BufferedImage right1) {
+        this.right1 = right1;
+    }
+
+    public void setRight2(BufferedImage right2) {
+        this.right2 = right2;
+    }
+
+    public void setRight3(BufferedImage right3) {
+        this.right3 = right3;
     }
 
     public void setRight4(BufferedImage right4) {
@@ -267,12 +267,20 @@ public abstract class Entity {
         return down1;
     }
 
-    public void setDown1(BufferedImage down1) {
-        this.down1 = down1;
-    }
-
     public BufferedImage getDown2() {
         return down2;
+    }
+
+    public BufferedImage getDown3() {
+        return down3;
+    }
+
+    public BufferedImage getDown4() {
+        return down4;
+    }
+
+    public void setDown1(BufferedImage down1) {
+        this.down1 = down1;
     }
 
     public void setDown2(BufferedImage down2) {
@@ -291,28 +299,28 @@ public abstract class Entity {
         return left1;
     }
 
-    public void setLeft1(BufferedImage left1) {
-        this.left1 = left1;
-    }
-
     public BufferedImage getLeft2() {
         return left2;
-    }
-
-    public void setLeft2(BufferedImage left2) {
-        this.left2 = left2;
     }
 
     public BufferedImage getLeft3() {
         return left3;
     }
 
-    public void setLeft3(BufferedImage left3) {
-        this.left3 = left3;
-    }
-
     public BufferedImage getLeft4() {
         return left4;
+    }
+
+    public void setLeft1(BufferedImage left1) {
+        this.left1 = left1;
+    }
+
+    public void setLeft2(BufferedImage left2) {
+        this.left2 = left2;
+    }
+
+    public void setLeft3(BufferedImage left3) {
+        this.left3 = left3;
     }
 
     public void setLeft4(BufferedImage left4) {

@@ -10,9 +10,12 @@ import java.awt.event.KeyListener;
  */
 public class KeyInputs implements KeyListener {
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    private boolean upPressed;
+    private boolean downPressed;
+    private boolean leftPressed;
+    private boolean rightPressed;
     // Debug
-    boolean checkDrawTime = false;
+    private boolean checkDrawTime = false;
 
     public KeyInputs(GamePanel gp) {
         this.gp = gp;
@@ -30,7 +33,7 @@ public class KeyInputs implements KeyListener {
         int key = e.getKeyCode();
 
         // Title State, 3 buttons
-        if(gp.gameState == gp.titleState) {
+        if(gp.getGameState() == GamePanel.titleState) {
             if(key == KeyEvent.VK_UP) {
                 gp.ui.setTitleCmdNum(gp.ui.getTitleCmdNum() - 1);
                 if(gp.ui.getTitleCmdNum() < 0) {
@@ -46,11 +49,11 @@ public class KeyInputs implements KeyListener {
             if(key == KeyEvent.VK_ENTER) {
                 if(gp.ui.getTitleCmdNum() == 0) {
                     // Start Game
-                    gp.changeGameState(gp.playState1);
+                    gp.changeGameState(GamePanel.playState1);
                 }
                 if(gp.ui.getTitleCmdNum() == 1) {
                     // Settings
-                    gp.changeGameState(gp.settingsState);
+                    gp.changeGameState(GamePanel.settingsState);
                 }
                 if(gp.ui.getTitleCmdNum() == 2) {
                     // Exit
@@ -66,7 +69,7 @@ public class KeyInputs implements KeyListener {
         }
 
         // Setting State, 4 buttons
-        else if(gp.gameState == gp.settingsState) {
+        else if(gp.getGameState() == GamePanel.settingsState) {
             if(key == KeyEvent.VK_UP) {
                 gp.ui.setDiffCmdNum(gp.ui.getDiffCmdNum() - 1);
                 if(gp.ui.getDiffCmdNum() < 0) {
@@ -81,15 +84,15 @@ public class KeyInputs implements KeyListener {
             }
             if(key == KeyEvent.VK_ENTER) {
                 gp.changeDifficulty(gp.ui.getDiffCmdNum());
-                gp.changeGameState(gp.titleState);
+                gp.changeGameState(GamePanel.titleState);
             }
             if(key == KeyEvent.VK_ESCAPE) {
-                gp.changeGameState(gp.titleState);
+                gp.changeGameState(GamePanel.titleState);
             }
         }
 
-        // Game State
-        else if(gp.gameState >= gp.playState1 && gp.gameState <= gp.playState3) {
+        // Play State
+        else if(gp.inPlayState()) {
             if (key == KeyEvent.VK_UP) {
                 upPressed = true;
             }
@@ -103,17 +106,17 @@ public class KeyInputs implements KeyListener {
                 rightPressed = true;
             }
             if (key == KeyEvent.VK_P) {
-                gp.paused = !gp.paused;
+                gp.setPaused(!gp.isPaused());
             }
             if (key == KeyEvent.VK_T) { // Draw time button for debugging
-                checkDrawTime = !checkDrawTime;
+                checkDrawTime = !isCheckDrawTime();
             }
 
             // Paused
-            if(gp.paused) {
+            if(gp.isPaused()) {
                 if (key == KeyEvent.VK_ESCAPE) {
-                    gp.paused = false;
-                    gp.changeGameState(gp.titleState);
+                    gp.setPaused(false);
+                    gp.changeGameState(GamePanel.titleState);
                 }
             }
         }
@@ -138,5 +141,25 @@ public class KeyInputs implements KeyListener {
         if (key == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
+    }
+
+    public boolean isUpPressed() {
+        return upPressed;
+    }
+
+    public boolean isDownPressed() {
+        return downPressed;
+    }
+
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+
+    public boolean isRightPressed() {
+        return rightPressed;
+    }
+
+    public boolean isCheckDrawTime() {
+        return checkDrawTime;
     }
 }

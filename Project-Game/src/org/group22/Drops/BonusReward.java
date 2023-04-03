@@ -1,20 +1,32 @@
 package org.group22.Drops;
 
 
+import org.group22.app.GameSettings;
+
 /**
  * Abstract bonus reward class
  *
  * @author Michael
  */
 public abstract class BonusReward extends Item{
-    public long birthTime;
-    public long lifetime;
 
-    public int getHealthAdjustment() { return 50;}
-    public int getPointAdjustment() {
-        return 50;
+    private long birthTime;
+    private long lifetime;
+
+    public long getBirthTime() {
+        return birthTime;
+    }
+    public long getLifetime() {
+        return lifetime;
     }
 
-    public static int getSpawnTimer() { return 100; }
-    public static double getSpawnChance() {return 0.3;}
+    protected void setBirthTime(long birthTime) {
+        this.birthTime = birthTime;
+    }
+    protected void setLifetime(long lifetime) {
+        this.lifetime = lifetime;
+    }
+
+    public abstract int getHealthAdjustment();
+    public abstract int getPointAdjustment();
 }

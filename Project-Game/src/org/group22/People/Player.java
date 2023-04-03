@@ -27,6 +27,7 @@ public class Player extends Entity {
      * Player constructor
      * Set default values
      * Get player image
+     *
      * @param gp    GamePanel
      * @param keyIn KeyInputs
      */
@@ -35,8 +36,8 @@ public class Player extends Entity {
 
         this.keyInputs = keyIn;
         // Screen position of player
-        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
-        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+        screenX = GameSettings.getScreenWidth() / 2 - GameSettings.getTileSize() / 2;
+        screenY = GameSettings.getScreenHeight() / 2 - GameSettings.getTileSize() / 2;
         // Hit box position + size
         setHitBox(new Rectangle(8, 16, 22, 25));
 
@@ -56,8 +57,8 @@ public class Player extends Entity {
      * @param direction Direction the player is facing
      */
     public void setPlayerValues(int x, int y, int speed, String direction) {
-        setWorldX(gp.tileSize * x);
-        setWorldY(gp.tileSize * y);
+        setWorldX(GameSettings.getTileSize() * x);
+        setWorldY(GameSettings.getTileSize() * y);
 
         setDirection(direction);
         setSpeed(speed);
@@ -71,7 +72,6 @@ public class Player extends Entity {
         this.points = 0;
         this.keyCount = 0;
     }
-
 
     /**
      * Set up player sprites
@@ -101,19 +101,8 @@ public class Player extends Entity {
      */
     public void update() {
         // Player movement
-        if(keyInputs.upPressed || keyInputs.downPressed || keyInputs.leftPressed || keyInputs.rightPressed) {
-            if (keyInputs.upPressed) {
-                setDirection("up");
-            }
-            if (keyInputs.downPressed) {
-                setDirection("down");
-            }
-            if (keyInputs.leftPressed) {
-                setDirection("left");
-            }
-            if (keyInputs.rightPressed) {
-                setDirection("right");
-            }
+        if(keyInputs.isUpPressed() || keyInputs.isDownPressed() || keyInputs.isLeftPressed() || keyInputs.isRightPressed()) {
+            updateDirection();
 
             // Collision detection
             // Tile collision
@@ -122,30 +111,66 @@ public class Player extends Entity {
             // Object collision
             Item obj = gp.cCheck.checkItem(this, true);
             if(obj != null) {
-                pickupItem(obj);
+                playerInteraction(obj);
             }
+
             // Enemy collision
             int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
             if(enemyIndex != -1) {
                 encounter();
             }
-            if(isCollisionOff()) {
-                switch (getDirection()) {
-                    case "up" -> setWorldY(getWorldY() - getSpeed());
-                    case "down" -> setWorldY(getWorldY() + getSpeed());
-                    case "left" -> setWorldX(getWorldX() - getSpeed());
-                    case "right" -> setWorldX(getWorldX() + getSpeed());
-                }
-            }
 
-            setSpriteCount(getSpriteCount() + 1);
-            if(getSpriteCount() > 10) {
-                setSpriteCount(0);
-                if(getSpriteNum() == 1)
-                    setSpriteNum(2);
-                else
-                    setSpriteNum(1);
+            updatePosition();
+            updateSprites();
+        }
+    }
+
+    /**
+     * Update player's direction based on keys pressed
+     */
+    private void updateDirection() {
+        if (keyInputs.isUpPressed()) {
+            setDirection("up");
+        }
+        if (keyInputs.isDownPressed()) {
+            setDirection("down");
+        }
+        if (keyInputs.isLeftPressed()) {
+            setDirection("left");
+        }
+        if (keyInputs.isRightPressed()) {
+            setDirection("right");
+        }
+    }
+
+    /**
+     * Update player's x & y coordinates on the map. (i.e. movement of player)
+     */
+    private void updatePosition() {
+        if(isCollisionOff()) {
+            switch (getDirection()) {
+                case "up" -> setWorldY(getWorldY() - getSpeed());
+                case "down" -> setWorldY(getWorldY() + getSpeed());
+                case "left" -> setWorldX(getWorldX() - getSpeed());
+                case "right" -> setWorldX(getWorldX() + getSpeed());
             }
+        }
+    }
+
+    /**
+     * Update player's sprites for movement every 10 ticks
+     * The player has 4 sprites which is rotates through
+     */
+    private void updateSprites() {
+        // Change sprites every 10 ticks
+        setSpriteCount(getSpriteCount() + 1);
+        if(getSpriteCount() > 10) {
+            // SpriteNum rotates between 1, 2, 3, and 4
+            setSpriteNum(getSpriteNum() + 1);
+            if(getSpriteNum() > 4) {
+                setSpriteNum(1);
+            }
+            setSpriteCount(0);
         }
     }
 
@@ -154,7 +179,7 @@ public class Player extends Entity {
      *
      * @param item the item being checked for
      */
-    public void pickupItem(Item item) {
+    public void playerInteraction(Item item) {
         boolean pickedUp = true;
         String objName = item.getName();
         switch (objName) {
@@ -167,82 +192,85 @@ public class Player extends Entity {
                 gp.ui.showMsg("Potion acquired");
                 setPoints(item);
                 if(this.health < maxHealth) {
-                    setHealth(item);
+                    adjustHealth(item);
                 }
             }
             case "Spikes" -> {
                 gp.ui.showMsg("Ouch!");
                 setPoints(item);
-                setHealth(item);
+                adjustHealth(item);
             }
             case "Door" -> {
-                if (keyCount >= gp.keysNeeded) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
+                if (keyCount >= GameSettings.getKeysNeeded()) {  // If player has collected all keys, door is unlocked (i.e. collision is turned off)
                     keyCount = 0;
                     setPoints(item);
-                    gp.changeGameState(gp.gameState+1);
+                    gp.changeGameState(gp.getGameState()+1);
                 } else {
-                    gp.ui.showMsg((gp.keysNeeded - keyCount) + " more keys required");
+                    gp.ui.showMsg((GameSettings.getKeysNeeded() - keyCount) + " more keys required");
                     pickedUp = false;
                 }
             }
         }
         // If successful, delete the item from the game, wherever it is
-        synchronized (gp.lock1) {
-            if (pickedUp) {
-                // Traverse obj
-                for (int i = 0; i < gp.obj.length; i++) {
-                    if (item.equals(gp.obj[i])) {
-                        gp.obj[i] = null;
-                    }
+        if (pickedUp) {
+            // Traverse obj
+            for (int i = 0; i < gp.obj.length; i++) {
+                if (item.equals(gp.obj[i])) {
+                    gp.obj[i] = null;
                 }
-                gp.tempItems.remove(item);
             }
+            gp.tempItems.remove(item);
         }
+
     }
 
     /**
-     * Method for when the player collides with an enemy
+     * This is called when the player collides with an enemy
      * Sets the players health to zero and ends the game
      */
-    public void encounter() {
+    private void encounter() {
         health = 0;
-        gp.gameState = gp.endState;
+        gp.changeGameState(GamePanel.endState);
     }
 
     /**
-     * Draw player image
+     * Draw player image to the screen
      *
      * @param g2d   Graphics2D object
      */
     public void draw(Graphics2D g2d) {
         BufferedImage image = null;
         switch (getDirection()) {
-            case "up" -> {
-                if (getSpriteNum() == 1)
-                    image = getUp1();
-                else
-                    image = getUp2();
-            }
-            case "down" -> {
-                if (getSpriteNum() == 1)
-                    image = getDown1();
-                else
-                    image = getDown2();
-            }
-            case "left" -> {
-                if (getSpriteNum() == 1)
-                    image = getLeft1();
-                else
-                    image = getLeft2();
-            }
-            case "right" -> {
-                if (getSpriteNum() == 1)
-                    image = getRight1();
-                else
-                    image = getRight2();
-            }
+            case "up" -> image = switch (getSpriteNum()) {
+                case 1 -> getUp1();
+                case 2 -> getUp2();
+                case 3 -> getUp3();
+                case 4 -> getUp4();
+                default -> throw new IllegalStateException("Unexpected value: " + getSpriteNum());
+            };
+            case "down" -> image = switch (getSpriteNum()) {
+                case 1 -> getDown1();
+                case 2 -> getDown2();
+                case 3 -> getDown3();
+                case 4 -> getDown4();
+                default -> throw new IllegalStateException("Unexpected value: " + getSpriteNum());
+            };
+            case "left" -> image = switch (getSpriteNum()) {
+                case 1 -> getLeft1();
+                case 2 -> getLeft2();
+                case 3 -> getLeft3();
+                case 4 -> getLeft4();
+                default -> throw new IllegalStateException("Unexpected value: " + getSpriteNum());
+            };
+            case "right" -> image = switch (getSpriteNum()) {
+                case 1 -> getRight1();
+                case 2 -> getRight2();
+                case 3 -> getRight3();
+                case 4 -> getRight4();
+                default -> throw new IllegalStateException("Unexpected value: " + getSpriteNum());
+            };
         }
-        g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(image, screenX, screenY, GameSettings.getTileSize(), GameSettings.getTileSize(), null);
     }
 
     /**
@@ -272,16 +300,30 @@ public class Player extends Entity {
         return result;
     }
 
+
+    /**
+     * Static method for getting Player sprite
+     *
+     * @return a BufferedImage Player sprite
+     */
+    public static BufferedImage getSprite(){
+        return setupSprite("/Player/priest_right1");
+    }
+
     /**
      * @return whether the player is dead or not
      */
-    public boolean dead() {return health <= 0 || points < 0;}
+    public boolean isDead() {
+        return health <= 0 || points < 0;
+    }
 
     public int getHealth() {
         return health;
     }
 
-    public int getMaxHealth(){ return maxHealth;}
+    public int getMaxHealth(){
+        return maxHealth;
+    }
 
     public int getPoints() {
         return points;
@@ -291,13 +333,13 @@ public class Player extends Entity {
         this.points += item.getPointAdjustment();
     }
 
-    public void setHealth(Item item) {
+    public void adjustHealth(Item item) {
         health += item.getHealthAdjustment();
         if(health > maxHealth){
             health = maxHealth;
         }
     }
-    public void setHealth(int deltaHealth) {
+    public void adjustHealth(int deltaHealth) {
         health += deltaHealth;
         if(health > maxHealth){
             health = maxHealth;

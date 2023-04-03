@@ -43,7 +43,4 @@ public class MapComponent {
         collision = true;
     }
 
-    public void setCollisionOff() {
-        collision = false;
-    }
 }
