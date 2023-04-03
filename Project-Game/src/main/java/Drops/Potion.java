@@ -1,6 +1,6 @@
-package org.group22.Drops;
+package main.java.Drops;
 
-import org.group22.app.GameSettings;
+import main.java.app.GameSettings;
 
 import java.awt.image.BufferedImage;
 
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 public class Potion extends BonusReward {
     public Potion(int x, int y, long time) {
         setName("Potion");
-        setImage(Item.setupSprite("/Object/newpotion"));
+        setImage(setupSprite("/Object/newpotion"));
         setWorldX(x);
         setWorldY(y);
         setBirthTime(time);
@@ -28,7 +28,7 @@ public class Potion extends BonusReward {
      * @return a BufferedImage potion sprite
      */
     public static BufferedImage getSprite(){
-        return Item.setupSprite("/Object/newpotion");
+        return setupSprite("/Object/newpotion");
     }
     public int getHealthAdjustment() {
         return GameSettings.getPotionHealth();

@@ -1,4 +1,4 @@
-package org.group22.GameMap;
+package main.java.GameMap;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-import org.group22.app.GamePanel;
-import org.group22.app.GameSettings;
+import main.java.app.GamePanel;
+import main.java.app.GameSettings;
 
 import javax.imageio.ImageIO;
 

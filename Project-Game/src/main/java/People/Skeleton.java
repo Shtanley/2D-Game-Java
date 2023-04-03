@@ -1,7 +1,7 @@
-package org.group22.People;
+package main.java.People;
 
-import org.group22.app.GamePanel;
-import org.group22.app.GameSettings;
+import main.java.app.GamePanel;
+import main.java.app.GameSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -46,14 +46,14 @@ public class Skeleton extends Enemy{
      * Set skeleton sprite
      */
     public void getImage() {
-        setUp1(Entity.setupSprite("/Enemy/skeletonlord_up_1"));
-        setUp2(Entity.setupSprite("/Enemy/skeletonlord_up_2"));
-        setDown1(Entity.setupSprite("/Enemy/skeletonlord_down_1"));
-        setDown2(Entity.setupSprite("/Enemy/skeletonlord_down_2"));
-        setLeft1(Entity.setupSprite("/Enemy/skeletonlord_left_1"));
-        setLeft2(Entity.setupSprite("/Enemy/skeletonlord_left_2"));
-        setRight1(Entity.setupSprite("/Enemy/skeletonlord_right_1"));
-        setRight2(Entity.setupSprite("/Enemy/skeletonlord_right_2"));
+        setUp1(setupSprite("/Enemy/skeletonlord_up_1"));
+        setUp2(setupSprite("/Enemy/skeletonlord_up_2"));
+        setDown1(setupSprite("/Enemy/skeletonlord_down_1"));
+        setDown2(setupSprite("/Enemy/skeletonlord_down_2"));
+        setLeft1(setupSprite("/Enemy/skeletonlord_left_1"));
+        setLeft2(setupSprite("/Enemy/skeletonlord_left_2"));
+        setRight1(setupSprite("/Enemy/skeletonlord_right_1"));
+        setRight2(setupSprite("/Enemy/skeletonlord_right_2"));
     }
 
     /**

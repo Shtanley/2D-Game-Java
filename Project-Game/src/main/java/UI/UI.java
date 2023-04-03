@@ -1,10 +1,10 @@
-package org.group22.UI;
+package main.java.UI;
 
-import org.group22.Drops.Key;
-import org.group22.Drops.Potion;
-import org.group22.People.Player;
-import org.group22.app.GamePanel;
-import org.group22.app.GameSettings;
+import main.java.Drops.Key;
+import main.java.Drops.Potion;
+import main.java.People.Player;
+import main.java.app.GamePanel;
+import main.java.app.GameSettings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

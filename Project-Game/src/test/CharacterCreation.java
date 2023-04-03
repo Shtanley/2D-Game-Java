@@ -1,7 +1,7 @@
 package test;
 
-import org.group22.People.Player;
-import org.group22.app.GamePanel;
+import main.java.People.Player;
+import main.java.app.GamePanel;
 import org.testng.annotations.Test;
 
 public class CharacterCreation {

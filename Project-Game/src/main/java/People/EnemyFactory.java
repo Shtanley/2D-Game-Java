@@ -1,7 +1,7 @@
-package org.group22.People;
+package main.java.People;
 
-import org.group22.app.GamePanel;
-import org.group22.app.GameSettings;
+import main.java.app.GamePanel;
+import main.java.app.GameSettings;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

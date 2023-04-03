@@ -1,4 +1,4 @@
-package org.group22.Drops;
+package main.java.Drops;
 
 /**
  * Abstract punishment class

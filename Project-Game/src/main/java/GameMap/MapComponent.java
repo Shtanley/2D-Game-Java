@@ -1,6 +1,6 @@
-package org.group22.GameMap;
+package main.java.GameMap;
 
-import org.group22.Drops.Item;
+import main.java.Drops.Item;
 
 import java.awt.image.BufferedImage;
 

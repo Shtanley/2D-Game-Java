@@ -1,4 +1,4 @@
-package org.group22.Drops;
+package main.java.Drops;
 
 import java.awt.image.BufferedImage;
 
@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public class Key extends Reward {
     public Key(int x, int y) {
         setName("Key");
-        setImage(Item.setupSprite("/Object/newkey"));
+        setImage(setupSprite("/Object/newkey"));
         setWorldX(x);
         setWorldY(y);
     }
@@ -24,7 +24,7 @@ public class Key extends Reward {
      * @return a BufferedImage key sprite
      */
     public static BufferedImage getSprite(){
-        return Item.setupSprite("/Object/newkey");
+        return setupSprite("/Object/newkey");
     }
 
 }

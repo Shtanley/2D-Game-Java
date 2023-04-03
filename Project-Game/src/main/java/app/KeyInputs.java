@@ -1,4 +1,4 @@
-package org.group22.app;
+package main.java.app;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,6 +1,6 @@
-package org.group22;
+package main.java;
 
-import org.group22.app.GamePanel;
+import main.java.app.GamePanel;
 
 import javax.swing.JFrame;
 

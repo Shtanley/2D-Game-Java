@@ -1,4 +1,4 @@
-package org.group22.app;
+package main.java.app;
 
 /**
  * Manages key game statistics

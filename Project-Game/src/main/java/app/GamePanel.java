@@ -1,4 +1,4 @@
-package org.group22.app;
+package main.java.app;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,15 +8,15 @@ import java.util.Random;
 import java.util.Vector;
 import javax.swing.JPanel;
 
-import org.group22.Drops.BonusReward;
-import org.group22.Drops.Item;
-import org.group22.Drops.ItemFactory;
-import org.group22.Drops.Potion;
-import org.group22.People.EnemyFactory;
-import org.group22.People.Enemy;
-import org.group22.People.Player;
-import org.group22.GameMap.ComponentFactory;
-import org.group22.UI.UI;
+import main.java.Drops.BonusReward;
+import main.java.Drops.Item;
+import main.java.Drops.ItemFactory;
+import main.java.Drops.Potion;
+import main.java.People.EnemyFactory;
+import main.java.People.Enemy;
+import main.java.People.Player;
+import main.java.GameMap.ComponentFactory;
+import main.java.UI.UI;
 
 /**
  * Game panel

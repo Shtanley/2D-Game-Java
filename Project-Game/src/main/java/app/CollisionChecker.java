@@ -1,8 +1,8 @@
-package org.group22.app;
+package main.java.app;
 
-import org.group22.Drops.BonusReward;
-import org.group22.Drops.Item;
-import org.group22.People.Entity;
+import main.java.Drops.BonusReward;
+import main.java.Drops.Item;
+import main.java.People.Entity;
 
 /**
  * CollisionChecker class

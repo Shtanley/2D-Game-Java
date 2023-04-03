@@ -1,6 +1,6 @@
-package org.group22.People;
+package main.java.People;
 
-import org.group22.app.GamePanel;
+import main.java.app.GamePanel;
 
 /**
  * Enemy class

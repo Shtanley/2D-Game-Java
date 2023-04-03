@@ -1,7 +1,7 @@
-package org.group22.Drops;
+package main.java.Drops;
 
-import org.group22.app.GamePanel;
-import org.group22.app.GameSettings;
+import main.java.app.GamePanel;
+import main.java.app.GameSettings;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,7 +1,9 @@
-package org.group22.People;
+package main.java.People;
 
-import org.group22.Drops.Item;
-import org.group22.app.*;
+import main.java.app.GamePanel;
+import main.java.app.GameSettings;
+import main.java.app.KeyInputs;
+import main.java.Drops.Item;
 
 import java.awt.*;
 import java.awt.Graphics2D;
@@ -282,19 +284,19 @@ public class Player extends Entity {
     public BufferedImage getHeartSprite(int num){
         BufferedImage result = null;
         switch(num){
-            case(-1) -> result = Entity.setupSprite("/Object/heart_empty");
-            case(0) -> result = Entity.setupSprite("/Object/heart_0");
-            case(1) -> result = Entity.setupSprite("/Object/heart_1");
-            case(2) -> result = Entity.setupSprite("/Object/heart_2");
-            case(3) -> result = Entity.setupSprite("/Object/heart_3");
-            case(4) -> result = Entity.setupSprite("/Object/heart_4");
-            case(5) -> result = Entity.setupSprite("/Object/heart_5");
-            case(6) -> result = Entity.setupSprite("/Object/heart_6");
-            case(7) -> result = Entity.setupSprite("/Object/heart_7");
-            case(8) -> result = Entity.setupSprite("/Object/heart_8");
-            case(9) -> result = Entity.setupSprite("/Object/heart_9");
-            case(10) -> result = Entity.setupSprite("/Object/heart_full");
-            case(11) -> result = Entity.setupSprite("/Object/heart_");
+            case(-1) -> result = setupSprite("/Object/heart_empty");
+            case(0) -> result = setupSprite("/Object/heart_0");
+            case(1) -> result = setupSprite("/Object/heart_1");
+            case(2) -> result = setupSprite("/Object/heart_2");
+            case(3) -> result = setupSprite("/Object/heart_3");
+            case(4) -> result = setupSprite("/Object/heart_4");
+            case(5) -> result = setupSprite("/Object/heart_5");
+            case(6) -> result = setupSprite("/Object/heart_6");
+            case(7) -> result = setupSprite("/Object/heart_7");
+            case(8) -> result = setupSprite("/Object/heart_8");
+            case(9) -> result = setupSprite("/Object/heart_9");
+            case(10) -> result = setupSprite("/Object/heart_full");
+            case(11) -> result = setupSprite("/Object/heart_");
         }
         assert(result != null);
         return result;

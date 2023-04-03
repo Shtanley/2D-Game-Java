@@ -1,4 +1,4 @@
-package org.group22.Drops;
+package main.java.Drops;
 
 import java.awt.image.BufferedImage;
 
@@ -14,7 +14,7 @@ public class Door extends Item {
 
     public Door(int x, int y) {
         setName("Door");
-        setImage(Item.setupSprite("/Object/newdoor"));
+        setImage(setupSprite("/Object/newdoor"));
         setWorldX(x);
         setWorldY(y);
     }
@@ -25,7 +25,7 @@ public class Door extends Item {
      * @return a BufferedImage door sprite
      */
     public static BufferedImage getSprite(){
-        return Item.setupSprite("/Object/newdoor");
+        return setupSprite("/Object/newdoor");
     }
 
     public int getHealthAdjustment() {

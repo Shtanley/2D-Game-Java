@@ -1,7 +1,5 @@
-package org.group22.Drops;
+package main.java.Drops;
 
-
-import org.group22.app.GameSettings;
 
 /**
  * Abstract bonus reward class

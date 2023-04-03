@@ -1,6 +1,6 @@
-package org.group22.People;
+package main.java.People;
 
-import org.group22.app.GamePanel;
+import main.java.app.GamePanel;
 
 import java.awt.*;
 import java.util.Random;
@@ -43,24 +43,24 @@ public class Slime extends Enemy {
         double p = rand.nextDouble();
         // spawn green slime
         if(p < 0.5) {
-            setUp1(Entity.setupSprite("/Enemy/greenslime_down_1"));
-            setUp2(Entity.setupSprite("/Enemy/greenslime_down_2"));
-            setDown1(Entity.setupSprite("/Enemy/greenslime_down_1"));
-            setDown2(Entity.setupSprite("/Enemy/greenslime_down_2"));
-            setLeft1(Entity.setupSprite("/Enemy/greenslime_down_1"));
-            setLeft2(Entity.setupSprite("/Enemy/greenslime_down_2"));
-            setRight1(Entity.setupSprite("/Enemy/greenslime_down_1"));
-            setRight2(Entity.setupSprite("/Enemy/greenslime_down_2"));
+            setUp1(setupSprite("/Enemy/greenslime_down_1"));
+            setUp2(setupSprite("/Enemy/greenslime_down_2"));
+            setDown1(setupSprite("/Enemy/greenslime_down_1"));
+            setDown2(setupSprite("/Enemy/greenslime_down_2"));
+            setLeft1(setupSprite("/Enemy/greenslime_down_1"));
+            setLeft2(setupSprite("/Enemy/greenslime_down_2"));
+            setRight1(setupSprite("/Enemy/greenslime_down_1"));
+            setRight2(setupSprite("/Enemy/greenslime_down_2"));
         // spawn red slime
         } else {
-            setUp1(Entity.setupSprite("/Enemy/redslime_down_1"));
-            setUp2(Entity.setupSprite("/Enemy/redslime_down_2"));
-            setDown1(Entity.setupSprite("/Enemy/redslime_down_1"));
-            setDown2(Entity.setupSprite("/Enemy/redslime_down_2"));
-            setLeft1(Entity.setupSprite("/Enemy/redslime_down_1"));
-            setLeft2(Entity.setupSprite("/Enemy/redslime_down_2"));
-            setRight1(Entity.setupSprite("/Enemy/redslime_down_1"));
-            setRight2(Entity.setupSprite("/Enemy/redslime_down_2"));
+            setUp1(setupSprite("/Enemy/redslime_down_1"));
+            setUp2(setupSprite("/Enemy/redslime_down_2"));
+            setDown1(setupSprite("/Enemy/redslime_down_1"));
+            setDown2(setupSprite("/Enemy/redslime_down_2"));
+            setLeft1(setupSprite("/Enemy/redslime_down_1"));
+            setLeft2(setupSprite("/Enemy/redslime_down_2"));
+            setRight1(setupSprite("/Enemy/redslime_down_1"));
+            setRight2(setupSprite("/Enemy/redslime_down_2"));
         }
     }
 
