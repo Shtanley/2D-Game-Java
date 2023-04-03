@@ -1,8 +1,5 @@
 package org.group22.Drops;
 
-
-import org.group22.app.GameSettings;
-
 /**
  * Abstract bonus reward class
  *

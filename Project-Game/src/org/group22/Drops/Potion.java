@@ -1,7 +1,5 @@
 package org.group22.Drops;
 
-import org.group22.app.GameSettings;
-
 import java.awt.image.BufferedImage;
 
 /**
@@ -13,13 +11,18 @@ import java.awt.image.BufferedImage;
  * @author Sameer
  */
 public class Potion extends BonusReward {
+    private static final int potionHealth = 50;
+    private static final int potionPoints = 50;
+    private static int potionSpawnTimer = 100;
+    private static double potionSpawnChance = 0.5;
+    private static long potionLifetime = 5;
     public Potion(int x, int y, long time) {
         setName("Potion");
         setImage(Item.setupSprite("/Object/newpotion"));
         setWorldX(x);
         setWorldY(y);
         setBirthTime(time);
-        setLifetime(GameSettings.getPotionLifetime());
+        setLifetime(Potion.getPotionLifetime());
     }
 
     /**
@@ -30,16 +33,33 @@ public class Potion extends BonusReward {
     public static BufferedImage getSprite(){
         return Item.setupSprite("/Object/newpotion");
     }
+
     public int getHealthAdjustment() {
-        return GameSettings.getPotionHealth();
+        return potionHealth;
     }
     public int getPointAdjustment() {
-        return GameSettings.getPotionPoints();
+        return potionPoints;
     }
     public static int getSpawnTimer() {
-        return GameSettings.getPotionSpawnTimer();
+        return potionSpawnTimer;
     }
     public static double getSpawnChance() {
-        return GameSettings.getPotionSpawnChance();
+        return potionSpawnChance;
+    }
+
+    public static void setPotionSpawnTimer(int potionSpawnTimer) {
+        Potion.potionSpawnTimer = potionSpawnTimer;
+    }
+
+    public static void setPotionSpawnChance(double potionSpawnChance) {
+        Potion.potionSpawnChance = potionSpawnChance;
+    }
+
+    public static long getPotionLifetime() {
+        return potionLifetime;
+    }
+
+    public static void setPotionLifetime(long potionLifetime) {
+        Potion.potionLifetime = potionLifetime;
     }
 }
