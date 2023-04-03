@@ -270,6 +270,7 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("Changing game state to " + state);
         switch (state) {
             case playState1 -> {
+                ui.setPlayTime(0);
                 player.resetPlayer();
                 setupLevel(1);
                 player.setPlayerValues(35, 10, 8, "down");
