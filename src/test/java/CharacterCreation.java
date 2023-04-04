@@ -1,5 +1,5 @@
 import Drops.*;
-import People.Player;
+import People.*;
 import app.GamePanel;
 
 import app.KeyInputs;
@@ -11,6 +11,8 @@ public class CharacterCreation {
     GamePanel gamePanel = new GamePanel();
     KeyInputs keyInputs = new KeyInputs(gamePanel);
     ItemFactory iFactory = new ItemFactory(gamePanel);
+    EnemyFactory eFactory = new EnemyFactory(gamePanel);
+
     @Test
     public void testPlayerCreation(){
         Player player = new Player(gamePanel, keyInputs);
@@ -51,6 +53,14 @@ public class CharacterCreation {
 
     @Test
     public void testEnemyCreation(){
+        Skeleton skeleton = new Skeleton(gamePanel);
+        Bat bat = new Bat(gamePanel);
+        Slime slime = new Slime(gamePanel);
 
+        eFactory.createEnemies("/Map/enemies01.txt");
+
+        Assert.assertEquals(gamePanel.enemies[0].getClass(), bat.getClass());
+        Assert.assertEquals(gamePanel.enemies[2].getClass(), skeleton.getClass());
+        Assert.assertEquals(gamePanel.enemies[8].getClass(), slime.getClass());
     }
 }
