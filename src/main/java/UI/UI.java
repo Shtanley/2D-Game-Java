@@ -81,9 +81,9 @@ public class UI {
         g2d.setFont(maruMonica);
 
         switch (gp.getGameState()) {
-            case GamePanel.titleState -> drawTitleScreen();
-            case GamePanel.settingsState -> drawDifficultyScreen();
-            case GamePanel.endState -> drawGameOverScreen();
+            case GamePanel.titleState : drawTitleScreen(); break;
+            case GamePanel.settingsState : drawDifficultyScreen(); break;
+            case GamePanel.endState : drawGameOverScreen(); break;
         }
 
         if(gp.inPlayState()) {
@@ -431,4 +431,8 @@ public class UI {
     public void setDiffCmdNum(int diffCmdNum) {
         this.diffCmdNum = diffCmdNum;
     }
+
+//    public double getPlayTime() {return playTime;}
+
+    public void setPlayTime(double time) {this.playTime = time;}
 }
