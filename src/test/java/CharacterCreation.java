@@ -1,16 +1,27 @@
 import People.Player;
 import app.GamePanel;
 
+import app.KeyInputs;
+import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 
 public class CharacterCreation {
-    private final GamePanel testGP = new GamePanel();
-    private final Player testPlayer = new Player(testGP, testGP.getKeyInputs());
-
+    GamePanel gamePanel = new GamePanel();
+    KeyInputs keyInputs = new KeyInputs(gamePanel);
     @Test
     public void testPlayerCreation(){
-        System.out.println("Testing!");
+        Player player = new Player(gamePanel, keyInputs);
+        Assert.assertNotNull(player);
+        Assert.assertEquals(player.getHealth(), player.getMaxHealth());
+        Assert.assertEquals(player.getPoints(), 0);
+    }
+
+    @Test
+    public void testPlayerInteraction(){
+        Player player = new Player(gamePanel, keyInputs);
+
+
+
     }
 }
