@@ -16,35 +16,35 @@ public class CharacterCollision {
 
         Player player = new Player(gamePanel, keyInputs);
         Assert.assertNotNull(player);
-        Assert.assertEquals(player.getHealth(), player.getMaxHealth());
-        Assert.assertEquals(player.getPoints(), 0);
+        Assert.assertEquals(player.getMaxHealth(), player.getHealth());
+        Assert.assertEquals(0, player.getPoints());
 
         Key key = new Key (0, 0 );
         gamePanel.obj[0] = key;
 
         player.playerInteraction(key);
-        Assert.assertEquals(player.getPoints(), 25);
+        Assert.assertEquals(25, player.getPoints());
 
         Spikes spikes = new Spikes(0, 0 );
         gamePanel.obj[1] = spikes;
 
         player.playerInteraction(spikes);
-        Assert.assertEquals(player.getPoints(), 0);
-        Assert.assertEquals(player.getHealth(), player.getMaxHealth() - 50);
+        Assert.assertEquals(0, player.getPoints());
+        Assert.assertEquals(player.getMaxHealth() - 50, player.getHealth());
 
         Potion potion = new Potion(0,0,0);
         gamePanel.obj[2] = potion;
 
         player.playerInteraction(potion);
-        Assert.assertEquals(player.getPoints(), 25 + 25);
-        Assert.assertEquals(player.getHealth(), player.getMaxHealth() - 50 + 50);
+        Assert.assertEquals(25 + 25, player.getPoints());
+        Assert.assertEquals(player.getMaxHealth() - 50 + 50, player.getHealth());
 
         Door door = new Door(0,0);
         gamePanel.obj[3] = door;
 
         player.playerInteraction(door);
-        Assert.assertEquals(player.getPoints(), 50 + 50);
-        Assert.assertEquals(player.getHealth(), player.getMaxHealth() + 0);
+        Assert.assertEquals(50 + 50, player.getPoints());
+        Assert.assertEquals(player.getMaxHealth() + 0, player.getHealth());
     }
 
     @Test
