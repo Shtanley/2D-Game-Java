@@ -9,11 +9,17 @@ Bat, 3, 5
 Bat, 35, 9
 Bat, 32, 23
 Bat, 36, 3
-Bat, 25, 17
 Bat, 38, 7
 Bat, 44, 19
-Skeleton, 35, 7, L, L, L, L, L, L, L, L, D, D, D, R, R, R, R, R, R, R, R, U, U, U
 Skeleton, 45, 6, L, L, D, D, D, D, R, R, U, U, U, U
-Slime, 18, 14
-Slime, 19, 23
-Slime, 34, 17
+Skeleton, 25, 17, L, L, R, R
+Skeleton, 22, 6, D, D, U, U
+Skeleton, 45, 6, L, L, D, D, D, D, R, R, U, U, U, U
+Skeleton, 36, 11, L, L, L, L, D, D, D, D, R, R, R, R, U, U, U, U
+Skeleton, 32, 11, D, D, D, D, R, R, R, R, U, U, U, U, L, L, L, L
+Skeleton, 31, 10, D, D, D, D, D, D, R, R, R, R, R, R, U, U, U, U, U, U, L, L, L, L, L, L
+Skeleton, 31, 16, R, R, R, R, R, R, U, U, U, U, U, U, L, L, L, L, L, L, D, D, D, D, D, D
+Slime, 2, 24
+Slime, 12, 10
+Slime, 19, 10
+Slime, 40, 20
