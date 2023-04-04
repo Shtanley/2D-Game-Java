@@ -1,6 +1,5 @@
 package main.java.Drops;
 
-
 /**
  * Abstract bonus reward class
  *

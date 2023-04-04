@@ -321,9 +321,9 @@ public class GamePanel extends JPanel implements Runnable{
                 GameSettings.setHealthDrainRate(10);
                 // Increase the amount of potions to compensate for difficult health drain,
                 // but also decreases their lifetime
-                GameSettings.setPotionSpawnTimer(50);
-                GameSettings.setPotionSpawnChance(0.3);
-                GameSettings.setPotionLifetime(3);
+                Potion.setPotionSpawnTimer(50);
+                Potion.setPotionSpawnChance(0.3);
+                Potion.setPotionLifetime(3);
             }
         }
         ui.setDiffCmdNum(difficulty);
