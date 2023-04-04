@@ -16,6 +16,7 @@ import java.util.Objects;
 /**
  * UI class
  * Manage UI elements
+ *
  * @author Sameer
  * @author Michael
  * @author Dina
@@ -81,9 +82,9 @@ public class UI {
         g2d.setFont(maruMonica);
 
         switch (gp.getGameState()) {
-            case GamePanel.titleState : drawTitleScreen(); break;
-            case GamePanel.settingsState : drawDifficultyScreen(); break;
-            case GamePanel.endState : drawGameOverScreen(); break;
+            case GamePanel.titleState -> drawTitleScreen();
+            case GamePanel.settingsState -> drawDifficultyScreen();
+            case GamePanel.endState -> drawGameOverScreen();
         }
 
         if(gp.inPlayState()) {
@@ -280,6 +281,7 @@ public class UI {
         String text;
         int x, y;
 
+        // Draw title card
         if(gp.player.isDead()) {
             g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
             // Draw Youch!
@@ -314,13 +316,10 @@ public class UI {
         // Display score
         g2d.setFont(g2d.getFont().deriveFont(30F));
         g2d.setColor(Color.WHITE);
-        text = "Q: Main Menu | R: Restart Game";
+        text = "Esc: Quit | M: Main Menu | R: Restart Game";
         x = getHorizontalCenter(text, screenWidth);
         y = screenHeight/2 - (tileSize*5);
         g2d.drawString(text, x, y);
-
-        // Stop game thread (uncommenting will not allow restarts or going back to main menu)
-        // gp.gameThread = null;
     }
 
     /**

@@ -330,6 +330,12 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("New difficulty: " + difficulty);
     }
 
+    public void endGame(){
+        System.out.println("Exit!");
+        gameThread = null;
+        System.exit(0);
+    }
+
     public boolean inPlayState(){
         return gameState >= playState1 && gameState <= playState3;
     }
