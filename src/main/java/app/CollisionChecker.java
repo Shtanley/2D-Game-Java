@@ -1,8 +1,8 @@
-package main.java.app;
+package app;
 
-import main.java.Drops.BonusReward;
-import main.java.Drops.Item;
-import main.java.People.Entity;
+import Drops.BonusReward;
+import Drops.Item;
+import People.Entity;
 
 /**
  * CollisionChecker class

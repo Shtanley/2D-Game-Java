@@ -1,6 +1,4 @@
-package main.java;
-
-import main.java.app.GamePanel;
+import app.GamePanel;
 
 import javax.swing.JFrame;
 

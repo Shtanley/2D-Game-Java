@@ -1,10 +1,10 @@
-package main.java.UI;
+package UI;
 
-import main.java.Drops.Key;
-import main.java.Drops.Potion;
-import main.java.People.Player;
-import main.java.app.GamePanel;
-import main.java.app.GameSettings;
+import Drops.Key;
+import Drops.Potion;
+import People.Player;
+import app.GamePanel;
+import app.GameSettings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

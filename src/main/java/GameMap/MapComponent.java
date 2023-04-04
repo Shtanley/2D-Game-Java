@@ -1,6 +1,6 @@
-package main.java.GameMap;
+package GameMap;
 
-import main.java.Drops.Item;
+import Drops.Item;
 
 import java.awt.image.BufferedImage;
 

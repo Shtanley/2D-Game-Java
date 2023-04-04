@@ -1,9 +1,9 @@
-package main.java.People;
+package People;
 
-import main.java.app.GamePanel;
-import main.java.app.GameSettings;
-import main.java.app.KeyInputs;
-import main.java.Drops.Item;
+import app.GamePanel;
+import app.GameSettings;
+import app.KeyInputs;
+import Drops.Item;
 
 import java.awt.*;
 import java.awt.Graphics2D;

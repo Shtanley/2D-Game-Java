@@ -1,4 +1,4 @@
-package main.java.app;
+package app;
 
 /**
  * Manages key game statistics

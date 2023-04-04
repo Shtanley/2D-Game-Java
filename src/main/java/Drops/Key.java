@@ -1,4 +1,4 @@
-package main.java.Drops;
+package Drops;
 
 import java.awt.image.BufferedImage;
 

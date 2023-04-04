@@ -1,7 +1,5 @@
-package test.java;
-
-import main.java.People.Player;
-import main.java.app.GamePanel;
+import People.Player;
+import app.GamePanel;
 
 public class CharacterCreation {
     private final GamePanel testGP = new GamePanel();

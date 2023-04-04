@@ -1,6 +1,6 @@
-package main.java.People;
+package People;
 
-import main.java.app.GamePanel;
+import app.GamePanel;
 
 /**
  * Enemy class

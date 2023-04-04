@@ -1,4 +1,4 @@
-package main.java.app;
+package app;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,15 +8,15 @@ import java.util.Random;
 import java.util.Vector;
 import javax.swing.JPanel;
 
-import main.java.Drops.BonusReward;
-import main.java.Drops.Item;
-import main.java.Drops.ItemFactory;
-import main.java.Drops.Potion;
-import main.java.People.EnemyFactory;
-import main.java.People.Enemy;
-import main.java.People.Player;
-import main.java.GameMap.ComponentFactory;
-import main.java.UI.UI;
+import Drops.BonusReward;
+import Drops.Item;
+import Drops.ItemFactory;
+import Drops.Potion;
+import People.EnemyFactory;
+import People.Enemy;
+import People.Player;
+import GameMap.ComponentFactory;
+import UI.UI;
 
 /**
  * Game panel

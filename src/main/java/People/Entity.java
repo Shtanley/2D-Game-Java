@@ -1,7 +1,7 @@
-package main.java.People;
+package People;
 
-import main.java.app.GamePanel;
-import main.java.app.GameSettings;
+import app.GamePanel;
+import app.GameSettings;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

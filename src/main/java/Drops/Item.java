@@ -1,7 +1,7 @@
-package main.java.Drops;
+package Drops;
 
-import main.java.app.GamePanel;
-import main.java.app.GameSettings;
+import app.GamePanel;
+import app.GameSettings;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
