@@ -49,10 +49,10 @@ public class UI {
         //Font trebuchet_80B = new Font("Trebuchet", Font.BOLD, 80);
 
         try {
-            InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            InputStream is = getClass().getResourceAsStream("/Font/x12y16pxMaruMonica.ttf");
             assert is != null;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
-            is = getClass().getResourceAsStream("/font/Purisa Bold.ttf");
+            is = getClass().getResourceAsStream("/Font/Purisa Bold.ttf");
             assert is != null;
             //Font purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException | IOException e) {
