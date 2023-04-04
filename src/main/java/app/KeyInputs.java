@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
  * Manage key inputs from keyboard
  * 
  * @author Sameer
+ * @author Michael
  */
 public class KeyInputs implements KeyListener {
     GamePanel gp;
@@ -57,14 +58,11 @@ public class KeyInputs implements KeyListener {
                 }
                 if(gp.ui.getTitleCmdNum() == 2) {
                     // Exit
-                    System.out.println("Exit!");
-                    System.exit(0);
+                    gp.endGame();
                 }
             }
             if(key == KeyEvent.VK_ESCAPE){
-                // Exit
-                System.out.println("Exit!");
-                System.exit(0);
+                gp.endGame();
             }
         }
 
@@ -93,11 +91,17 @@ public class KeyInputs implements KeyListener {
 
         // Game Over state
         else if(gp.getGameState() == GamePanel.endState) {
-            if (key == KeyEvent.VK_Q) {
+            if (key == KeyEvent.VK_M) {
+                // Main Menu
                 gp.changeGameState(GamePanel.titleState);
             }
             if (key == KeyEvent.VK_R) {
+                // Restart
                 gp.changeGameState(GamePanel.playState1);
+            }
+            if(key == KeyEvent.VK_ESCAPE){
+                // Quit
+                gp.endGame();
             }
         }
 
