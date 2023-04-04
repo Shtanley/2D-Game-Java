@@ -1,7 +1,4 @@
-import Drops.Item;
-import Drops.Key;
-import Drops.Potion;
-import Drops.Spikes;
+import Drops.*;
 import People.Player;
 import app.GamePanel;
 
@@ -15,7 +12,7 @@ public class CharacterCollision {
     KeyInputs keyInputs = new KeyInputs(gamePanel);
     @Test
     public void testPlayerItemInteraction(){
-        gamePanel.obj = new Item[3];
+        gamePanel.obj = new Item[4];
 
         Player player = new Player(gamePanel, keyInputs);
         Assert.assertNotNull(player);
@@ -40,11 +37,19 @@ public class CharacterCollision {
 
         player.playerInteraction(potion);
         Assert.assertEquals(player.getPoints(), 25 + 25);
+        Assert.assertEquals(player.getHealth(), player.getMaxHealth() - 50 + 50);
+
+        Door door = new Door(0,0);
+        gamePanel.obj[3] = door;
+
+        player.playerInteraction(door);
+        Assert.assertEquals(player.getPoints(), 50 + 50);
+        Assert.assertEquals(player.getHealth(), player.getMaxHealth() + 0);
     }
 
     @Test
     public void testPlayerEnemyInteraction(){
-        Player player = new Player(gamePanel, keyInputs);
+        //Player player = new Player(gamePanel, keyInputs);
 
 
 
