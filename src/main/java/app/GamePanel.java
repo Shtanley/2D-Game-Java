@@ -272,15 +272,15 @@ public class GamePanel extends JPanel implements Runnable{
             case playState1 -> {
                 ui.setPlayTime(0);
                 player.resetPlayer();
-                setupLevel(1);
+                setupLevel("01");
                 player.setPlayerValues(14, 15, 8, "down");
             }
             case playState2 -> {
-                setupLevel(2);
+                setupLevel("02");
                 player.setPlayerValues(3, 16, 8, "right");
             }
             case playState3 -> {
-                setupLevel(3);
+                setupLevel("03");
                 player.setPlayerValues(1, 23, 8, "down");
             }
         }
@@ -291,16 +291,12 @@ public class GamePanel extends JPanel implements Runnable{
      * Sets up a given level
      * Loads the map, spawns items and enemies, resets temporary items, and sets the number of keys needed
      *
-     * @param levelNum the number of the level to set up
+     * @param levelID ID of the level to set up
      */
-    public void setupLevel(int levelNum) {
-        String number = Integer.toString(levelNum);
-        if(number.length() == 1) {
-            number = "0" + number;
-        }
-        cFactory.loadMap("/Map/world" + number + ".txt");
-        iFactory.createItems("/Map/items" + number + ".txt");
-        eFactory.createEnemies("/Map/enemies" + number + ".txt");
+    public void setupLevel(String levelID) {
+        cFactory.loadMap("/Map/world" + levelID + ".txt");
+        iFactory.createItems("/Map/items" + levelID + ".txt");
+        eFactory.createEnemies("/Map/enemies" + levelID + ".txt");
         tempItems.clear();
         GameSettings.setKeysNeeded(iFactory.getNumKeys());
     }
