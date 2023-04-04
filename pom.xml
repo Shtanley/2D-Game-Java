@@ -19,18 +19,20 @@
     </dependencies>
 
     <properties>
+        <!--
         <basedir>C:/Users/micap/OneDrive/Documents/School/2023-1 Spring/CMPT 276/Group Project/fantasy-dungeon-game</basedir>
-
+        -->
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
+        <!--
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/target</directory>
         <finalName>${project.artifactId}-${project.version}</finalName>
-        <!--sourceDirectory>${basedir}/src/main/java</sourceDirectory-->
+        -->
 
         <plugins>
             <plugin>
@@ -46,27 +48,6 @@
                     </archive>
                 </configuration>
 
-                <!--
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>Main</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-                -->
             </plugin>
         </plugins>
     </build>
