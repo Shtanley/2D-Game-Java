@@ -1,0 +1,17 @@
+Type, xCoord, yCoord, pathDirections
+Bat, 23, 32
+Bat, 31, 27
+Bat, 18, 3
+Bat, 3, 24
+Bat, 34, 2
+Bat, 9, 6
+Bat, 29, 34
+Skeleton, 11, 15, L, L, L, L, D, D, D, D, R, R, R, R, U, U, U, U
+Skeleton, 36, 14, L, L, D, D, R, R, U, U
+Skeleton, 19, 8, L, L, L, D, D, D, R, R, R, U, U, U
+Skeleton, 16, 9, D, D, R, R, R, U, U, U, L, L, L, D
+Skeleton, 26, 18, D, D, D, R, R, R, U, U, U, L, L, L
+Skeleton, 31, 20, D, D, D, L, L, L, U, U, U, R, R, R
+Skeleton, 30, 2, L, L, L, D, D, L, D, D, R, R, R, U, U, R, U, U
+Slime, 7, 27
+Slime 7, 19

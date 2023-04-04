@@ -1,0 +1,14 @@
+Type, xCoord, yCoord
+Key, 12, 10
+Key, 25, 11
+Key, 2, 2
+Key, 7, 19
+Spikes, 29, 22
+Spikes, 44, 19
+Spikes, 43, 5
+Spikes, 13, 3
+Spikes, 26, 15
+Spikes, 13, 19
+Spikes, 2, 9
+Spikes, 20, 9
+Door, 1, 12
