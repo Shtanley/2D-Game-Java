@@ -310,8 +310,17 @@ public class UI {
         y = screenHeight/2 + (tileSize*5);
         g2d.drawString(text, x, y);
 
-        // Stop game thread
-        gp.gameThread = null;
+        // Display options
+        // Display score
+        g2d.setFont(g2d.getFont().deriveFont(30F));
+        g2d.setColor(Color.WHITE);
+        text = "Q: Main Menu | R: Restart Game";
+        x = getHorizontalCenter(text, screenWidth);
+        y = screenHeight/2 - (tileSize*5);
+        g2d.drawString(text, x, y);
+
+        // Stop game thread (uncommenting will not allow restarts or going back to main menu)
+        // gp.gameThread = null;
     }
 
     /**

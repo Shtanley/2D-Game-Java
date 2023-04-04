@@ -145,7 +145,6 @@ public class GamePanel extends JPanel implements Runnable{
         if(inPlayState() && !isPaused()) {
             if (player.isDead()) {
                 changeGameState(endState);
-                return;
             }
             healthTickCounter++;
             potionSpawnTickCounter++;

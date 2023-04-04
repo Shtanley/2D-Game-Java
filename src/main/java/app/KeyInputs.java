@@ -91,6 +91,16 @@ public class KeyInputs implements KeyListener {
             }
         }
 
+        // Game Over state
+        else if(gp.getGameState() == GamePanel.endState) {
+            if (key == KeyEvent.VK_Q) {
+                gp.changeGameState(GamePanel.titleState);
+            }
+            if (key == KeyEvent.VK_R) {
+                gp.changeGameState(GamePanel.playState1);
+            }
+        }
+
         // Play State
         else if(gp.inPlayState()) {
             if (key == KeyEvent.VK_UP) {
