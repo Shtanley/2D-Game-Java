@@ -365,4 +365,8 @@ public class Player extends Entity {
     }
 
     public void callUpdateSprites() {this.updateSprites();}
+
+    public void callUpdateDirection() {this.updateDirection();}
+
+    public void callUpdatePostion() {this.updatePosition();}
 }
