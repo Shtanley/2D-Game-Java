@@ -1,5 +1,5 @@
 # Fantasy Dungeon Game
-
+All the following commands should be executed from the base directory (fantasy-dungeon-game/)
 
 ### Build the project:
 - mvn clean
@@ -7,7 +7,6 @@
 - mvn package
 
 ### Run the project:
-execute the following command from the base directory:
 - java -jar .\target\fantasy-dungeon-game-1.0-SNAPSHOT.jar
 
 ### Run tests:
