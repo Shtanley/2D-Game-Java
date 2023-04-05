@@ -1,6 +1,5 @@
 package unit;
 
-import Drops.*;
 import People.*;
 import app.GamePanel;
 
@@ -12,8 +11,6 @@ import org.junit.Test;
 public class PlayerTest {
     GamePanel gamePanel = new GamePanel();
     KeyInputs keyInputs = new KeyInputs(gamePanel);
-    ItemFactory iFactory = new ItemFactory(gamePanel);
-    EnemyFactory eFactory = new EnemyFactory(gamePanel);
 
     @Test
     public void testPlayerCreation(){
@@ -60,5 +57,37 @@ public class PlayerTest {
         }
 
         Assert.assertEquals(2, testPlayer.getSpriteNum());
+    }
+
+    @Test
+    public void testPlayerDirectionUp() {
+        keyInputs.setUptoTrue();
+        testPlayer.callUpdateDirection();
+
+        Assert.assertEquals("up", testPlayer.getDirection());
+    }
+
+    @Test
+    public void testPlayerDirectionDown() {
+        keyInputs.setDowntoTrue();
+        testPlayer.callUpdateDirection();
+
+        Assert.assertEquals("down", testPlayer.getDirection());
+    }
+
+    @Test
+    public void testPlayerDirectionLeft() {
+        keyInputs.setLefttoTrue();
+        testPlayer.callUpdateDirection();
+
+        Assert.assertEquals("left", testPlayer.getDirection());
+    }
+
+    @Test
+    public void testPlayerDirectionRight() {
+        keyInputs.setRighttoTrue();
+        testPlayer.callUpdateDirection();
+
+        Assert.assertEquals("right", testPlayer.getDirection());
     }
 }
