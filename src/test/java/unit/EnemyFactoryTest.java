@@ -11,8 +11,6 @@ import org.junit.Test;
 
 public class EnemyFactoryTest {
     GamePanel gamePanel = new GamePanel();
-    KeyInputs keyInputs = new KeyInputs(gamePanel);
-    ItemFactory iFactory = new ItemFactory(gamePanel);
     EnemyFactory eFactory = new EnemyFactory(gamePanel);
 
     @Test
