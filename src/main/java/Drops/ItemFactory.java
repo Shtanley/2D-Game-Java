@@ -36,7 +36,9 @@ public class ItemFactory {
         numKeys = 0;
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
-            assert is != null;
+            if(is == null) {
+                throw new RuntimeException();
+            }
             BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read map file
 
             // Skip header
@@ -63,7 +65,9 @@ public class ItemFactory {
             }
             br.close();
 
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            System.out.println("Failed to load items from " + filePath);
+        }
     }
 
     /**

@@ -1,0 +1,4 @@
+Type, xCoord, yCoord, pathDirections
+Bat, 23, 17
+Skeleton, 31, 22, D, U
+Slime, 28, 34
