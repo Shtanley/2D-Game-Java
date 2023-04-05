@@ -1,6 +1,5 @@
 package unit;
 
-import Drops.*;
 import People.*;
 import app.GamePanel;
 
