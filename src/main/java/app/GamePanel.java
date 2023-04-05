@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker cCheck;
     private ItemFactory iFactory;
     public ComponentFactory cFactory;
+
     private EnemyFactory eFactory;
 
     // UI
@@ -73,6 +74,12 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         ui = new UI(this);
         keyInputs = new KeyInputs(this);
+        player = new Player(this, keyInputs);
+        cCheck = new CollisionChecker(this);
+        cFactory = new ComponentFactory(this);
+        iFactory  = new ItemFactory(this);
+        eFactory = new EnemyFactory(this);
+
         this.setPreferredSize(new Dimension(GameSettings.getScreenWidth(), GameSettings.getScreenHeight()));    // 768x576 pixels
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);   // Double buffering
@@ -86,13 +93,6 @@ public class GamePanel extends JPanel implements Runnable{
      * Set game state
      */
     public void setupGame() {
-        player = new Player(this, keyInputs);
-        cCheck = new CollisionChecker(this);
-
-        cFactory = new ComponentFactory(this);
-        iFactory  = new ItemFactory(this);
-        eFactory = new EnemyFactory(this);
-
         gameState = titleState;
         changeDifficulty(1);
     }
@@ -350,5 +350,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     public KeyInputs getKeyInputs() {
         return keyInputs;
+    }
+
+    public ItemFactory getiFactory() {
+        return iFactory;
+    }
+
+    public EnemyFactory geteFactory() {
+        return eFactory;
     }
 }
