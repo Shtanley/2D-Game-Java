@@ -102,26 +102,26 @@ public class Player extends Entity {
      * Update player image
      */
     public void update() {
+        // Collision detection
+        // Tile collision
+        turnOffCollision();
+        gp.cCheck.checkComponent(this);
+
+        // Object collision
+        Item obj = gp.cCheck.checkItem(this, true);
+        if(obj != null) {
+            playerInteraction(obj);
+        }
+
+        // Enemy collision
+        int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
+        if(enemyIndex != -1) {
+            encounter();
+        }
+
         // Player movement
         if(keyInputs.isUpPressed() || keyInputs.isDownPressed() || keyInputs.isLeftPressed() || keyInputs.isRightPressed()) {
             updateDirection();
-
-            // Collision detection
-            // Tile collision
-            turnOffCollision();
-            gp.cCheck.checkComponent(this);
-            // Object collision
-            Item obj = gp.cCheck.checkItem(this, true);
-            if(obj != null) {
-                playerInteraction(obj);
-            }
-
-            // Enemy collision
-            int enemyIndex = gp.cCheck.checkEntity(this, gp.enemies);
-            if(enemyIndex != -1) {
-                encounter();
-            }
-
             updatePosition();
             updateSprites();
         }
@@ -148,7 +148,7 @@ public class Player extends Entity {
     /**
      * Update player's x & y coordinates on the map. (i.e. movement of player)
      */
-    private void updatePosition() {
+    public void updatePosition() {
         if(isCollisionOff()) {
             switch (getDirection()) {
                 case "up" -> setWorldY(getWorldY() - getSpeed());
@@ -323,6 +323,8 @@ public class Player extends Entity {
         return health;
     }
 
+    public void setHealth(int hp) {this.health = hp;}
+
     public int getMaxHealth(){
         return maxHealth;
     }
@@ -334,6 +336,8 @@ public class Player extends Entity {
     public void setPoints(Item item) {
         this.points += item.getPointAdjustment();
     }
+
+    public void setPoints(int pt) {this.points = pt;}
 
     public void adjustHealth(Item item) {
         health += item.getHealthAdjustment();
@@ -359,4 +363,6 @@ public class Player extends Entity {
     public int getKeyCount() {
         return keyCount;
     }
+
+    public void callUpdateSprites() {this.updateSprites();}
 }

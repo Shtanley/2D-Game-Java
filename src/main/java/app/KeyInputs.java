@@ -160,6 +160,8 @@ public class KeyInputs implements KeyListener {
     public boolean isUpPressed() {
         return upPressed;
     }
+    public void setUptoTrue() {this.upPressed = true;}
+    public void setUptoFalse() {this.upPressed = false;}
 
     public boolean isDownPressed() {
         return downPressed;
