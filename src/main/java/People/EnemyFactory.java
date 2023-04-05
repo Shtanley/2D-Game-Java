@@ -32,7 +32,9 @@ public class EnemyFactory {
         gp.enemies = new Enemy[maxEnemies];
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load enemy file
-            assert is != null;
+            if(is == null) {
+                throw new RuntimeException();
+            }
             BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read enemy file
 
             // Skip header
@@ -76,6 +78,8 @@ public class EnemyFactory {
             }
             br.close();
 
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+            System.out.println("Failed to load enemies from " + filePath);
+        }
     }
 }
