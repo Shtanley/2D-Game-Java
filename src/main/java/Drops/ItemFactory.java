@@ -114,7 +114,6 @@ public class ItemFactory {
                 }
             }
         } while(!validLoc);
-        //System.out.println("Potion spawned");
         return new Potion(x*tileSize, y*tileSize, gp.timer);
     }
 

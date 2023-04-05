@@ -89,9 +89,12 @@ public class ComponentFactory {
         mapTileNum = new int[maxWorldCol][maxWorldRow];
         mapWidth = 0;
         mapHeight = 0;
+        System.out.println("Loading map: " + filePath);
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
-            assert is != null;
+            if(is == null) {
+                throw new RuntimeException();
+            }
             BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read map file
 
             int col = 0;
@@ -113,7 +116,7 @@ public class ComponentFactory {
             br.close();
             mapHeight = row;
         } catch (Exception ignored) {
-
+            System.out.println("Failed to load map contents from " + filePath);
         }
         System.out.println("Map loaded: width = " + mapWidth + ", height = " + mapHeight);
     }
