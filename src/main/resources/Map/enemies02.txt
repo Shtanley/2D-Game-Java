@@ -14,7 +14,6 @@ Bat, 44, 19
 Skeleton, 45, 6, L, L, D, D, D, D, R, R, U, U, U, U
 Skeleton, 25, 17, L, L, R, R
 Skeleton, 22, 6, D, D, U, U
-Skeleton, 45, 6, L, L, D, D, D, D, R, R, U, U, U, U
 Skeleton, 36, 11, L, L, L, L, D, D, D, D, R, R, R, R, U, U, U, U
 Skeleton, 32, 11, D, D, D, D, R, R, R, R, U, U, U, U, L, L, L, L
 Skeleton, 31, 10, D, D, D, D, D, D, R, R, R, R, R, R, U, U, U, U, U, U, L, L, L, L, L, L
