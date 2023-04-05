@@ -1,0 +1,2 @@
+Type, xCoord, yCoord, pathDirections
+Skeleton, 0, 0, D

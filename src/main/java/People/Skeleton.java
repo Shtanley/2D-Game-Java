@@ -45,6 +45,7 @@ public class Skeleton extends Enemy{
     /**
      * Set skeleton sprite
      */
+
     public void getImage() {
         setUp1(setupSprite("/Enemy/skeletonlord_up_1"));
         setUp2(setupSprite("/Enemy/skeletonlord_up_2"));
