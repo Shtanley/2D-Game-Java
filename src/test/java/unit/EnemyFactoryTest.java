@@ -14,15 +14,22 @@ public class EnemyFactoryTest {
     EnemyFactory eFactory = new EnemyFactory(gamePanel);
 
     @Test
-    public void testEnemyCreation(){
-        Skeleton skeleton = new Skeleton(gamePanel);
-        Bat bat = new Bat(gamePanel);
-        Slime slime = new Slime(gamePanel);
+    public void CreateEnemiesTest(){
+        eFactory.createEnemies("/Map/enemies_test.txt");
 
-        eFactory.createEnemies("/Map/enemies01.txt");
+        Enemy bat = gamePanel.enemies[0];
+        Assert.assertEquals(bat.getClass(), Bat.class);
+        Enemy skeleton = gamePanel.enemies[1];
+        Assert.assertEquals(skeleton.getClass(), Skeleton.class);
+        Enemy slime = gamePanel.enemies[2];
+        Assert.assertEquals(slime.getClass(), Slime.class);
+    }
 
-        Assert.assertEquals(gamePanel.enemies[0].getClass(), bat.getClass());
-        Assert.assertEquals(gamePanel.enemies[2].getClass(), skeleton.getClass());
-        Assert.assertEquals(gamePanel.enemies[8].getClass(), slime.getClass());
+    @Test
+    public void CreateEnemiesEmptyTest() {
+        eFactory.createEnemies("/Map/enemies_empty.txt");
+        for(Enemy enemy : gamePanel.enemies) {
+            Assert.assertNull(enemy);
+        }
     }
 }

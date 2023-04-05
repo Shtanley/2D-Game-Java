@@ -1,0 +1,4 @@
+Type, xCoord, yCoord
+Key, 0, 0
+Spikes, 1, 1
+Door, 2, 2
