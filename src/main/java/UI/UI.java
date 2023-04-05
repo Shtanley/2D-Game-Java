@@ -431,7 +431,5 @@ public class UI {
         this.diffCmdNum = diffCmdNum;
     }
 
-//    public double getPlayTime() {return playTime;}
-
     public void setPlayTime(double time) {this.playTime = time;}
 }
