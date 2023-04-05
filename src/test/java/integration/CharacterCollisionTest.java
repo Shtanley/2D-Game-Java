@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-public class CharacterCollision {
+public class CharacterCollisionTest {
     GamePanel gamePanel = new GamePanel();
     KeyInputs keyInputs = new KeyInputs(gamePanel);
     @Test
