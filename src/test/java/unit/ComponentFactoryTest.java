@@ -39,6 +39,13 @@ public class ComponentFactoryTest {
         Assert.assertEquals(18 , cFactory.mapHeight);
     }
 
+    @Test
+    public void generateTestMapBig() {
+        cFactory.loadMap("/Map/world_test_big.txt");
+        Assert.assertEquals(50 , cFactory.mapWidth);
+        Assert.assertEquals(50 , cFactory.mapHeight);
+    }
+
 
 //        iFactory.createItems("/Map/items_test.txt");
 //        eFactory.createEnemies("/Map/enemies_test.txt");

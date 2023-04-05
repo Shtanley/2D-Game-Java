@@ -1,12 +1,16 @@
 package unit;
 
 import Drops.*;
+import GameMap.ComponentFactory;
 import People.*;
 import app.GamePanel;
 
+import app.GameSettings;
 import app.KeyInputs;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.awt.*;
 
 
 public class ItemFactoryTest {
@@ -43,6 +47,27 @@ public class ItemFactoryTest {
         }
 
         Assert.assertEquals(0, iFactory.getNumKeys());
+    }
+
+    @Test
+    public void SpawnPotionTest(){
+        Player player = gamePanel.player;
+        player.setPlayerValues(25, 25, 0, "down");
+        ComponentFactory cFactory = gamePanel.cFactory;
+        gamePanel.obj = new Item[]{};
+        cFactory.loadMap("/Map/world_test_big.txt");
+
+        for(int i = 0; i < 100; i++) {
+            Potion newPotion = iFactory.spawnPotion();
+            int x = newPotion.getWorldX() / GameSettings.getTileSize();
+            int y = newPotion.getWorldY() / GameSettings.getTileSize();
+
+            Assert.assertTrue(x >= 15);
+            Assert.assertTrue(x <= 35);
+            Assert.assertTrue(y >= 15);
+            Assert.assertTrue(y <= 35);
+            Assert.assertFalse(x == 25 && y == 25);
+        }
     }
 
 
