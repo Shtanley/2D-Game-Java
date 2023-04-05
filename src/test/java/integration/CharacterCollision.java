@@ -1,3 +1,5 @@
+package integration;
+
 import Drops.*;
 import People.Player;
 import app.GamePanel;
