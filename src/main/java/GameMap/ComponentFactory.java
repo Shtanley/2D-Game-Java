@@ -93,7 +93,7 @@ public class ComponentFactory {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             if(is == null) {
-                throw new RuntimeException("Failed to load map contents from " + filePath);
+                throw new RuntimeException();
             }
             BufferedReader br = new BufferedReader(new InputStreamReader(is));  // Read map file
 
@@ -116,7 +116,7 @@ public class ComponentFactory {
             br.close();
             mapHeight = row;
         } catch (Exception ignored) {
-            System.out.println("Failed to load map: " + filePath);
+            System.out.println("Failed to load map contents from " + filePath);
         }
         System.out.println("Map loaded: width = " + mapWidth + ", height = " + mapHeight);
     }

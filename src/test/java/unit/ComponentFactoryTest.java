@@ -9,7 +9,7 @@ import app.KeyInputs;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class mapGeneration {
+public class ComponentFactoryTest {
     GamePanel gamePanel = new GamePanel();
     KeyInputs keyInputs = gamePanel.getKeyInputs();
     ComponentFactory cFactory = gamePanel.cFactory;
