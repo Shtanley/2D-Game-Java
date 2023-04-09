@@ -32,5 +32,6 @@ public class Main {
 
         gamePanel.setupGame();
         gamePanel.startGameThread();
+        gamePanel.changeGameState(3);
     }
 }

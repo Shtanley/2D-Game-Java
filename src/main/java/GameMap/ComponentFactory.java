@@ -133,8 +133,14 @@ public class ComponentFactory {
         mapTileImage = new BufferedImage[maxWorldRow][maxWorldCol];
         for(int i = 0; i < maxWorldRow; i++){
             for(int j = 0; j < maxWorldCol; j++){
-                int tileNum = mapTileNum[i][j];
-                mapTileImage[i][j] = mc[tileNum].getImage();
+                if(i >= mapWidth || j >= mapHeight) {
+                    // Do not draw images beyond our map
+                    mapTileImage[i][j] = null;
+                } else {
+                    // Get appropriate tile image
+                    int tileNum = mapTileNum[i][j];
+                    mapTileImage[i][j] = mc[tileNum].getImage();
+                }
             }
         }
     }
@@ -187,27 +193,6 @@ public class ComponentFactory {
                 g2d.drawImage(mapTileImage[i][j], tileScreenX, tileScreenY, tileSize, tileSize, null);
             }
         }
-//        while (worldCol < maxCol && worldRow < maxRow) {
-//            // Calculate x and y position of tile
-//            int worldX = worldCol * tileSize;
-//            int worldY = worldRow * tileSize;
-//            // Calculate x and y position of tile on screen
-//
-//            int screenX = worldX - gp.player.getWorldX() + playerScreenX;
-//            int screenY = worldY - gp.player.getWorldY() + playerScreenY;
-//
-//            // Draw tile if it is on screen to save resources
-//            if (worldX + tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - tileSize < gp.player.getWorldX() + gp.player.getScreenX()
-//                    && worldY + tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
-//                g2d.drawImage(mapTileImage[worldCol][worldRow], screenX, screenY, tileSize, tileSize, null);
-//            }
-//            worldCol++;
-//
-//            if (worldCol == GameSettings.getMaxWorldCol()) {
-//                worldCol = 0;
-//                worldRow++;
-//            }
-//        }
     }
 
     public BufferedImage setup(String imgPath) {
