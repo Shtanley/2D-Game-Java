@@ -23,6 +23,7 @@ public class ComponentFactory {
     GamePanel gp;
     public MapComponent[] mc;
     public int[][] mapTileNum;
+    public BufferedImage[][] mapTileImage;
 
     public int mapWidth;
     public int mapHeight;
@@ -89,7 +90,13 @@ public class ComponentFactory {
         mapTileNum = new int[maxWorldCol][maxWorldRow];
         mapWidth = 0;
         mapHeight = 0;
+
         System.out.println("Loading map: " + filePath);
+        fillMapTileNum(filePath, maxWorldRow, maxWorldCol);
+        fillMapTileImage(maxWorldRow, maxWorldCol);
+    }
+
+    private void fillMapTileNum(String filePath, int maxWorldRow, int maxWorldCol){
         try {
             InputStream is = getClass().getResourceAsStream(filePath);    // Load map file
             if(is == null) {
@@ -117,8 +124,19 @@ public class ComponentFactory {
             mapHeight = row;
         } catch (Exception ignored) {
             System.out.println("Failed to load map contents from " + filePath);
+            return;
         }
         System.out.println("Map loaded: width = " + mapWidth + ", height = " + mapHeight);
+    }
+
+    private void fillMapTileImage(int maxWorldRow, int maxWorldCol){
+        mapTileImage = new BufferedImage[maxWorldRow][maxWorldCol];
+        for(int i = 0; i < maxWorldRow; i++){
+            for(int j = 0; j < maxWorldCol; j++){
+                int tileNum = mapTileNum[i][j];
+                mapTileImage[i][j] = mc[tileNum].getImage();
+            }
+        }
     }
 
     /**
@@ -128,34 +146,68 @@ public class ComponentFactory {
      * @param g2d   2D graphics handler
      */
     public void draw(Graphics2D g2d) {
-        int worldCol = 0;
-        int worldRow = 0;
         int tileSize = GameSettings.getTileSize();
+        int maxWorldCol = GameSettings.getMaxWorldCol();
+        int maxWorldRow = GameSettings.getMaxWorldRow();
+        int tileBuffer = 2;
 
-        while (worldCol < GameSettings.getMaxWorldCol() && worldRow < GameSettings.getMaxWorldRow()) {
-            int tileNum = mapTileNum[worldCol][worldRow];   // Get tile number from mapTileNum array
-            // Calculate x and y position of tile
-            int worldX = worldCol * tileSize;
-            int worldY = worldRow * tileSize;
-            // Calculate x and y position of tile on screen
-            int playerScreenX = gp.player.getScreenX();
-            int playerScreenY = gp.player.getScreenY();
+        // Calculate the border of the screen
+        // In world coordinates
+        int minX = gp.player.getWorldX() - gp.player.getScreenX();
+        int maxX = gp.player.getWorldX() + gp.player.getScreenX();
+        int minY = gp.player.getWorldY() - gp.player.getScreenY();
+        int maxY = gp.player.getWorldY() + gp.player.getScreenY();
+        // Convert to tile coordinates and add buffer
+        int minCol = minX / tileSize - tileBuffer;
+        int maxCol = maxX / tileSize + tileBuffer;
+        int minRow = minY / tileSize - tileBuffer;
+        int maxRow = maxY / tileSize + tileBuffer;
+        // Limit to world bounds
+        if(minCol < 0) {
+            minCol = 0;
+        }
+        if(maxCol > maxWorldCol){
+            maxCol = maxWorldCol;
+        }
+        if(minRow < 0) {
+            minRow = 0;
+        }
+        if(maxRow > maxWorldRow){
+            maxRow = maxWorldRow;
+        }
 
-            int screenX = worldX - gp.player.getWorldX() + playerScreenX;
-            int screenY = worldY - gp.player.getWorldY() + playerScreenY;
+        int tileScreenX;
+        int tileScreenY;
 
-            // Draw tile if it is on screen to save resources
-            if (worldX + tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - tileSize < gp.player.getWorldX() + gp.player.getScreenX()
-                    && worldY + tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
-                g2d.drawImage(mc[tileNum].getImage(), screenX, screenY, tileSize, tileSize, null);
-            }
-            worldCol++;
-
-            if (worldCol == GameSettings.getMaxWorldCol()) {
-                worldCol = 0;
-                worldRow++;
+        for(int i = minCol; i < maxCol; i++) {
+            for(int j = minRow; j < maxRow; j++) {
+                // Location of the tile in the screen's coordinates
+                tileScreenX = i * tileSize - minX;
+                tileScreenY = j * tileSize - minY;
+                g2d.drawImage(mapTileImage[i][j], tileScreenX, tileScreenY, tileSize, tileSize, null);
             }
         }
+//        while (worldCol < maxCol && worldRow < maxRow) {
+//            // Calculate x and y position of tile
+//            int worldX = worldCol * tileSize;
+//            int worldY = worldRow * tileSize;
+//            // Calculate x and y position of tile on screen
+//
+//            int screenX = worldX - gp.player.getWorldX() + playerScreenX;
+//            int screenY = worldY - gp.player.getWorldY() + playerScreenY;
+//
+//            // Draw tile if it is on screen to save resources
+//            if (worldX + tileSize > gp.player.getWorldX() - gp.player.getScreenX() && worldX - tileSize < gp.player.getWorldX() + gp.player.getScreenX()
+//                    && worldY + tileSize > gp.player.getWorldY() - gp.player.getScreenY() && worldY - tileSize < gp.player.getWorldY() + gp.player.getScreenY()) {
+//                g2d.drawImage(mapTileImage[worldCol][worldRow], screenX, screenY, tileSize, tileSize, null);
+//            }
+//            worldCol++;
+//
+//            if (worldCol == GameSettings.getMaxWorldCol()) {
+//                worldCol = 0;
+//                worldRow++;
+//            }
+//        }
     }
 
     public BufferedImage setup(String imgPath) {
