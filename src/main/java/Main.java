@@ -20,7 +20,7 @@ public class Main {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Fantasy Game");
+        window.setTitle("Dungeon Manager");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -32,6 +32,5 @@ public class Main {
 
         gamePanel.setupGame();
         gamePanel.startGameThread();
-        gamePanel.changeGameState(3);
     }
 }

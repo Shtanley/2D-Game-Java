@@ -103,7 +103,7 @@ public class UI {
         g2d.fillRect(0, 0, screenWidth, screenHeight);
         // Set font
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, 80F));
-        String text = "Fantasy Dungeon";   // Title
+        String text = "Dungeon Manager Escapes";   // Title
         int x = getHorizontalCenter(text, screenWidth);
         int y = tileSize * 2;
         // Text shadow
