@@ -223,6 +223,16 @@ public class UI {
         y = tileSize*3/2;
         g2d.drawString(text, x, y);
 
+        // Display level and difficulty
+        text = "Level: " + (gp.getGameState()-1) + "/3";
+        x = screenWidth - getTextLength(text) - tileSize;
+        y =  tileSize*3/2;
+        g2d.drawString(text, x, y);
+        text = "Difficulty: " + gp.getDifficultyString();
+        x = screenWidth - getTextLength(text) - tileSize;
+        y += tileSize;
+        g2d.drawString(text, x, y);
+
         // Game messages
         if(msgOn) {
             g2d.setFont(g2d.getFont().deriveFont(27F));
@@ -328,9 +338,13 @@ public class UI {
      * @param screenWidth   Screen width
      * @return  x coordinates of the centered text
      */
-    protected int getHorizontalCenter(String text, int screenWidth) {
-        int txtLength = (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
-        return screenWidth/2 - txtLength/2;
+    private int getHorizontalCenter(String text, int screenWidth) {
+        int textLength = getTextLength(text);
+        return screenWidth/2 - textLength/2;
+    }
+
+    private int getTextLength(String text){
+        return (int)g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
     }
 
     /**

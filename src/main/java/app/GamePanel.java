@@ -359,4 +359,16 @@ public class GamePanel extends JPanel implements Runnable{
     public EnemyFactory geteFactory() {
         return eFactory;
     }
+
+    public String getDifficultyString() {
+        String result = null;
+        switch (difficulty) {
+            case(0) -> result = "Peaceful";
+            case(1) -> result = "Easy";
+            case(2) -> result = "Medium";
+            case(3) -> result = "Hard";
+        }
+        assert result != null;
+        return result;
+    }
 }
