@@ -299,6 +299,7 @@ public class GamePanel extends JPanel implements Runnable{
         eFactory.createEnemies("/Map/enemies" + levelID + ".txt");
         tempItems.clear();
         GameSettings.setKeysNeeded(iFactory.getNumKeys());
+        ui.clearMsg();
     }
 
     /**

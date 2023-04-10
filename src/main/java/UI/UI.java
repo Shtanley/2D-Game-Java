@@ -240,8 +240,7 @@ public class UI {
             msgTimer++;
 
             if(msgTimer > 120) {
-                msgTimer = 0;
-                msgOn = false;
+                clearMsg();
             }
         }
 
@@ -285,6 +284,12 @@ public class UI {
         x = tileSize/2;
         y = screenHeight - tileSize/2;
         g2d.drawString(text, x, y);
+
+        // Display message
+        if(msgOn) {
+            g2d.setFont(g2d.getFont().deriveFont(27F));
+            g2d.drawString(msg, tileSize / 2, tileSize * 5);
+        }
     }
 
     private void drawGameOverScreen() {
@@ -446,4 +451,9 @@ public class UI {
     }
 
     public void setPlayTime(double time) {this.playTime = time;}
+
+    public void clearMsg(){
+        msgTimer = 0;
+        msgOn = false;
+    }
 }
