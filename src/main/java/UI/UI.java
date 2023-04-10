@@ -217,7 +217,7 @@ public class UI {
         // Time
         playTime += (double)1/60;
         g2d.setFont(g2d.getFont().deriveFont(40F));
-        text = "Time: " + dFormat.format(playTime);
+        text = "Time: " + this.clockString(playTime);
         g2d.setColor(Color.WHITE);
         x = getHorizontalCenter(text, screenWidth);
         y = tileSize*3/2;
@@ -270,7 +270,7 @@ public class UI {
         // Display current time
         g2d.setFont(g2d.getFont().deriveFont(40F));
         g2d.setColor(Color.WHITE);
-        text = "Time: " + dFormat.format(playTime);
+        text = "Time: " + this.clockString(playTime);
         x = getHorizontalCenter(text, screenWidth);
         y = tileSize;
         g2d.drawString(text, x, y);
@@ -309,7 +309,7 @@ public class UI {
         // Display time
         g2d.setFont(g2d.getFont().deriveFont(40F));
         g2d.setColor(Color.WHITE);
-        text = "Time: " + dFormat.format(playTime);
+        text = "Time: " + this.clockString(playTime);
         x = getHorizontalCenter(text, screenWidth);
         y = screenHeight/2 + (tileSize*4);
         g2d.drawString(text, x, y);
@@ -427,6 +427,20 @@ public class UI {
         g2d.drawImage(heart1, x, y, tileSize, tileSize, null);
         g2d.drawImage(heart2, heart2_x, y, tileSize, tileSize, null);
         g2d.drawString(": " + gp.player.getHealth() + "/" + gp.player.getMaxHealth(), text_x, text_y);
+    }
+
+    public static String clockString (double seconds) {
+        int clockMinutes = (int) seconds / 60;
+        int clockSeconds = (int) seconds % 60;
+        String clock = "";
+        if (clockSeconds<10){
+            clock = clockMinutes + ":0" + clockSeconds;
+
+        }
+        else {
+            clock = clockMinutes + ":" + clockSeconds;
+        }
+        return clock;
     }
 
     public int getTitleCmdNum() {
