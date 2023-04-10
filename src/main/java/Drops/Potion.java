@@ -23,6 +23,7 @@ public class Potion extends BonusReward {
         setWorldY(y);
         setBirthTime(time);
         setLifetime(Potion.getPotionLifetime());
+        //System.out.println("Potion created at (" + x + ", " + y + ", " + time + ") with lifetime=" + getPotionLifetime());
     }
 
     /**

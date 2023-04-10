@@ -310,12 +310,27 @@ public class GamePanel extends JPanel implements Runnable{
     public void changeDifficulty(int newDifficulty){
         difficulty = newDifficulty;
         switch (difficulty) {
-            case(0) -> GameSettings.setHealthDrainRate(-1);
-            case(1) -> GameSettings.setHealthDrainRate(30);
-            case(2) -> GameSettings.setHealthDrainRate(20);
+            case(0) -> {
+                GameSettings.setHealthDrainRate(-1);
+                Potion.setPotionSpawnTimer(100);
+                Potion.setPotionSpawnChance(0.5);
+                Potion.setPotionLifetime(5);
+            }
+            case(1) -> {
+                GameSettings.setHealthDrainRate(30);
+                Potion.setPotionSpawnTimer(100);
+                Potion.setPotionSpawnChance(0.5);
+                Potion.setPotionLifetime(5);
+            }
+            case(2) -> {
+                GameSettings.setHealthDrainRate(20);
+                Potion.setPotionSpawnTimer(100);
+                Potion.setPotionSpawnChance(0.5);
+                Potion.setPotionLifetime(5);
+            }
             case(3) -> {
                 GameSettings.setHealthDrainRate(10);
-                // Increase the amount of potions to compensate for difficult health drain,
+                // Increase the amount of potions to compensate for high health drain,
                 // but also decreases their lifetime
                 Potion.setPotionSpawnTimer(50);
                 Potion.setPotionSpawnChance(0.3);
