@@ -14,8 +14,10 @@ public class GameSettings {
     // Screen Settings
     private static final int maxScreenCol = 21;
     private static final int maxScreenRow = 12;
-    private static final int screenWidth = maxScreenCol * GameSettings.getTileSize();
-    private static final int screenHeight = maxScreenRow * GameSettings.getTileSize();
+    //    private static final int screenWidth = maxScreenCol * GameSettings.getTileSize();
+//    private static final int screenHeight = maxScreenRow * GameSettings.getTileSize();
+    private static final int screenWidth = 1920/2;
+    private static final int screenHeight = 1080/2;
 
     // World Settings
     private static final int maxWorldCol = 50;

@@ -272,7 +272,7 @@ public class UI {
         g2d.setColor(Color.WHITE);
         text = "Time: " + dFormat.format(playTime);
         x = getHorizontalCenter(text, screenWidth);
-        y = tileSize;
+        y = tileSize * 3/2;
         g2d.drawString(text, x, y);
 
         // Display health, keys and points
@@ -323,12 +323,12 @@ public class UI {
         g2d.drawString(text, x, y);
 
         // Display options
-        // Display score
         g2d.setFont(g2d.getFont().deriveFont(30F));
         g2d.setColor(Color.WHITE);
         text = "Esc: Quit | M: Main Menu | R: Restart Game";
         x = getHorizontalCenter(text, screenWidth);
-        y = screenHeight/2 - (tileSize*5);
+        //y = screenHeight/2 - (tileSize*5);
+        y = tileSize;
         g2d.drawString(text, x, y);
     }
 
