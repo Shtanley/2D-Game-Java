@@ -314,7 +314,7 @@ public class GamePanel extends JPanel implements Runnable{
             case(0) -> {
                 GameSettings.setHealthDrainRate(-1);
                 Potion.setPotionSpawnTimer(100);
-                Potion.setPotionSpawnChance(0.5);
+                Potion.setPotionSpawnChance(0.25);
                 Potion.setPotionLifetime(5);
             }
             case(1) -> {
@@ -334,7 +334,7 @@ public class GamePanel extends JPanel implements Runnable{
                 // Increase the amount of potions to compensate for high health drain,
                 // but also decreases their lifetime
                 Potion.setPotionSpawnTimer(50);
-                Potion.setPotionSpawnChance(0.3);
+                Potion.setPotionSpawnChance(0.5);
                 Potion.setPotionLifetime(3);
             }
         }
