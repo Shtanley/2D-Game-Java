@@ -1,4 +1,13 @@
 # Fantasy Dungeon Game
+CMPT 276, Spring 2023 - Group Project  
+Michael Plunkett  
+Sameer Hossain  
+Salman Rafiei  
+Dina Zeng  
+
+Check out the video preview of our game:  
+https://www.youtube.com/watch?v=FEo5Omps2wY
+
 All the following commands should be executed from the base directory (fantasy-dungeon-game/)
 
 ### Build the project:
